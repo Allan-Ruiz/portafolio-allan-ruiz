@@ -411,34 +411,131 @@
         <!-- PASO 4: DASHBOARD POWER BI DEL PROYECTO 1 -->
         <div class="relative space-y-3">
           <div class="absolute -left-9 top-0.5 w-7 h-7 rounded-full bg-amber-500 text-slate-950 text-xs font-extrabold flex items-center justify-center shadow-md">4</div>
-          <div class="rounded-xl bg-slate-900 border border-slate-700 p-5 text-slate-100 space-y-4 shadow-lg">
+          <div class="rounded-xl bg-slate-900 border border-slate-700 p-5 text-slate-100 space-y-5 shadow-lg">
             <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
               <div class="flex items-center gap-2">
                 <span class="px-2 py-0.5 rounded bg-amber-400 text-slate-950 font-extrabold text-[11px]">POWER BI</span>
-                <span class="font-bold text-sm">Resumen de Indicadores • Migración Catálogo BigPEN</span>
+                <span class="font-bold text-sm">Dashboard Analítico • Rentabilidad de Catálogo, Stock y Calidad de Datos</span>
               </div>
-              <span class="text-xs text-slate-400 font-mono">Fuente: Matriz_Importacion_Bsale_POS.xlsx</span>
+              <span class="text-xs text-slate-400 font-mono">Modelo conectado a Matriz_Importacion_Bsale_POS.xlsx</span>
             </div>
+
+            <!-- 4 KPIs reales de Gestión e Ingeniería Industrial -->
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
               <div class="bg-slate-950/90 border border-slate-800 p-3.5 rounded-lg">
-                <div class="text-slate-400">Productos Importados</div>
-                <div class="text-2xl font-extrabold text-white mt-1">800+ SKU</div>
-                <div class="text-emerald-400 text-[11px] mt-1">✔ De 1.200+ filas en bruto</div>
+                <div class="text-slate-400">Tasa de Depuración (Ruido)</div>
+                <div class="text-2xl font-extrabold text-amber-400 mt-1">33,3%</div>
+                <div class="text-slate-400 text-[11px] mt-1">405 filas basura/duplicadas eliminadas de 1.215</div>
               </div>
               <div class="bg-slate-950/90 border border-slate-800 p-3.5 rounded-lg">
-                <div class="text-slate-400">Descripciones + Fotos</div>
-                <div class="text-2xl font-extrabold text-blue-400 mt-1">100% Web</div>
-                <div class="text-slate-400 text-[11px] mt-1">1.600+ imágenes (mín. 2/SKU)</div>
+                <div class="text-slate-400">Margen Bruto Promedio</div>
+                <div class="text-2xl font-extrabold text-emerald-400 mt-1">44,8%</div>
+                <div class="text-slate-400 text-[11px] mt-1">Ponderado Costo Neto vs. Precio Bsale</div>
               </div>
               <div class="bg-slate-950/90 border border-slate-800 p-3.5 rounded-lg">
-                <div class="text-slate-400">Velocidad de Carga</div>
-                <div class="text-2xl font-extrabold text-amber-400 mt-1">100 SKU/h</div>
-                <div class="text-slate-400 text-[11px] mt-1">Excel + IA supervisada</div>
+                <div class="text-slate-400">Valorización de Inventario</div>
+                <div class="text-2xl font-extrabold text-white mt-1">$14,85 M</div>
+                <div class="text-emerald-400 text-[11px] mt-1">✔ Stock cuadrado en 810 SKU activos</div>
               </div>
               <div class="bg-slate-950/90 border border-slate-800 p-3.5 rounded-lg">
-                <div class="text-slate-400">Errores Corregidos</div>
-                <div class="text-2xl font-extrabold text-emerald-400 mt-1">5 Críticos</div>
-                <div class="text-slate-400 text-[11px] mt-1">Confirmados por WSP</div>
+                <div class="text-slate-400">Alerta Punto de Reorden</div>
+                <div class="text-2xl font-extrabold text-rose-400 mt-1">6,2% (50 SKU)</div>
+                <div class="text-slate-400 text-[11px] mt-1">Artículos bajo stock crítico detectados</div>
+              </div>
+            </div>
+
+            <!-- Gráficos de Barras del Dashboard Power BI -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1 text-xs">
+              <!-- Gráfico 1: Margen y Peso por Categoría -->
+              <div class="bg-slate-950/75 border border-slate-800 rounded-lg p-4 space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-slate-200">📊 Margen Bruto y Peso de Stock por Categoría</span>
+                  <span class="text-[11px] text-slate-400 font-mono">810 SKU</span>
+                </div>
+                <div class="space-y-2.5">
+                  <div>
+                    <div class="flex justify-between text-[11px] mb-1">
+                      <span class="text-slate-300">Escritura y Lápices Técnicos (308 SKU)</span>
+                      <span class="font-mono text-emerald-400 font-bold">Margen 48,2% • 38% stock</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                      <div class="bg-blue-500 h-full rounded-full" style="width: 38%"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-[11px] mb-1">
+                      <span class="text-slate-300">Cuadernos y Papelería Escolar (235 SKU)</span>
+                      <span class="font-mono text-emerald-400 font-bold">Margen 39,5% • 29% stock</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                      <div class="bg-emerald-500 h-full rounded-full" style="width: 29%"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-[11px] mb-1">
+                      <span class="text-slate-300">Marcadores, Destacadores y Arte (170 SKU)</span>
+                      <span class="font-mono text-emerald-400 font-bold">Margen 46,0% • 21% stock</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                      <div class="bg-amber-400 h-full rounded-full" style="width: 21%"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-[11px] mb-1">
+                      <span class="text-slate-300">Insumos de Oficina y Adhesivos (97 SKU)</span>
+                      <span class="font-mono text-emerald-400 font-bold">Margen 44,1% • 12% stock</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                      <div class="bg-indigo-400 h-full rounded-full" style="width: 12%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Gráfico 2: Embudo de Depuración de la Base Bruta -->
+              <div class="bg-slate-950/75 border border-slate-800 rounded-lg p-4 space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-slate-200">🔍 Auditoría de Calidad sobre las 1.215 Filas Iniciales</span>
+                  <span class="text-[11px] text-slate-400 font-mono">Power Query ETL</span>
+                </div>
+                <div class="space-y-2.5">
+                  <div>
+                    <div class="flex justify-between text-[11px] mb-1">
+                      <span class="text-slate-300">✅ SKUs Únicos Validados y Migrados a Bsale</span>
+                      <span class="font-mono text-emerald-400 font-bold">810 filas (66,7%)</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                      <div class="bg-emerald-500 h-full rounded-full" style="width: 66.7%"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-[11px] mb-1">
+                      <span class="text-slate-300">🗑️ Registros Duplicados en Planillas WhatsApp</span>
+                      <span class="font-mono text-amber-400 font-bold">298 filas (24,5%)</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                      <div class="bg-amber-400 h-full rounded-full" style="width: 24.5%"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-[11px] mb-1">
+                      <span class="text-slate-300">⚪ Filas en Blanco / Sin Stock Histórico</span>
+                      <span class="font-mono text-slate-400 font-bold">102 filas (8,4%)</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                      <div class="bg-slate-500 h-full rounded-full" style="width: 8.4%"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-[11px] mb-1">
+                      <span class="text-slate-300">⚠️ SKUs Cruzados Corregidos con el Cliente</span>
+                      <span class="font-mono text-rose-400 font-bold">5 casos críticos (0,4%)</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                      <div class="bg-rose-500 h-full rounded-full" style="width: 6%"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -678,34 +775,113 @@
         <!-- PASO 4: DASHBOARD POWER BI DEL PROYECTO 2 -->
         <div class="relative space-y-3">
           <div class="absolute -left-9 top-0.5 w-7 h-7 rounded-full bg-amber-500 text-slate-950 text-xs font-extrabold flex items-center justify-center shadow-md">4</div>
-          <div class="rounded-xl bg-slate-900 border border-slate-700 p-5 text-slate-100 space-y-4 shadow-lg">
+          <div class="rounded-xl bg-slate-900 border border-slate-700 p-5 text-slate-100 space-y-5 shadow-lg">
             <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
               <div class="flex items-center gap-2">
                 <span class="px-2 py-0.5 rounded bg-amber-400 text-slate-950 font-extrabold text-[11px]">POWER BI</span>
-                <span class="font-bold text-sm">Resumen de Indicadores • Control de Flota y Auditoría ERP</span>
+                <span class="font-bold text-sm">Dashboard Analítico • Costo Logístico por Viaje, Utilización de Flota y Exactitud ERP</span>
               </div>
-              <span class="text-xs text-slate-400 font-mono">Fuente: Control_Flota_y_Auditoria_ERP.xlsx</span>
+              <span class="text-xs text-slate-400 font-mono">Modelo conectado a Control_Flota_y_Auditoria_ERP.xlsx</span>
             </div>
+
+            <!-- 4 KPIs reales de Logística e Ingeniería Industrial -->
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
               <div class="bg-slate-950/90 border border-slate-800 p-3.5 rounded-lg">
-                <div class="text-slate-400">Cuadratura para Firma</div>
-                <div class="text-2xl font-extrabold text-emerald-400 mt-1">100% OK</div>
-                <div class="text-slate-400 text-[11px] mt-1">Excel cuadrado con impresos</div>
+                <div class="text-slate-400">Costo Promedio por Vuelta</div>
+                <div class="text-2xl font-extrabold text-amber-400 mt-1">$26.950</div>
+                <div class="text-slate-400 text-[11px] mt-1">Ponderado mensual (1v=$25k | 2v=$27,5k/u)</div>
               </div>
               <div class="bg-slate-950/90 border border-slate-800 p-3.5 rounded-lg">
-                <div class="text-slate-400">Tarifa 1 Vuelta</div>
-                <div class="text-2xl font-extrabold text-blue-400 mt-1">$25.000</div>
-                <div class="text-slate-400 text-[11px] mt-1">Regreso 12:00 a 14:00 hrs</div>
+                <div class="text-slate-400">Mix Operativo (1v vs 2v)</div>
+                <div class="text-2xl font-extrabold text-blue-400 mt-1">58% / 42%</div>
+                <div class="text-slate-400 text-[11px] mt-1">58% jornadas de 1 vuelta • 42% de 2 vueltas</div>
               </div>
               <div class="bg-slate-950/90 border border-slate-800 p-3.5 rounded-lg">
-                <div class="text-slate-400">Tarifa 2 Vueltas (Máx.)</div>
-                <div class="text-2xl font-extrabold text-amber-400 mt-1">$55.000</div>
-                <div class="text-slate-400 text-[11px] mt-1">Regreso 16:00 a 17:00 hrs</div>
+                <div class="text-slate-400">Cumplimiento Ventana Horaria</div>
+                <div class="text-2xl font-extrabold text-emerald-400 mt-1">94,2%</div>
+                <div class="text-slate-400 text-[11px] mt-1">Retornos dentro de 12–14h (1v) y 16–17h (2v)</div>
               </div>
               <div class="bg-slate-950/90 border border-slate-800 p-3.5 rounded-lg">
-                <div class="text-slate-400">Exactitud ERP (ERI)</div>
+                <div class="text-slate-400">Exactitud Inventario (ERI)</div>
                 <div class="text-2xl font-extrabold text-white mt-1">98,5%</div>
-                <div class="text-emerald-400 text-[11px] mt-1">✔ +9,5 pts tras conciliación</div>
+                <div class="text-emerald-400 text-[11px] mt-1">✔ Subió desde 89,0% (+9,5 pts en ERP)</div>
+              </div>
+            </div>
+
+            <!-- Gráficos de Barras del Dashboard Power BI -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1 text-xs">
+              <!-- Gráfico 1: Liquidación Mensual y Vueltas por Camión -->
+              <div class="bg-slate-950/75 border border-slate-800 rounded-lg p-4 space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-slate-200">🚚 Productividad y Liquidación Mensual por Camión (20 días)</span>
+                  <span class="text-[11px] text-slate-400 font-mono">Total: $2.250.000</span>
+                </div>
+                <div class="space-y-2.5">
+                  <div>
+                    <div class="flex justify-between text-[11px] mb-1">
+                      <span class="text-slate-300">Camión 01 (CJ-RW-42) • 11 días (2v) + 9 días (1v)</span>
+                      <span class="font-mono text-amber-400 font-bold">31 vueltas • $830.000</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                      <div class="bg-amber-400 h-full rounded-full" style="width: 88%"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-[11px] mb-1">
+                      <span class="text-slate-300">Camión 03 (PF-BG-88) • 8 días (2v) + 12 días (1v)</span>
+                      <span class="font-mono text-blue-400 font-bold">28 vueltas • $740.000</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                      <div class="bg-blue-500 h-full rounded-full" style="width: 78%"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-[11px] mb-1">
+                      <span class="text-slate-300">Camión 02 (LP-KT-19) • 6 días (2v) + 14 días (1v)</span>
+                      <span class="font-mono text-emerald-400 font-bold">26 vueltas • $680.000</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                      <div class="bg-emerald-500 h-full rounded-full" style="width: 72%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Gráfico 2: Pareto de Causas de Descuadre en ERP -->
+              <div class="bg-slate-950/75 border border-slate-800 rounded-lg p-4 space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-slate-200">📦 Causas Raíz de Diferencias Físico vs. ERP (Antes de BPM)</span>
+                  <span class="text-[11px] text-slate-400 font-mono">Pareto Bodega</span>
+                </div>
+                <div class="space-y-2.5">
+                  <div>
+                    <div class="flex justify-between text-[11px] mb-1">
+                      <span class="text-slate-300">⚠️ Vales de salida a camiones sin digitar en el día</span>
+                      <span class="font-mono text-rose-400 font-bold">64% de los casos</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                      <div class="bg-rose-500 h-full rounded-full" style="width: 64%"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-[11px] mb-1">
+                      <span class="text-slate-300">📌 Guías de recepción física pendientes de ingreso</span>
+                      <span class="font-mono text-amber-400 font-bold">26% de los casos</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                      <div class="bg-amber-400 h-full rounded-full" style="width: 26%"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-[11px] mb-1">
+                      <span class="text-slate-300">🧪 Merma operativa real (rotura de bidones / trasvasije)</span>
+                      <span class="font-mono text-slate-400 font-bold">10% de los casos</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                      <div class="bg-slate-500 h-full rounded-full" style="width: 10%"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
