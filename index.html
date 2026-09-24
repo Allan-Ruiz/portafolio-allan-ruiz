@@ -9,12 +9,6 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
-    /* ==========================================================================
-       PALETA 1 (POR DEFECTO): PIZARRA EJECUTIVA & GRIS PERLA
-       - Fondo exterior: Azul Pizarra Medio (#1e293b) -> elimina el blanco chillón
-       - Tarjetas: Gris Perla Suave (#eef2f6) -> descansa la vista y destaca las tablas
-       - Celdas de tabla: Papel Mate (#f8fafc) y fila alterna (#f1f5f9)
-       ========================================================================== */
     :root,
     [data-theme="slate-pearl"] {
       --bg-canvas: #1e293b;
@@ -28,7 +22,6 @@
       --text-secondary: #334155;
       --text-muted: #475569;
 
-      /* Colores de filas y etiquetas en tablas (Alto contraste sobre claro/perla) */
       --row-alert-bg: #fee2e2;
       --row-alert-text: #991b1b;
       --row-ok-bg: #dcfce7;
@@ -39,107 +32,69 @@
       --badge-blue-text: #1e40af;
       --badge-emerald-bg: #d1fae5;
       --badge-emerald-text: #065f46;
-    }
-
-    /* ==========================================================================
-       PALETA 2: GRIS ACERO / POWER BI DESKTOP
-       - Fondo exterior: Gris Acero (#cbd5e1)
-       - Tarjetas: Gris Nube Suave (#f1f5f9)
-       ========================================================================== */
-    [data-theme="warm-steel"] {
-      --bg-canvas: #cbd5e1;
-      --bg-card: #f1f5f9;
-      --bg-subcard: #e2e8f0;
-      --bg-table: #f8fafc;
-      --bg-table-alt: #eef2f6;
-      --border-main: #94a3b8;
-      --border-table: #cbd5e1;
-      --text-primary: #0f172a;
-      --text-secondary: #1e293b;
-      --text-muted: #475569;
-
-      --row-alert-bg: #fee2e2;
-      --row-alert-text: #991b1b;
-      --row-ok-bg: #dcfce7;
-      --row-ok-text: #166534;
-      --row-warn-bg: #fef3c7;
-      --row-warn-text: #92400e;
-      --badge-blue-bg: #dbeafe;
-      --badge-blue-text: #1e40af;
-      --badge-emerald-bg: #d1fae5;
-      --badge-emerald-text: #065f46;
-    }
-
-    /* ==========================================================================
-       PALETA 3: AZUL NOCHE PIZARRA (DARK SLATE SUAVE - SIN NEGRO PURO)
-       - Fondo exterior: Azul Pizarra Profundo (#0f172a)
-       - Tarjetas: Azul Pizarra Medio (#1e293b)
-       - Tablas: Pizarra Azulada (#263349)
-       ========================================================================== */
-    [data-theme="dark-slate"] {
-      --bg-canvas: #0f172a;
-      --bg-card: #1e293b;
-      --bg-subcard: #273549;
-      --bg-table: #1e293b;
-      --bg-table-alt: #243247;
-      --border-main: #334155;
-      --border-table: #334155;
-      --text-primary: #f8fafc;
-      --text-secondary: #e2e8f0;
-      --text-muted: #94a3b8;
-
-      --row-alert-bg: rgba(239, 68, 68, 0.18);
-      --row-alert-text: #fca5a5;
-      --row-ok-bg: rgba(16, 185, 129, 0.18);
-      --row-ok-text: #6ee7b7;
-      --row-warn-bg: rgba(245, 158, 11, 0.18);
-      --row-warn-text: #fcd34d;
-      --badge-blue-bg: rgba(59, 130, 246, 0.2);
-      --badge-blue-text: #93c5fd;
-      --badge-emerald-bg: rgba(16, 185, 129, 0.2);
-      --badge-emerald-text: #6ee7b7;
     }
 
     body {
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       background-color: var(--bg-canvas);
       color: var(--text-primary);
-      transition: background-color 0.25s ease, color 0.25s ease;
     }
+
+    /* Regla global para todos los párrafos: tamaño normal (1rem) y line-height 1.5 */
+    p {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
     .font-mono {
       font-family: 'JetBrains Mono', monospace;
     }
+
     .surface-card {
       background-color: var(--bg-card);
       border: 1px solid var(--border-main);
       color: var(--text-primary);
       box-shadow: 0 12px 30px -8px rgba(15, 23, 42, 0.35);
     }
+
     .surface-subcard {
       background-color: var(--bg-subcard);
       border: 1px solid var(--border-main);
     }
+
     .text-sec { color: var(--text-secondary); }
     .text-mut { color: var(--text-muted); }
 
-    /* Estilos dedicados para que las tablas Excel se vean nítidas en cualquier fondo */
+    /* Contenedores con separación mínima de 0.5rem entre elementos (títulos, pills y párrafos) */
+    .header-stack,
+    .step-text-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    /* Tablas Excel con margin-top: 0.5rem */
     .excel-wrap {
+      margin-top: 0.5rem;
       background-color: var(--bg-table);
       border: 1px solid var(--border-table);
       border-radius: 0.75rem;
       overflow: hidden;
       box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
     }
+
     .excel-grid {
       width: 100%;
       border-collapse: collapse;
-      font-size: 12.5px;
+      font-size: 13px;
     }
+
     .excel-grid th,
     .excel-grid td {
       border: 1px solid var(--border-table);
       padding: 9px 11px;
     }
+
     .excel-row-even { background-color: var(--bg-table); }
     .excel-row-odd { background-color: var(--bg-table-alt); }
     .excel-row-alert { background-color: var(--row-alert-bg); }
@@ -148,21 +103,46 @@
     .excel-row-warn { background-color: var(--row-warn-bg); }
     .excel-text-warn { color: var(--row-warn-text); font-weight: 700; }
 
+    /* Pills iniciales con width: fit-content */
     .pill-blue {
+      width: fit-content;
       background-color: var(--badge-blue-bg);
       color: var(--badge-blue-text);
       border: 1px solid rgba(59, 130, 246, 0.35);
     }
+
     .pill-emerald {
+      width: fit-content;
       background-color: var(--badge-emerald-bg);
       color: var(--badge-emerald-text);
       border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    /* Botón de descarga de Excel con padding 0.5rem y el mismo font-size de p (1rem) */
+    .btn-excel {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 0.85rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      font-weight: 700;
+      border-radius: 0.5rem;
+      background-color: #047857;
+      color: #ffffff;
+      width: fit-content;
+      white-space: nowrap;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-excel:hover {
+      background-color: #065f46;
     }
   </style>
 </head>
 <body data-theme="slate-pearl" class="antialiased pb-16">
 
-  <!-- BARRA SUPERIOR FIJA CON NAVEGACIÓN Y SELECTOR DE FONDO EN VIVO -->
+  <!-- BARRA SUPERIOR FIJA -->
   <nav class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-md border-b border-slate-700 text-slate-100 px-4 py-3 shadow-lg">
     <div class="max-w-6xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3">
       <div class="flex items-center gap-2.5">
@@ -184,25 +164,25 @@
 
   <main class="max-w-6xl mx-auto px-4 md:px-8 pt-7 space-y-10">
 
-    <!-- ENCABEZADO PRINCIPAL -->
+    <!-- ENCABEZADO PRINCIPAL (con gap: 0.5rem entre pill, título y párrafo) -->
     <header class="surface-card rounded-2xl p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
-      <div class="space-y-2 max-w-3xl">
-        <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-md text-xs font-bold uppercase tracking-wider pill-blue">
-          <span>Portafolio de Experiencia Práctica • Datos, Inventarios y Procesos</span>
+      <div class="header-stack max-w-3xl">
+        <div class="px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider pill-blue">
+          Portafolio de Experiencia Práctica • Datos, Inventarios y Procesos
         </div>
         <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight">Cómo ordeno datos y procesos en operaciones reales</h1>
-        <p class="text-xs md:text-sm text-sec leading-relaxed">
-          Aquí muestro paso a paso el trabajo que realicé en <strong>Librerías BigPEN</strong> y en <strong>Ambientes Limpios S.A.</strong>: desde las planillas desordenadas con las que me encontré, las fórmulas de Excel que armé (con sus columnas <code class="font-mono font-semibold">A, B, C...</code> para que se entienda cada cálculo), hasta los reportes visuales tipo <strong>Power BI</strong> para jefatura.
+        <p class="text-sec">
+          Aquí muestro paso a paso el trabajo realizado en <strong>Librerías BigPEN</strong> y en <strong>Ambientes Limpios S.A.</strong> Este trabajo abarca desde las fórmulas de Excel hasta los reportes visuales tipo <strong>Power BI</strong> para la jefatura. Se trabajó en columnas para generar un orden lógico respecto a las planillas existentes.
         </p>
       </div>
       <div class="grid grid-cols-2 gap-3 shrink-0 text-center text-xs">
         <div class="surface-subcard p-3.5 rounded-xl">
-          <div class="text-xl font-extrabold text-blue-600 dark:text-blue-400" style="color: var(--badge-blue-text);">800+ SKU</div>
-          <div class="text-[11px] text-mut font-medium">Migrados a Bsale POS</div>
+          <div class="text-xl font-extrabold" style="color: var(--badge-blue-text);">800+ SKU</div>
+          <div class="text-xs text-mut font-medium mt-1">Migrados a Bsale POS</div>
         </div>
         <div class="surface-subcard p-3.5 rounded-xl">
           <div class="text-xl font-extrabold" style="color: var(--badge-emerald-text);">1.600+ Fotos</div>
-          <div class="text-[11px] text-mut font-medium">Vinculadas por SKU</div>
+          <div class="text-xs text-mut font-medium mt-1">Vinculadas por SKU</div>
         </div>
       </div>
     </header>
@@ -213,21 +193,24 @@
     <!-- =================================================================== -->
     <section id="caso-bigpen" class="scroll-mt-20 surface-card rounded-2xl p-6 md:p-8 space-y-8">
       
-      <!-- Encabezado del Caso 1 -->
-      <div class="border-b pb-5 space-y-3" style="border-color: var(--border-main);">
-        <div class="flex flex-wrap items-center justify-between gap-2">
-          <span class="px-3 py-1 rounded-md text-xs font-bold pill-blue">
-            PROYECTO 1 • LIBRERÍAS BIGPEN (Nov. 2025 – Mar. 2026)
-          </span>
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="text-xs font-mono text-mut font-medium">Excel (BUSCARX, Power Query) • Sistema POS Bsale • Gemini Pro &amp; Claude</span>
-            <a href="./01_bigpen_etl_bsale_pos/Caso01_BigPEN_Pipeline_ETL_Bsale_POS.xlsx" download class="px-3 py-1 rounded-lg text-xs font-bold bg-emerald-700 text-white hover:bg-emerald-800 transition shadow-sm">
-              📥 Descargar Excel (.xlsx)
-            </a>
+      <!-- Encabezado del Caso 1: Pill arriba, herramientas debajo, botón Descargar Excel a la derecha -->
+      <div class="border-b pb-5 header-stack" style="border-color: var(--border-main);">
+        <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+          <div class="header-stack">
+            <span class="px-3 py-1 rounded-md text-xs font-bold pill-blue">
+              PROYECTO 1 • LIBRERÍAS BIGPEN (Nov. 2025 – Mar. 2026)
+            </span>
+            <span class="text-sm font-mono text-mut font-medium">
+              Excel (BUSCARX, Power Query) • Sistema POS Bsale • Gemini Pro &amp; Claude
+            </span>
           </div>
+          <a href="./01_bigpen_etl_bsale_pos/Caso01_BigPEN_Pipeline_ETL_Bsale_POS.xlsx" download class="btn-excel shadow-sm">
+            📥 Descargar Excel
+          </a>
         </div>
-        <h2 class="text-xl md:text-2xl font-extrabold">Limpieza de Catálogo, Descripciones Web y Migración al Sistema POS Bsale</h2>
-        <p class="text-xs md:text-sm text-sec leading-relaxed">
+
+        <h2 class="text-xl md:text-2xl font-extrabold pt-1">Limpieza de Catálogo, Descripciones Web y Migración al Sistema POS Bsale</h2>
+        <p class="text-sec">
           <strong>Con qué me encontré:</strong> Más de 1.200 productos repartidos en planillas informales que me enviaban por WhatsApp. Había duplicados, celdas vacías, títulos mal escritos, productos sin descripción web ni fotos, y códigos SKU que no correspondían al producto real.
         </p>
       </div>
@@ -236,11 +219,11 @@
       <div class="space-y-8 relative before:absolute before:left-3.5 before:top-4 before:bottom-4 before:w-0.5 before:bg-blue-500/40 pl-9">
 
         <!-- PASO 1: TABLA DE CRUCE BUSCARX -->
-        <div class="relative space-y-3">
+        <div class="relative space-y-2">
           <div class="absolute -left-9 top-0.5 w-7 h-7 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center shadow-md">1</div>
-          <div>
-            <h3 class="text-base font-bold">Paso 1: Verificar las SKU y consultar al cliente cuando algo no correspondía</h3>
-            <p class="text-xs text-sec mt-0.5">Busqué los códigos apoyándome en Gemini Pro y Claude, los crucé con <code class="font-mono font-semibold">BUSCARX</code> y supervisé cada caso. Cuando el SKU original estaba malo (5 casos), le preguntaba por WhatsApp al cliente para corregirlo antes de importar.</p>
+          <div class="step-text-group">
+            <h3 class="text-lg font-bold">Paso 1: Verificar las SKU y consultar al cliente cuando algo no correspondía</h3>
+            <p class="text-sec">Busqué los códigos apoyándome en Gemini Pro y Claude, los crucé con <code class="font-mono font-semibold">BUSCARX</code> y supervisé cada caso. Cuando el SKU original estaba malo (5 casos), le preguntaba por WhatsApp al cliente para corregirlo antes de importar.</p>
           </div>
 
           <!-- Tabla Excel 1.1 -->
@@ -253,7 +236,7 @@
             <div class="overflow-x-auto">
               <table class="excel-grid">
                 <thead>
-                  <tr class="bg-slate-800 text-slate-200 font-mono text-[11px] text-left">
+                  <tr class="bg-slate-800 text-slate-200 font-mono text-xs text-left">
                     <th class="w-9 text-center">#</th>
                     <th>A · Nombre en Planilla Original</th>
                     <th>B · SKU Cliente</th>
@@ -318,11 +301,11 @@
         </div>
 
         <!-- PASO 2: PLANILLA EXCEL CON TÍTULOS Y DESCRIPCIONES WEB -->
-        <div class="relative space-y-3">
+        <div class="relative space-y-2">
           <div class="absolute -left-9 top-0.5 w-7 h-7 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center shadow-md">2</div>
-          <div>
-            <h3 class="text-base font-bold">Paso 2: Armar la planilla de importación de Bsale con títulos corregidos y descripciones web</h3>
-            <p class="text-xs text-sec mt-0.5">Con cada SKU ya validado y cruzado, corregí los títulos y redacté <strong>descripciones web completas</strong> en el formato Excel (<code class="font-mono">.xlsx</code>) que pide Bsale para importar datos masivos.</p>
+          <div class="step-text-group">
+            <h3 class="text-lg font-bold">Paso 2: Armar la planilla de importación de Bsale con títulos corregidos y descripciones web</h3>
+            <p class="text-sec">Con cada SKU ya validado y cruzado, corregí los títulos y redacté <strong>descripciones web completas</strong> en el formato Excel (<code class="font-mono">.xlsx</code>) que pide Bsale para importar datos masivos.</p>
           </div>
 
           <div class="excel-wrap">
@@ -333,7 +316,7 @@
             <div class="overflow-x-auto">
               <table class="excel-grid">
                 <thead>
-                  <tr class="bg-emerald-950 text-emerald-100 font-mono text-[11px] text-left">
+                  <tr class="bg-emerald-950 text-emerald-100 font-mono text-xs text-left">
                     <th>A · SKU Validado</th>
                     <th>B · Título Corregido para Bsale</th>
                     <th>C · Descripción Web Completa Añadida</th>
@@ -377,84 +360,81 @@
         </div>
 
         <!-- PASO 3: CARPETA SEPARADA DE IMÁGENES -->
-        <div class="relative space-y-3">
+        <div class="relative space-y-2">
           <div class="absolute -left-9 top-0.5 w-7 h-7 rounded-full bg-indigo-600 text-white text-xs font-bold flex items-center justify-center shadow-md">3</div>
-          <div class="surface-subcard rounded-xl p-4 space-y-3">
+          <div class="surface-subcard rounded-xl p-5 step-text-group">
             <div class="flex flex-wrap items-center justify-between gap-2">
-              <h3 class="text-base font-bold">Paso 3: Carpeta de imágenes aparte (<code class="font-mono">SKU_1</code>, <code class="font-mono">SKU_2</code>... hasta <code class="font-mono">SKU_8</code>)</h3>
+              <h3 class="text-lg font-bold">Paso 3: Carpeta de imágenes aparte (<code class="font-mono">SKU_1</code>, <code class="font-mono">SKU_2</code>... hasta <code class="font-mono">SKU_8</code>)</h3>
               <span class="px-2.5 py-0.5 rounded text-xs font-bold pill-blue">Las fotos NO van dentro de la tabla Excel</span>
             </div>
-            <p class="text-xs text-sec leading-relaxed">
+            <p class="text-sec">
               En Bsale las imágenes se suben en una carpeta separada y el sistema las asocia automáticamente si el archivo lleva el código SKU más un guion bajo (<code class="font-mono font-semibold">SKU_1.jpg</code>, <code class="font-mono font-semibold">SKU_2.jpg</code>, hasta máximo <code class="font-mono font-semibold">SKU_8.jpg</code>). Con apoyo de IA busqué las fotos de cada artículo y descargué <strong>mínimo 2 fotos por producto (más de 1.600 imágenes en total)</strong>.
             </p>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1 font-mono text-xs">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2 font-mono text-xs">
               <div class="p-2.5 rounded-lg bg-slate-900 text-slate-200 border border-slate-700">
                 <div class="text-emerald-400 font-bold">🖼️ 071641300019_1.jpg</div>
-                <div class="text-[11px] text-slate-400">Sharpie (Foto 1)</div>
+                <div class="text-slate-400 mt-0.5">Sharpie (Foto 1)</div>
               </div>
               <div class="p-2.5 rounded-lg bg-slate-900 text-slate-200 border border-slate-700">
                 <div class="text-emerald-400 font-bold">🖼️ 071641300019_2.jpg</div>
-                <div class="text-[11px] text-slate-400">Sharpie (Foto 2)</div>
+                <div class="text-slate-400 mt-0.5">Sharpie (Foto 2)</div>
               </div>
               <div class="p-2.5 rounded-lg bg-slate-900 text-slate-200 border border-slate-700">
                 <div class="text-emerald-400 font-bold">🖼️ 4006381492447_1.jpg</div>
-                <div class="text-[11px] text-slate-400">Stabilo (Foto 1)</div>
+                <div class="text-slate-400 mt-0.5">Stabilo (Foto 1)</div>
               </div>
               <div class="p-2.5 rounded-lg bg-slate-900 text-slate-200 border border-slate-700">
                 <div class="text-emerald-400 font-bold">🖼️ 4006381492447_2.jpg</div>
-                <div class="text-[11px] text-slate-400">Stabilo (Foto 2)</div>
+                <div class="text-slate-400 mt-0.5">Stabilo (Foto 2)</div>
               </div>
             </div>
           </div>
         </div>
 
         <!-- PASO 4: DASHBOARD POWER BI DEL PROYECTO 1 -->
-        <div class="relative space-y-3">
+        <div class="relative space-y-2">
           <div class="absolute -left-9 top-0.5 w-7 h-7 rounded-full bg-amber-500 text-slate-950 text-xs font-extrabold flex items-center justify-center shadow-md">4</div>
           <div class="rounded-xl bg-slate-900 border border-slate-700 p-5 text-slate-100 space-y-5 shadow-lg">
             <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
               <div class="flex items-center gap-2">
-                <span class="px-2 py-0.5 rounded bg-amber-400 text-slate-950 font-extrabold text-[11px]">POWER BI</span>
-                <span class="font-bold text-sm">Dashboard Analítico • Rentabilidad de Catálogo, Stock y Calidad de Datos</span>
+                <span class="px-2 py-0.5 rounded bg-amber-400 text-slate-950 font-extrabold text-xs">POWER BI</span>
+                <span class="font-bold text-base">Dashboard Analítico • Rentabilidad de Catálogo, Stock y Calidad de Datos</span>
               </div>
               <span class="text-xs text-slate-400 font-mono">Modelo conectado a Matriz_Importacion_Bsale_POS.xlsx</span>
             </div>
 
-            <!-- 4 KPIs reales de Gestión e Ingeniería Industrial -->
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
               <div class="bg-slate-950/90 border border-slate-800 p-3.5 rounded-lg">
                 <div class="text-slate-400">Tasa de Depuración (Ruido)</div>
                 <div class="text-2xl font-extrabold text-amber-400 mt-1">33,3%</div>
-                <div class="text-slate-400 text-[11px] mt-1">405 filas basura/duplicadas eliminadas de 1.215</div>
+                <div class="text-slate-400 mt-1">405 filas basura/duplicadas eliminadas de 1.215</div>
               </div>
               <div class="bg-slate-950/90 border border-slate-800 p-3.5 rounded-lg">
                 <div class="text-slate-400">Margen Bruto Promedio</div>
                 <div class="text-2xl font-extrabold text-emerald-400 mt-1">44,8%</div>
-                <div class="text-slate-400 text-[11px] mt-1">Ponderado Costo Neto vs. Precio Bsale</div>
+                <div class="text-slate-400 mt-1">Ponderado Costo Neto vs. Precio Bsale</div>
               </div>
               <div class="bg-slate-950/90 border border-slate-800 p-3.5 rounded-lg">
                 <div class="text-slate-400">Valorización de Inventario</div>
                 <div class="text-2xl font-extrabold text-white mt-1">$14,85 M</div>
-                <div class="text-emerald-400 text-[11px] mt-1">✔ Stock cuadrado en 810 SKU activos</div>
+                <div class="text-emerald-400 mt-1">✔ Stock cuadrado en 810 SKU activos</div>
               </div>
               <div class="bg-slate-950/90 border border-slate-800 p-3.5 rounded-lg">
                 <div class="text-slate-400">Alerta Punto de Reorden</div>
                 <div class="text-2xl font-extrabold text-rose-400 mt-1">6,2% (50 SKU)</div>
-                <div class="text-slate-400 text-[11px] mt-1">Artículos bajo stock crítico detectados</div>
+                <div class="text-slate-400 mt-1">Artículos bajo stock crítico detectados</div>
               </div>
             </div>
 
-            <!-- Gráficos de Barras del Dashboard Power BI -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1 text-xs">
-              <!-- Gráfico 1: Margen y Peso por Categoría -->
               <div class="bg-slate-950/75 border border-slate-800 rounded-lg p-4 space-y-3">
                 <div class="flex items-center justify-between">
-                  <span class="font-bold text-slate-200">📊 Margen Bruto y Peso de Stock por Categoría</span>
-                  <span class="text-[11px] text-slate-400 font-mono">810 SKU</span>
+                  <span class="font-bold text-slate-200 text-sm">📊 Margen Bruto y Peso de Stock por Categoría</span>
+                  <span class="text-slate-400 font-mono">810 SKU</span>
                 </div>
                 <div class="space-y-2.5">
                   <div>
-                    <div class="flex justify-between text-[11px] mb-1">
+                    <div class="flex justify-between mb-1">
                       <span class="text-slate-300">Escritura y Lápices Técnicos (308 SKU)</span>
                       <span class="font-mono text-emerald-400 font-bold">Margen 48,2% • 38% stock</span>
                     </div>
@@ -463,7 +443,7 @@
                     </div>
                   </div>
                   <div>
-                    <div class="flex justify-between text-[11px] mb-1">
+                    <div class="flex justify-between mb-1">
                       <span class="text-slate-300">Cuadernos y Papelería Escolar (235 SKU)</span>
                       <span class="font-mono text-emerald-400 font-bold">Margen 39,5% • 29% stock</span>
                     </div>
@@ -472,7 +452,7 @@
                     </div>
                   </div>
                   <div>
-                    <div class="flex justify-between text-[11px] mb-1">
+                    <div class="flex justify-between mb-1">
                       <span class="text-slate-300">Marcadores, Destacadores y Arte (170 SKU)</span>
                       <span class="font-mono text-emerald-400 font-bold">Margen 46,0% • 21% stock</span>
                     </div>
@@ -481,7 +461,7 @@
                     </div>
                   </div>
                   <div>
-                    <div class="flex justify-between text-[11px] mb-1">
+                    <div class="flex justify-between mb-1">
                       <span class="text-slate-300">Insumos de Oficina y Adhesivos (97 SKU)</span>
                       <span class="font-mono text-emerald-400 font-bold">Margen 44,1% • 12% stock</span>
                     </div>
@@ -492,15 +472,14 @@
                 </div>
               </div>
 
-              <!-- Gráfico 2: Embudo de Depuración de la Base Bruta -->
               <div class="bg-slate-950/75 border border-slate-800 rounded-lg p-4 space-y-3">
                 <div class="flex items-center justify-between">
-                  <span class="font-bold text-slate-200">🔍 Auditoría de Calidad sobre las 1.215 Filas Iniciales</span>
-                  <span class="text-[11px] text-slate-400 font-mono">Power Query ETL</span>
+                  <span class="font-bold text-slate-200 text-sm">🔍 Auditoría de Calidad sobre las 1.215 Filas Iniciales</span>
+                  <span class="text-slate-400 font-mono">Power Query ETL</span>
                 </div>
                 <div class="space-y-2.5">
                   <div>
-                    <div class="flex justify-between text-[11px] mb-1">
+                    <div class="flex justify-between mb-1">
                       <span class="text-slate-300">✅ SKUs Únicos Validados y Migrados a Bsale</span>
                       <span class="font-mono text-emerald-400 font-bold">810 filas (66,7%)</span>
                     </div>
@@ -509,7 +488,7 @@
                     </div>
                   </div>
                   <div>
-                    <div class="flex justify-between text-[11px] mb-1">
+                    <div class="flex justify-between mb-1">
                       <span class="text-slate-300">🗑️ Registros Duplicados en Planillas WhatsApp</span>
                       <span class="font-mono text-amber-400 font-bold">298 filas (24,5%)</span>
                     </div>
@@ -518,7 +497,7 @@
                     </div>
                   </div>
                   <div>
-                    <div class="flex justify-between text-[11px] mb-1">
+                    <div class="flex justify-between mb-1">
                       <span class="text-slate-300">⚪ Filas en Blanco / Sin Stock Histórico</span>
                       <span class="font-mono text-slate-400 font-bold">102 filas (8,4%)</span>
                     </div>
@@ -527,7 +506,7 @@
                     </div>
                   </div>
                   <div>
-                    <div class="flex justify-between text-[11px] mb-1">
+                    <div class="flex justify-between mb-1">
                       <span class="text-slate-300">⚠️ SKUs Cruzados Corregidos con el Cliente</span>
                       <span class="font-mono text-rose-400 font-bold">5 casos críticos (0,4%)</span>
                     </div>
@@ -550,21 +529,24 @@
     <!-- =================================================================== -->
     <section id="caso-ambientes" class="scroll-mt-20 surface-card rounded-2xl p-6 md:p-8 space-y-8">
       
-      <!-- Encabezado del Caso 2 -->
-      <div class="border-b pb-5 space-y-3" style="border-color: var(--border-main);">
-        <div class="flex flex-wrap items-center justify-between gap-2">
-          <span class="px-3 py-1 rounded-md text-xs font-bold pill-emerald">
-            PROYECTO 2 • AMBIENTES LIMPIOS S.A. (Oct. 2024 – Ene. 2025)
-          </span>
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="text-xs font-mono text-mut font-medium">Excel Condicional • Control Horario • Cuadratura Impresa • ERP &amp; BPM</span>
-            <a href="./02_ambientes_limpios_procesos_erp/Caso02_AmbientesLimpios_Procesos_y_ERP.xlsx" download class="px-3 py-1 rounded-lg text-xs font-bold bg-emerald-700 text-white hover:bg-emerald-800 transition shadow-sm">
-              📥 Descargar Excel (.xlsx)
-            </a>
+      <!-- Encabezado del Caso 2: Pill arriba, herramientas debajo, botón Descargar Excel a la derecha -->
+      <div class="border-b pb-5 header-stack" style="border-color: var(--border-main);">
+        <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+          <div class="header-stack">
+            <span class="px-3 py-1 rounded-md text-xs font-bold pill-emerald">
+              PROYECTO 2 • AMBIENTES LIMPIOS S.A. (Oct. 2024 – Ene. 2025)
+            </span>
+            <span class="text-sm font-mono text-mut font-medium">
+              Excel Condicional • Control Horario • Cuadratura Impresa • ERP &amp; BPM
+            </span>
           </div>
+          <a href="./02_ambientes_limpios_procesos_erp/Caso02_AmbientesLimpios_Procesos_y_ERP.xlsx" download class="btn-excel shadow-sm">
+            📥 Descargar Excel
+          </a>
         </div>
-        <h2 class="text-xl md:text-2xl font-extrabold">Control Horario de Camiones (1 o 2 Vueltas), Cuadratura para Firma de Pagos y Auditoría ERP</h2>
-        <p class="text-xs md:text-sm text-sec leading-relaxed">
+
+        <h2 class="text-xl md:text-2xl font-extrabold pt-1">Control Horario de Camiones (1 o 2 Vueltas), Cuadratura para Firma de Pagos y Auditoría ERP</h2>
+        <p class="text-sec">
           <strong>Con qué me encontré:</strong> Los pagos por vuelta de camión se anotaban en papeles sueltos sin consolidar la hora real de salida y regreso (los camiones hacían <strong>máximo 1 o 2 vueltas al día</strong>). Para que el jefe pudiera firmar y liberar los pagos, había que cuadrar la planilla Excel con los registros impresos. Además, existían diferencias entre el stock físico de bodega y el ERP corporativo.
         </p>
       </div>
@@ -573,11 +555,11 @@
       <div class="space-y-8 relative before:absolute before:left-3.5 before:top-4 before:bottom-4 before:w-0.5 before:bg-emerald-500/40 pl-9">
 
         <!-- PASO 1: TABLA DE HORAS DE SALIDA/VUELTA Y PAGOS -->
-        <div class="relative space-y-3">
+        <div class="relative space-y-2">
           <div class="absolute -left-9 top-0.5 w-7 h-7 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center shadow-md">1</div>
-          <div>
-            <h3 class="text-base font-bold">Paso 1: Registro de hora exacta de salida/regreso y cálculo automático ($25.000 o $55.000)</h3>
-            <p class="text-xs text-sec mt-0.5">
+          <div class="step-text-group">
+            <h3 class="text-lg font-bold">Paso 1: Registro de hora exacta de salida/regreso y cálculo automático ($25.000 o $55.000)</h3>
+            <p class="text-sec">
               Si el camión hacía <strong>1 vuelta</strong> (regreso entre <strong>12:00 y 14:00 hrs</strong>), el pago era <strong>$25.000</strong>. Si hacía <strong>2 vueltas</strong> (regreso final entre <strong>16:00 y 17:00 hrs</strong>), el pago subía a <strong>$55.000</strong>. Todo debía cuadrar con la hoja impresa para la firma del jefe.
             </p>
           </div>
@@ -591,7 +573,7 @@
             <div class="overflow-x-auto">
               <table class="excel-grid">
                 <thead>
-                  <tr class="bg-slate-800 text-slate-200 font-mono text-[11px] text-left">
+                  <tr class="bg-slate-800 text-slate-200 font-mono text-xs text-left">
                     <th class="w-8 text-center">#</th>
                     <th>A · Fecha</th>
                     <th>B · Camión / Chofer</th>
@@ -672,18 +654,18 @@
         </div>
 
         <!-- PASO 2: AUDITORÍA DE INVENTARIO ERP -->
-        <div class="relative space-y-3">
+        <div class="relative space-y-2">
           <div class="absolute -left-9 top-0.5 w-7 h-7 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center shadow-md">2</div>
-          <div>
-            <h3 class="text-base font-bold">Paso 2: Conteos cíclicos en bodega y conciliación contra el ERP corporativo</h3>
-            <p class="text-xs text-sec mt-0.5">Crucé el stock del ERP con el conteo físico en terreno para detectar mermas o guías de recepción pendientes de digitar.</p>
+          <div class="step-text-group">
+            <h3 class="text-lg font-bold">Paso 2: Conteos cíclicos en bodega y conciliación contra el ERP corporativo</h3>
+            <p class="text-sec">Crucé el stock del ERP con el conteo físico en terreno para detectar mermas o guías de recepción pendientes de digitar.</p>
           </div>
 
           <div class="excel-wrap">
             <div class="overflow-x-auto">
               <table class="excel-grid">
                 <thead>
-                  <tr class="bg-emerald-950 text-emerald-100 font-mono text-[11px] text-left">
+                  <tr class="bg-emerald-950 text-emerald-100 font-mono text-xs text-left">
                     <th>A · Código ERP</th>
                     <th>B · Insumo Operacional</th>
                     <th class="text-right">C · Stock ERP</th>
@@ -718,7 +700,7 @@
                     <td class="excel-text-ok">✅ Stock Cuadrado</td>
                   </tr>
                   <tr class="excel-row-warn">
-                    <td class="text-center font-mono font-bold">INS-AL-0412</td>
+                    <td class="font-mono font-bold">INS-AL-0412</td>
                     <td>Guantes Nitrilo Alta Resistencia (Caja 100u)</td>
                     <td class="text-right font-mono">85</td>
                     <td class="text-right font-mono font-bold excel-text-warn">95</td>
@@ -731,94 +713,91 @@
           </div>
         </div>
 
-        <!-- PASO 3: FLUJOGRAMA OPERATIVO DE BODEGA (VALIDADO PARA AUDITORÍAS INTERNAS) -->
-        <div class="relative space-y-3">
+        <!-- PASO 3: FLUJOGRAMA OPERATIVO DE BODEGA -->
+        <div class="relative space-y-2">
           <div class="absolute -left-9 top-0.5 w-7 h-7 rounded-full bg-indigo-600 text-white text-xs font-bold flex items-center justify-center shadow-md">3</div>
-          <div class="surface-subcard rounded-xl p-4 space-y-3">
+          <div class="surface-subcard rounded-xl p-5 step-text-group">
             <div class="flex flex-wrap items-center justify-between gap-2">
-              <h3 class="text-base font-bold">Paso 3: Flujograma Operativo de Bodega (BPM) validado para auditorías internas</h3>
+              <h3 class="text-lg font-bold">Paso 3: Flujograma Operativo de Bodega (BPM) validado para auditorías internas</h3>
               <span class="px-2.5 py-0.5 rounded text-xs font-bold pill-emerald">Felicitado por la Gerencia de Procesos</span>
             </div>
-            <p class="text-xs text-sec leading-relaxed">
+            <p class="text-sec">
               A solicitud del Gerente del Área de Procesos, levanté en terreno y diseñé el flujograma completo de bodega para estandarizar las entradas, salidas y el control de camiones:
             </p>
-            <div class="grid grid-cols-1 sm:grid-cols-5 gap-2.5 text-xs pt-1">
+            <div class="grid grid-cols-1 sm:grid-cols-5 gap-2.5 text-xs pt-2">
               <div class="p-3 rounded-lg bg-slate-900 text-slate-100 border border-slate-700">
-                <div class="font-mono text-[11px] text-blue-400 font-bold">ETAPA 1</div>
-                <div class="font-bold mt-0.5">Recepción Física</div>
-                <div class="text-[11px] text-slate-400 mt-1">Revisión de guía de proveedor versus carga física.</div>
+                <div class="font-mono text-blue-400 font-bold">ETAPA 1</div>
+                <div class="font-bold text-sm mt-0.5">Recepción Física</div>
+                <div class="text-slate-400 mt-1">Revisión de guía de proveedor versus carga física.</div>
               </div>
               <div class="p-3 rounded-lg bg-slate-900 text-slate-100 border border-slate-700">
-                <div class="font-mono text-[11px] text-blue-400 font-bold">ETAPA 2</div>
-                <div class="font-bold mt-0.5">Ingreso a ERP</div>
-                <div class="text-[11px] text-slate-400 mt-1">Digitación inmediata de lotes y conteo cíclico.</div>
+                <div class="font-mono text-blue-400 font-bold">ETAPA 2</div>
+                <div class="font-bold text-sm mt-0.5">Ingreso a ERP</div>
+                <div class="text-slate-400 mt-1">Digitación inmediata de lotes y conteo cíclico.</div>
               </div>
               <div class="p-3 rounded-lg bg-slate-900 text-slate-100 border border-slate-700">
-                <div class="font-mono text-[11px] text-emerald-400 font-bold">ETAPA 3</div>
-                <div class="font-bold mt-0.5">Carga y Salida</div>
-                <div class="text-[11px] text-slate-400 mt-1">Registro de Hora Salida 1 (08:00 aprox.) y guía impresa.</div>
+                <div class="font-mono text-emerald-400 font-bold">ETAPA 3</div>
+                <div class="font-bold text-sm mt-0.5">Carga y Salida</div>
+                <div class="text-slate-400 mt-1">Registro de Hora Salida 1 (08:00 aprox.) y guía impresa.</div>
               </div>
               <div class="p-3 rounded-lg bg-slate-900 text-slate-100 border border-slate-700">
-                <div class="font-mono text-[11px] text-amber-400 font-bold">ETAPA 4</div>
-                <div class="font-bold mt-0.5">Control 1 o 2 Vueltas</div>
-                <div class="text-[11px] text-slate-400 mt-1">1ra vuelta (12:00–14:00) o 2da vuelta (16:00–17:00).</div>
+                <div class="font-mono text-amber-400 font-bold">ETAPA 4</div>
+                <div class="font-bold text-sm mt-0.5">Control 1 o 2 Vueltas</div>
+                <div class="text-slate-400 mt-1">1ra vuelta (12:00–14:00) o 2da vuelta (16:00–17:00).</div>
               </div>
               <div class="p-3 rounded-lg bg-slate-900 text-slate-100 border border-slate-700">
-                <div class="font-mono text-[11px] text-emerald-400 font-bold">ETAPA 5</div>
-                <div class="font-bold mt-0.5">Cuadratura y Firma</div>
-                <div class="text-[11px] text-slate-400 mt-1">Cruce Excel vs hoja impresa para firma del jefe y pago.</div>
+                <div class="font-mono text-emerald-400 font-bold">ETAPA 5</div>
+                <div class="font-bold text-sm mt-0.5">Cuadratura y Firma</div>
+                <div class="text-slate-400 mt-1">Cruce Excel vs hoja impresa para firma del jefe y pago.</div>
               </div>
             </div>
           </div>
         </div>
 
         <!-- PASO 4: DASHBOARD POWER BI DEL PROYECTO 2 -->
-        <div class="relative space-y-3">
+        <div class="relative space-y-2">
           <div class="absolute -left-9 top-0.5 w-7 h-7 rounded-full bg-amber-500 text-slate-950 text-xs font-extrabold flex items-center justify-center shadow-md">4</div>
           <div class="rounded-xl bg-slate-900 border border-slate-700 p-5 text-slate-100 space-y-5 shadow-lg">
             <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
               <div class="flex items-center gap-2">
-                <span class="px-2 py-0.5 rounded bg-amber-400 text-slate-950 font-extrabold text-[11px]">POWER BI</span>
-                <span class="font-bold text-sm">Dashboard Analítico • Costo Logístico por Viaje, Utilización de Flota y Exactitud ERP</span>
+                <span class="px-2 py-0.5 rounded bg-amber-400 text-slate-950 font-extrabold text-xs">POWER BI</span>
+                <span class="font-bold text-base">Dashboard Analítico • Costo Logístico por Viaje, Utilización de Flota y Exactitud ERP</span>
               </div>
               <span class="text-xs text-slate-400 font-mono">Modelo conectado a Control_Flota_y_Auditoria_ERP.xlsx</span>
             </div>
 
-            <!-- 4 KPIs reales de Logística e Ingeniería Industrial -->
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
               <div class="bg-slate-950/90 border border-slate-800 p-3.5 rounded-lg">
                 <div class="text-slate-400">Costo Promedio por Vuelta</div>
                 <div class="text-2xl font-extrabold text-amber-400 mt-1">$26.950</div>
-                <div class="text-slate-400 text-[11px] mt-1">Ponderado mensual (1v=$25k | 2v=$27,5k/u)</div>
+                <div class="text-slate-400 mt-1">Ponderado mensual (1v=$25k | 2v=$27,5k/u)</div>
               </div>
               <div class="bg-slate-950/90 border border-slate-800 p-3.5 rounded-lg">
                 <div class="text-slate-400">Mix Operativo (1v vs 2v)</div>
                 <div class="text-2xl font-extrabold text-blue-400 mt-1">58% / 42%</div>
-                <div class="text-slate-400 text-[11px] mt-1">58% jornadas de 1 vuelta • 42% de 2 vueltas</div>
+                <div class="text-slate-400 mt-1">58% jornadas de 1 vuelta • 42% de 2 vueltas</div>
               </div>
               <div class="bg-slate-950/90 border border-slate-800 p-3.5 rounded-lg">
                 <div class="text-slate-400">Cumplimiento Ventana Horaria</div>
                 <div class="text-2xl font-extrabold text-emerald-400 mt-1">94,2%</div>
-                <div class="text-slate-400 text-[11px] mt-1">Retornos dentro de 12–14h (1v) y 16–17h (2v)</div>
+                <div class="text-slate-400 mt-1">Retornos dentro de 12–14h (1v) y 16–17h (2v)</div>
               </div>
               <div class="bg-slate-950/90 border border-slate-800 p-3.5 rounded-lg">
                 <div class="text-slate-400">Exactitud Inventario (ERI)</div>
                 <div class="text-2xl font-extrabold text-white mt-1">98,5%</div>
-                <div class="text-emerald-400 text-[11px] mt-1">✔ Subió desde 89,0% (+9,5 pts en ERP)</div>
+                <div class="text-emerald-400 mt-1">✔ Subió desde 89,0% (+9,5 pts en ERP)</div>
               </div>
             </div>
 
-            <!-- Gráficos de Barras del Dashboard Power BI -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1 text-xs">
-              <!-- Gráfico 1: Liquidación Mensual y Vueltas por Camión -->
               <div class="bg-slate-950/75 border border-slate-800 rounded-lg p-4 space-y-3">
                 <div class="flex items-center justify-between">
-                  <span class="font-bold text-slate-200">🚚 Productividad y Liquidación Mensual por Camión (20 días)</span>
-                  <span class="text-[11px] text-slate-400 font-mono">Total: $2.250.000</span>
+                  <span class="font-bold text-slate-200 text-sm">🚚 Productividad y Liquidación Mensual por Camión (20 días)</span>
+                  <span class="text-slate-400 font-mono">Total: $2.250.000</span>
                 </div>
                 <div class="space-y-2.5">
                   <div>
-                    <div class="flex justify-between text-[11px] mb-1">
+                    <div class="flex justify-between mb-1">
                       <span class="text-slate-300">Camión 01 (CJ-RW-42) • 11 días (2v) + 9 días (1v)</span>
                       <span class="font-mono text-amber-400 font-bold">31 vueltas • $830.000</span>
                     </div>
@@ -827,7 +806,7 @@
                     </div>
                   </div>
                   <div>
-                    <div class="flex justify-between text-[11px] mb-1">
+                    <div class="flex justify-between mb-1">
                       <span class="text-slate-300">Camión 03 (PF-BG-88) • 8 días (2v) + 12 días (1v)</span>
                       <span class="font-mono text-blue-400 font-bold">28 vueltas • $740.000</span>
                     </div>
@@ -836,7 +815,7 @@
                     </div>
                   </div>
                   <div>
-                    <div class="flex justify-between text-[11px] mb-1">
+                    <div class="flex justify-between mb-1">
                       <span class="text-slate-300">Camión 02 (LP-KT-19) • 6 días (2v) + 14 días (1v)</span>
                       <span class="font-mono text-emerald-400 font-bold">26 vueltas • $680.000</span>
                     </div>
@@ -847,15 +826,14 @@
                 </div>
               </div>
 
-              <!-- Gráfico 2: Pareto de Causas de Descuadre en ERP -->
               <div class="bg-slate-950/75 border border-slate-800 rounded-lg p-4 space-y-3">
                 <div class="flex items-center justify-between">
-                  <span class="font-bold text-slate-200">📦 Causas Raíz de Diferencias Físico vs. ERP (Antes de BPM)</span>
-                  <span class="text-[11px] text-slate-400 font-mono">Pareto Bodega</span>
+                  <span class="font-bold text-slate-200 text-sm">📦 Causas Raíz de Diferencias Físico vs. ERP (Antes de BPM)</span>
+                  <span class="text-slate-400 font-mono">Pareto Bodega</span>
                 </div>
                 <div class="space-y-2.5">
                   <div>
-                    <div class="flex justify-between text-[11px] mb-1">
+                    <div class="flex justify-between mb-1">
                       <span class="text-slate-300">⚠️ Vales de salida a camiones sin digitar en el día</span>
                       <span class="font-mono text-rose-400 font-bold">64% de los casos</span>
                     </div>
@@ -864,7 +842,7 @@
                     </div>
                   </div>
                   <div>
-                    <div class="flex justify-between text-[11px] mb-1">
+                    <div class="flex justify-between mb-1">
                       <span class="text-slate-300">📌 Guías de recepción física pendientes de ingreso</span>
                       <span class="font-mono text-amber-400 font-bold">26% de los casos</span>
                     </div>
@@ -873,7 +851,7 @@
                     </div>
                   </div>
                   <div>
-                    <div class="flex justify-between text-[11px] mb-1">
+                    <div class="flex justify-between mb-1">
                       <span class="text-slate-300">🧪 Merma operativa real (rotura de bidones / trasvasije)</span>
                       <span class="font-mono text-slate-400 font-bold">10% de los casos</span>
                     </div>
@@ -892,20 +870,5 @@
 
   </main>
 
-  <script>
-    function setTheme(theme) {
-      document.body.setAttribute('data-theme', theme);
-      const buttons = ['slate-pearl', 'warm-steel', 'dark-slate'];
-      buttons.forEach(t => {
-        const btn = document.getElementById('btn-' + t);
-        if (!btn) return;
-        if (t === theme) {
-          btn.className = 'px-2 py-1 rounded text-[11px] font-semibold bg-blue-600 text-white transition';
-        } else {
-          btn.className = 'px-2 py-1 rounded text-[11px] font-semibold text-slate-300 hover:text-white transition';
-        }
-      });
-    }
-  </script>
 </body>
 </html>
