@@ -1,6 +1,6 @@
 # 📊 Portafolio Práctico | Allan Andre Ruiz Arenas
 **Ingeniero Industrial (INACAP) | Análisis de Datos Operacionales, Procesos, Inventarios & BI**  
-📍 Santiago (Peñalolén), Chile • 📧 [allanaruiz32@gmail.com](mailto:allanaruiz32@gmail.com) • 📱 +56 9 6857 9766
+📍 Santiago (Peñalolén), Chile • 📧 [allanaruiz32@gmail.com](mailto:allanaruiz32@gmail.com)
 
 > ### 🌐 **[👉 Ver Portafolio Web Visual Interactivo (Tablas Excel, Fórmulas y Dashboards Power BI)](https://allan-ruiz.github.io/portafolio-allan-ruiz/)**
 > *(Haz clic en el enlace de arriba para ver el visor web completo en diseño Pizarra & Perla sin necesidad de descargar archivos).*
