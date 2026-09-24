@@ -42,8 +42,9 @@
 
     /* Regla global para todos los párrafos: tamaño normal (1rem) y line-height 1.5 */
     p {
-      font-size: 1rem;
-      line-height: 1.5;
+      font-size: 1rem !important;
+      line-height: 1.5 !important;
+      margin: 0;
     }
 
     .font-mono {
@@ -65,17 +66,17 @@
     .text-sec { color: var(--text-secondary); }
     .text-mut { color: var(--text-muted); }
 
-    /* Contenedores con separación mínima de 0.5rem entre elementos (títulos, pills y párrafos) */
+    /* Contenedores con separación mínima garantizada de 0.5rem (8px-10px) entre H3 y párrafo */
     .header-stack,
     .step-text-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 0.6rem !important;
     }
 
     /* Tablas Excel con margin-top: 0.5rem */
     .excel-wrap {
-      margin-top: 0.5rem;
+      margin-top: 0.5rem !important;
       background-color: var(--bg-table);
       border: 1px solid var(--border-table);
       border-radius: 0.75rem;
@@ -168,9 +169,9 @@
     <header class="surface-card rounded-2xl p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
       <div class="header-stack max-w-3xl">
         <div class="px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider pill-blue">
-          Portafolio de Experiencia Práctica • Datos, Inventarios y Procesos
+          Portafolio de Allan Ruiz Arenas
         </div>
-        <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight">Cómo ordeno datos y procesos en operaciones reales</h1>
+        <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight">Proyectos Realizados en Datos, Inventarios y Procesos</h1>
         <p class="text-sec">
           Aquí muestro paso a paso el trabajo realizado en <strong>Librerías BigPEN</strong> y en <strong>Ambientes Limpios S.A.</strong> Este trabajo abarca desde las fórmulas de Excel hasta los reportes visuales tipo <strong>Power BI</strong> para la jefatura. Se trabajó en columnas para generar un orden lógico respecto a las planillas existentes.
         </p>
@@ -221,7 +222,7 @@
         <!-- PASO 1: TABLA DE CRUCE BUSCARX -->
         <div class="relative space-y-2">
           <div class="absolute -left-9 top-0.5 w-7 h-7 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center shadow-md">1</div>
-          <div class="step-text-group">
+          <div class="step-text-group" style="display:flex; flex-direction:column; gap:0.6rem;">
             <h3 class="text-lg font-bold">Paso 1: Verificar las SKU y consultar al cliente cuando algo no correspondía</h3>
             <p class="text-sec">Busqué los códigos apoyándome en Gemini Pro y Claude, los crucé con <code class="font-mono font-semibold">BUSCARX</code> y supervisé cada caso. Cuando el SKU original estaba malo (5 casos), le preguntaba por WhatsApp al cliente para corregirlo antes de importar.</p>
           </div>
@@ -303,7 +304,7 @@
         <!-- PASO 2: PLANILLA EXCEL CON TÍTULOS Y DESCRIPCIONES WEB -->
         <div class="relative space-y-2">
           <div class="absolute -left-9 top-0.5 w-7 h-7 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center shadow-md">2</div>
-          <div class="step-text-group">
+          <div class="step-text-group" style="display:flex; flex-direction:column; gap:0.6rem;">
             <h3 class="text-lg font-bold">Paso 2: Armar la planilla de importación de Bsale con títulos corregidos y descripciones web</h3>
             <p class="text-sec">Con cada SKU ya validado y cruzado, corregí los títulos y redacté <strong>descripciones web completas</strong> en el formato Excel (<code class="font-mono">.xlsx</code>) que pide Bsale para importar datos masivos.</p>
           </div>
@@ -362,7 +363,7 @@
         <!-- PASO 3: CARPETA SEPARADA DE IMÁGENES -->
         <div class="relative space-y-2">
           <div class="absolute -left-9 top-0.5 w-7 h-7 rounded-full bg-indigo-600 text-white text-xs font-bold flex items-center justify-center shadow-md">3</div>
-          <div class="surface-subcard rounded-xl p-5 step-text-group">
+          <div class="surface-subcard rounded-xl p-5 step-text-group" style="display:flex; flex-direction:column; gap:0.6rem;">
             <div class="flex flex-wrap items-center justify-between gap-2">
               <h3 class="text-lg font-bold">Paso 3: Carpeta de imágenes aparte (<code class="font-mono">SKU_1</code>, <code class="font-mono">SKU_2</code>... hasta <code class="font-mono">SKU_8</code>)</h3>
               <span class="px-2.5 py-0.5 rounded text-xs font-bold pill-blue">Las fotos NO van dentro de la tabla Excel</span>
@@ -557,7 +558,7 @@
         <!-- PASO 1: TABLA DE HORAS DE SALIDA/VUELTA Y PAGOS -->
         <div class="relative space-y-2">
           <div class="absolute -left-9 top-0.5 w-7 h-7 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center shadow-md">1</div>
-          <div class="step-text-group">
+          <div class="step-text-group" style="display:flex; flex-direction:column; gap:0.6rem;">
             <h3 class="text-lg font-bold">Paso 1: Registro de hora exacta de salida/regreso y cálculo automático ($25.000 o $55.000)</h3>
             <p class="text-sec">
               Si el camión hacía <strong>1 vuelta</strong> (regreso entre <strong>12:00 y 14:00 hrs</strong>), el pago era <strong>$25.000</strong>. Si hacía <strong>2 vueltas</strong> (regreso final entre <strong>16:00 y 17:00 hrs</strong>), el pago subía a <strong>$55.000</strong>. Todo debía cuadrar con la hoja impresa para la firma del jefe.
@@ -656,7 +657,7 @@
         <!-- PASO 2: AUDITORÍA DE INVENTARIO ERP -->
         <div class="relative space-y-2">
           <div class="absolute -left-9 top-0.5 w-7 h-7 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center shadow-md">2</div>
-          <div class="step-text-group">
+          <div class="step-text-group" style="display:flex; flex-direction:column; gap:0.6rem;">
             <h3 class="text-lg font-bold">Paso 2: Conteos cíclicos en bodega y conciliación contra el ERP corporativo</h3>
             <p class="text-sec">Crucé el stock del ERP con el conteo físico en terreno para detectar mermas o guías de recepción pendientes de digitar.</p>
           </div>
@@ -716,7 +717,7 @@
         <!-- PASO 3: FLUJOGRAMA OPERATIVO DE BODEGA -->
         <div class="relative space-y-2">
           <div class="absolute -left-9 top-0.5 w-7 h-7 rounded-full bg-indigo-600 text-white text-xs font-bold flex items-center justify-center shadow-md">3</div>
-          <div class="surface-subcard rounded-xl p-5 step-text-group">
+          <div class="surface-subcard rounded-xl p-5 step-text-group" style="display:flex; flex-direction:column; gap:0.6rem;">
             <div class="flex flex-wrap items-center justify-between gap-2">
               <h3 class="text-lg font-bold">Paso 3: Flujograma Operativo de Bodega (BPM) validado para auditorías internas</h3>
               <span class="px-2.5 py-0.5 rounded text-xs font-bold pill-emerald">Felicitado por la Gerencia de Procesos</span>
