@@ -3,873 +3,690 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portafolio Práctico | Allan Ruiz Arenas</title>
-  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <title>Allan Ruiz Arenas | Ingeniero Industrial • Operaciones &amp; Datos</title>
+  <meta name="description" content="Casos prácticos de control de operaciones, limpieza de datos, control de flota y auditoría ERP por Allan Ruiz Arenas." />
+
+  <!-- Tipografía Editorial y Técnica: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
-
-    :root,
-    [data-theme="slate-pearl"] {
-      --bg-canvas: #1e293b;
-      --bg-card: #eef2f6;
-      --bg-subcard: #e2e8f0;
-      --bg-table: #f8fafc;
-      --bg-table-alt: #f1f5f9;
-      --border-main: #cbd5e1;
-      --border-table: #cbd5e1;
-      --text-primary: #0f172a;
-      --text-secondary: #334155;
-      --text-muted: #475569;
-
-      --row-alert-bg: #fee2e2;
-      --row-alert-text: #991b1b;
-      --row-ok-bg: #dcfce7;
-      --row-ok-text: #166534;
-      --row-warn-bg: #fef3c7;
-      --row-warn-text: #92400e;
-      --badge-blue-bg: #dbeafe;
-      --badge-blue-text: #1e40af;
-      --badge-emerald-bg: #d1fae5;
-      --badge-emerald-text: #065f46;
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
     }
-
-    body {
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--bg-canvas);
-      color: var(--text-primary);
+    
+    .prose-custom p {
+      margin-bottom: 1.25rem;
+      line-height: 1.8;
     }
-
-    /* Regla global para todos los párrafos: tamaño normal (1rem) y line-height 1.5 */
-    p {
-      font-size: 1rem !important;
-      line-height: 1.5 !important;
-      margin: 0;
-    }
-
-    .font-mono {
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .surface-card {
-      background-color: var(--bg-card);
-      border: 1px solid var(--border-main);
-      color: var(--text-primary);
-      box-shadow: 0 12px 30px -8px rgba(15, 23, 42, 0.35);
-    }
-
-    .surface-subcard {
-      background-color: var(--bg-subcard);
-      border: 1px solid var(--border-main);
-    }
-
-    .text-sec { color: var(--text-secondary); }
-    .text-mut { color: var(--text-muted); }
-
-    /* Contenedores con separación mínima garantizada de 0.5rem (8px-10px) entre H3 y párrafo */
-    .header-stack,
-    .step-text-group {
-      display: flex !important;
-      flex-direction: column !important;
-      gap: 0.6rem !important;
-    }
-
-    /* Tablas Excel con margin-top: 0.5rem */
-    .excel-wrap {
-      margin-top: 0.5rem !important;
-      background-color: var(--bg-table);
-      border: 1px solid var(--border-table);
-      border-radius: 0.75rem;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
-    }
-
-    .excel-grid {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-
-    .excel-grid th,
-    .excel-grid td {
-      border: 1px solid var(--border-table);
-      padding: 9px 11px;
-    }
-
-    .excel-row-even { background-color: var(--bg-table); }
-    .excel-row-odd { background-color: var(--bg-table-alt); }
-    .excel-row-alert { background-color: var(--row-alert-bg); }
-    .excel-text-alert { color: var(--row-alert-text); font-weight: 700; }
-    .excel-text-ok { color: var(--row-ok-text); font-weight: 700; }
-    .excel-row-warn { background-color: var(--row-warn-bg); }
-    .excel-text-warn { color: var(--row-warn-text); font-weight: 700; }
-
-    /* Pills iniciales con width: fit-content */
-    .pill-blue {
-      width: fit-content;
-      background-color: var(--badge-blue-bg);
-      color: var(--badge-blue-text);
-      border: 1px solid rgba(59, 130, 246, 0.35);
-    }
-
-    .pill-emerald {
-      width: fit-content;
-      background-color: var(--badge-emerald-bg);
-      color: var(--badge-emerald-text);
-      border: 1px solid rgba(16, 185, 129, 0.35);
-    }
-
-    /* Botón de descarga de Excel con padding 0.5rem y el mismo font-size de p (1rem) */
-    .btn-excel {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.5rem 0.85rem;
-      font-size: 1rem;
-      line-height: 1.5;
-      font-weight: 700;
-      border-radius: 0.5rem;
-      background-color: #047857;
-      color: #ffffff;
-      width: fit-content;
-      white-space: nowrap;
-      transition: background-color 0.2s ease;
-    }
-
-    .btn-excel:hover {
-      background-color: #065f46;
-    }
+    
+    /* Scrollbar minimalista */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-thumb { background: rgba(150, 150, 150, 0.35); border-radius: 3px; }
+    .dark ::-webkit-scrollbar-thumb { background: rgba(160, 160, 175, 0.3); }
   </style>
-</head>
-<body data-theme="slate-pearl" class="antialiased pb-16">
 
-  <!-- BARRA SUPERIOR FIJA -->
-  <nav class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-md border-b border-slate-700 text-slate-100 px-4 py-3 shadow-lg">
-    <div class="max-w-6xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3">
+  <script>
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+</head>
+
+<body class="bg-[#fafaf9] text-stone-800 dark:bg-[#0e0f12] dark:text-zinc-200 font-sans antialiased selection:bg-stone-300 dark:selection:bg-zinc-800 transition-colors duration-200 min-h-screen">
+
+  <!-- =================================================================== -->
+  <!-- BARRA SUPERIOR SOBRIA Y LIMPIA                                     -->
+  <!-- =================================================================== -->
+  <header class="sticky top-0 z-30 bg-[#fafaf9]/95 dark:bg-[#0e0f12]/95 backdrop-blur-md border-b border-stone-200 dark:border-zinc-800 transition-colors duration-200">
+    <div class="max-w-4xl mx-auto px-5 sm:px-8 h-14 flex items-center justify-between text-xs sm:text-sm">
+      
       <div class="flex items-center gap-2.5">
-        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-        <span class="font-bold text-sm tracking-tight">Allan Ruiz Arenas</span>
-        <span class="text-xs text-slate-400 hidden sm:inline">• Ingeniero Industrial (INACAP)</span>
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 dark:bg-emerald-400"></span>
+        <span class="font-bold text-stone-900 dark:text-white tracking-tight">Allan Ruiz Arenas</span>
+        <span class="text-stone-400 dark:text-zinc-400 hidden sm:inline">• Datos · Cloud · Logística</span>
       </div>
 
-      <div class="flex flex-wrap items-center gap-2 text-xs">
-        <a href="#caso-bigpen" class="px-3 py-1.5 rounded-lg font-semibold bg-blue-500/20 text-blue-300 border border-blue-400/30 hover:bg-blue-500/30 transition">
-          1. Caso Librerías BigPEN
+      <div class="flex items-center gap-4 sm:gap-6">
+        <a href="#caso-bigpen" class="text-stone-600 dark:text-zinc-300 hover:text-stone-900 dark:hover:text-white transition font-medium hidden md:inline text-xs">
+          1. BigPEN POS
         </a>
-        <a href="#caso-ambientes" class="px-3 py-1.5 rounded-lg font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 hover:bg-emerald-500/30 transition">
-          2. Caso Ambientes Limpios S.A.
+        <a href="#caso-ambientes" class="text-stone-600 dark:text-zinc-300 hover:text-stone-900 dark:hover:text-white transition font-medium hidden md:inline text-xs">
+          2. Ambientes Limpios
         </a>
+
+        <div class="h-3 w-px bg-stone-300 dark:bg-zinc-700 hidden md:block"></div>
+
+        <!-- Botón de cambio de tema -->
+        <button id="theme-toggle" type="button" aria-label="Cambiar tema" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-stone-300 dark:border-zinc-700 hover:bg-stone-200/60 dark:hover:bg-zinc-800 text-stone-700 dark:text-zinc-200 transition text-xs font-mono">
+          <svg id="theme-icon-sun" class="w-3.5 h-3.5 hidden dark:inline text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          <svg id="theme-icon-moon" class="w-3.5 h-3.5 dark:hidden text-stone-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+          <span id="theme-label" class="hidden sm:inline">Tema</span>
+        </button>
       </div>
     </div>
-  </nav>
+  </header>
 
-  <main class="max-w-6xl mx-auto px-4 md:px-8 pt-7 space-y-10">
+  <!-- =================================================================== -->
+  <!-- CONTENIDO PRINCIPAL: FORMATO EDITORIAL Y AMIGABLE                   -->
+  <!-- =================================================================== -->
+  <main class="max-w-4xl mx-auto px-5 sm:px-8 py-12 md:py-16 space-y-20">
 
-    <!-- ENCABEZADO PRINCIPAL (con gap: 0.5rem entre pill, título y párrafo) -->
-    <header class="surface-card rounded-2xl p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
-      <div class="header-stack max-w-3xl">
-        <div class="px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider pill-blue">
-          Portafolio de Allan Ruiz Arenas
-        </div>
-        <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight">Proyectos Realizados en Datos, Inventarios y Procesos</h1>
-        <p class="text-sec">
-          Aquí muestro paso a paso el trabajo realizado en <strong>Librerías BigPEN</strong> y en <strong>Ambientes Limpios S.A.</strong> Este trabajo abarca desde las fórmulas de Excel hasta los reportes visuales tipo <strong>Power BI</strong> para la jefatura. Se trabajó en columnas para generar un orden lógico respecto a las planillas existentes.
-        </p>
-      </div>
-      <div class="grid grid-cols-2 gap-3 shrink-0 text-center text-xs">
-        <div class="surface-subcard p-3.5 rounded-xl">
-          <div class="text-xl font-extrabold" style="color: var(--badge-blue-text);">800+ SKU</div>
-          <div class="text-xs text-mut font-medium mt-1">Migrados a Bsale POS</div>
-        </div>
-        <div class="surface-subcard p-3.5 rounded-xl">
-          <div class="text-xl font-extrabold" style="color: var(--badge-emerald-text);">1.600+ Fotos</div>
-          <div class="text-xs text-mut font-medium mt-1">Vinculadas por SKU</div>
-        </div>
-      </div>
-    </header>
-
-
-    <!-- =================================================================== -->
-    <!-- PROYECTO 1: LIBRERÍAS BIGPEN                                        -->
-    <!-- =================================================================== -->
-    <section id="caso-bigpen" class="scroll-mt-20 surface-card rounded-2xl p-6 md:p-8 space-y-8">
+    <!-- INTRODUCCIÓN EDITORIAL / HERO -->
+    <section class="space-y-6">
       
-      <!-- Encabezado del Caso 1: Pill arriba, herramientas debajo, botón Descargar Excel a la derecha -->
-      <div class="border-b pb-5 header-stack" style="border-color: var(--border-main);">
-        <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-          <div class="header-stack">
-            <span class="px-3 py-1 rounded-md text-xs font-bold pill-blue">
-              PROYECTO 1 • LIBRERÍAS BIGPEN (Nov. 2025 – Mar. 2026)
-            </span>
-            <span class="text-sm font-mono text-mut font-medium">
-              Excel (BUSCARX, Power Query) • Sistema POS Bsale • Gemini Pro &amp; Claude
-            </span>
-          </div>
-          <a href="./01_bigpen_etl_bsale_pos/Caso01_BigPEN_Pipeline_ETL_Bsale_POS.xlsx" download class="btn-excel shadow-sm">
-            📥 Descargar Excel
-          </a>
-        </div>
+      <div class="space-y-2">
+        <p class="text-xs font-mono font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+          Portafolio • Santiago de Chile
+        </p>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-stone-950 dark:text-white leading-[1.15]">
+          Análisis de Datos, Cloud y Logística
+        </h1>
+      </div>
 
-        <h2 class="text-xl md:text-2xl font-extrabold pt-1">Limpieza de Catálogo, Descripciones Web y Migración al Sistema POS Bsale</h2>
-        <p class="text-sec">
-          <strong>Con qué me encontré:</strong> Más de 1.200 productos repartidos en planillas informales que me enviaban por WhatsApp. Había duplicados, celdas vacías, títulos mal escritos, productos sin descripción web ni fotos, y códigos SKU que no correspondían al producto real.
+      <div class="prose-custom text-base sm:text-lg text-stone-700 dark:text-zinc-200 leading-relaxed max-w-3xl">
+        <p>
+          Hola, soy <strong>Allan Ruiz</strong>, Ingeniero Industrial de INACAP. Me enfoco en análisis de datos, administración cloud (AWS) y control logístico. Armé este espacio para mostrar de forma práctica cómo ordeno bases de datos, cuadro operaciones de transporte y automatizo procesos con Excel, ERP y la nube.
+        </p>
+        <p class="text-sm sm:text-base text-stone-600 dark:text-zinc-300">
+          Abajo puedes revisar el paso a paso de cada caso, las fórmulas aplicadas y descargar las planillas originales.
         </p>
       </div>
 
-      <!-- LÍNEA DE TIEMPO PASO A PASO -->
-      <div class="space-y-8 relative before:absolute before:left-3.5 before:top-4 before:bottom-4 before:w-0.5 before:bg-blue-500/40 pl-9">
-
-        <!-- PASO 1: TABLA DE CRUCE BUSCARX -->
-        <div class="relative space-y-2">
-          <div class="absolute -left-9 top-0.5 w-7 h-7 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center shadow-md">1</div>
-          <div class="step-text-group" style="display:flex; flex-direction:column; gap:0.6rem;">
-            <h3 class="text-lg font-bold">Paso 1: Verificar las SKU y consultar al cliente cuando algo no correspondía</h3>
-            <p class="text-sec">Busqué los códigos apoyándome en Gemini Pro y Claude, los crucé con <code class="font-mono font-semibold">BUSCARX</code> y supervisé cada caso. Cuando el SKU original estaba malo (5 casos), le preguntaba por WhatsApp al cliente para corregirlo antes de importar.</p>
-          </div>
-
-          <!-- Tabla Excel 1.1 -->
-          <div class="excel-wrap">
-            <div class="bg-slate-900 text-slate-200 px-3.5 py-2 flex flex-wrap items-center gap-2 text-xs font-mono">
-              <span class="px-2 py-0.5 rounded bg-blue-500/30 text-blue-300 font-bold">fx</span>
-              <span class="text-slate-400">Fórmula en Columna D:</span>
-              <code class="text-emerald-300">=SI(B2=C2; "✅ SKU Correcto"; "⚠️ Consultar por WSP al cliente")</code>
-            </div>
-            <div class="overflow-x-auto">
-              <table class="excel-grid">
-                <thead>
-                  <tr class="bg-slate-800 text-slate-200 font-mono text-xs text-left">
-                    <th class="w-9 text-center">#</th>
-                    <th>A · Nombre en Planilla Original</th>
-                    <th>B · SKU Cliente</th>
-                    <th>C · SKU Verificado (IA + BUSCARX)</th>
-                    <th>D · Estado de Validación</th>
-                    <th>E · Acción / Acuerdo por WhatsApp</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="excel-row-even">
-                    <td class="text-center font-mono text-mut">2</td>
-                    <td class="font-mono text-sec">lapiz grafito hb n2 faber</td>
-                    <td class="font-mono">7806500112014</td>
-                    <td class="font-mono">7806500112014</td>
-                    <td class="excel-text-ok">✅ SKU Correcto</td>
-                    <td class="text-sec">Pasa directo a corrección de título y descripción</td>
-                  </tr>
-                  <tr class="excel-row-alert">
-                    <td class="text-center font-mono text-mut">3</td>
-                    <td class="font-semibold">marcador sharpie negro p. fina</td>
-                    <td class="font-mono line-through excel-text-alert">4005401125006</td>
-                    <td class="font-mono excel-text-ok">071641300019</td>
-                    <td class="excel-text-alert">⚠️ Error #1: SKU era de otro artículo</td>
-                    <td class="font-semibold">Consulté por WSP → Cliente confirma cambiar SKU</td>
-                  </tr>
-                  <tr class="excel-row-alert">
-                    <td class="text-center font-mono text-mut">4</td>
-                    <td class="font-semibold">destacador stabilo pastel amarillo</td>
-                    <td class="font-mono line-through excel-text-alert">8901180512099</td>
-                    <td class="font-mono excel-text-ok">4006381492447</td>
-                    <td class="excel-text-alert">⚠️ Error #2: SKU mal asignado</td>
-                    <td class="font-semibold">Consulté por WSP → Cliente confirma cambiar SKU</td>
-                  </tr>
-                  <tr class="excel-row-alert">
-                    <td class="text-center font-mono text-mut">5</td>
-                    <td class="font-semibold">corrector bic shake squeeze 8ml</td>
-                    <td class="font-mono line-through excel-text-alert">3086123499110</td>
-                    <td class="font-mono excel-text-ok">070330505926</td>
-                    <td class="excel-text-alert">⚠️ Error #3: SKU era de un bolígrafo</td>
-                    <td class="font-semibold">Consulté por WSP → Cliente confirma cambiar SKU</td>
-                  </tr>
-                  <tr class="excel-row-alert">
-                    <td class="text-center font-mono text-mut">6</td>
-                    <td class="font-semibold">boligrafo pilot g2 gel 0.7 azul</td>
-                    <td class="font-mono line-through excel-text-alert">4902505110044</td>
-                    <td class="font-mono excel-text-ok">4902505163118</td>
-                    <td class="excel-text-alert">⚠️ Error #4: Dígito mal escrito</td>
-                    <td class="font-semibold">Consulté por WSP → Cliente confirma cambiar SKU</td>
-                  </tr>
-                  <tr class="excel-row-alert">
-                    <td class="text-center font-mono text-mut">7</td>
-                    <td class="font-semibold">notas post-it 3m 76x76 amarillo</td>
-                    <td class="font-mono line-through excel-text-alert">6921734900118</td>
-                    <td class="font-mono excel-text-ok">021200503351</td>
-                    <td class="excel-text-alert">⚠️ Error #5: SKU genérico equivocado</td>
-                    <td class="font-semibold">Consulté por WSP → Cliente confirma cambiar SKU</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+      <!-- Resumen sobrio de métricas con excelente contraste -->
+      <div class="pt-4 border-y border-stone-200 dark:border-zinc-800 py-6 grid grid-cols-2 sm:grid-cols-4 gap-6 text-stone-900 dark:text-white">
+        <div>
+          <div class="text-2xl sm:text-3xl font-extrabold font-mono tabular-nums text-stone-950 dark:text-white">800+</div>
+          <div class="text-xs font-medium text-stone-500 dark:text-zinc-400 mt-1">SKUs cargados a POS</div>
         </div>
-
-        <!-- PASO 2: PLANILLA EXCEL CON TÍTULOS Y DESCRIPCIONES WEB -->
-        <div class="relative space-y-2">
-          <div class="absolute -left-9 top-0.5 w-7 h-7 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center shadow-md">2</div>
-          <div class="step-text-group" style="display:flex; flex-direction:column; gap:0.6rem;">
-            <h3 class="text-lg font-bold">Paso 2: Armar la planilla de importación de Bsale con títulos corregidos y descripciones web</h3>
-            <p class="text-sec">Con cada SKU ya validado y cruzado, corregí los títulos y redacté <strong>descripciones web completas</strong> en el formato Excel (<code class="font-mono">.xlsx</code>) que pide Bsale para importar datos masivos.</p>
-          </div>
-
-          <div class="excel-wrap">
-            <div class="bg-emerald-900 text-emerald-100 px-3.5 py-2 flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
-              <span>📄 Plantilla Oficial: <strong>Matriz_Importacion_Bsale_POS.xlsx</strong> (800+ productos listos)</span>
-              <span class="text-emerald-300">Ritmo sostenido: 100 productos / hora</span>
-            </div>
-            <div class="overflow-x-auto">
-              <table class="excel-grid">
-                <thead>
-                  <tr class="bg-emerald-950 text-emerald-100 font-mono text-xs text-left">
-                    <th>A · SKU Validado</th>
-                    <th>B · Título Corregido para Bsale</th>
-                    <th>C · Descripción Web Completa Añadida</th>
-                    <th>D · Categoría</th>
-                    <th class="text-right">E · Precio Venta</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="excel-row-even">
-                    <td class="font-mono font-bold excel-text-ok">7806500112014</td>
-                    <td class="font-bold">Lápiz Grafito HB N°2 Faber-Castell Hexagonal</td>
-                    <td class="text-sec">Lápiz grafito graduación HB N°2 ideal para escritura escolar y técnica. Mina resistente al quiebre y cuerpo ergonómico de madera reforestada.</td>
-                    <td>Escritura</td>
-                    <td class="text-right font-mono font-bold">$450</td>
-                  </tr>
-                  <tr class="excel-row-odd">
-                    <td class="font-mono font-bold excel-text-ok">071641300019</td>
-                    <td class="font-bold">Marcador Permanente Sharpie Punta Fina Negro</td>
-                    <td class="text-sec">Marcador permanente de secado rápido resistente al agua y a la decoloración. Punta fina de alta precisión apta para papel, plástico, metal y vidrio.</td>
-                    <td>Marcadores</td>
-                    <td class="text-right font-mono font-bold">$1.290</td>
-                  </tr>
-                  <tr class="excel-row-even">
-                    <td class="font-mono font-bold excel-text-ok">4006381492447</td>
-                    <td class="font-bold">Destacador Stabilo Boss Original Pastel Amarillo</td>
-                    <td class="text-sec">Destacador tono pastel suave con tecnología antisecado hasta por 4 horas destapado. Doble ancho de trazo (2mm y 5mm) con tinta a base de agua.</td>
-                    <td>Destacadores</td>
-                    <td class="text-right font-mono font-bold">$1.690</td>
-                  </tr>
-                  <tr class="excel-row-odd">
-                    <td class="font-mono font-bold excel-text-ok">4902505163118</td>
-                    <td class="font-bold">Bolígrafo Pilot G-2 Gel Retráctil 0.7mm Azul</td>
-                    <td class="text-sec">Bolígrafo tinta gel de escritura ultra fluida y secado rápido. Grip de caucho antideslizante para uso prolongado y punta de tungsteno de 0.7mm.</td>
-                    <td>Escritura</td>
-                    <td class="text-right font-mono font-bold">$1.990</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+        <div>
+          <div class="text-2xl sm:text-3xl font-extrabold font-mono tabular-nums text-stone-950 dark:text-white">1.600+</div>
+          <div class="text-xs font-medium text-stone-500 dark:text-zinc-400 mt-1">Fotos vinculadas</div>
         </div>
-
-        <!-- PASO 3: CARPETA SEPARADA DE IMÁGENES -->
-        <div class="relative space-y-2">
-          <div class="absolute -left-9 top-0.5 w-7 h-7 rounded-full bg-indigo-600 text-white text-xs font-bold flex items-center justify-center shadow-md">3</div>
-          <div class="surface-subcard rounded-xl p-5 step-text-group" style="display:flex; flex-direction:column; gap:0.6rem;">
-            <div class="flex flex-wrap items-center justify-between gap-2">
-              <h3 class="text-lg font-bold">Paso 3: Carpeta de imágenes aparte (<code class="font-mono">SKU_1</code>, <code class="font-mono">SKU_2</code>... hasta <code class="font-mono">SKU_8</code>)</h3>
-              <span class="px-2.5 py-0.5 rounded text-xs font-bold pill-blue">Las fotos NO van dentro de la tabla Excel</span>
-            </div>
-            <p class="text-sec">
-              En Bsale las imágenes se suben en una carpeta separada y el sistema las asocia automáticamente si el archivo lleva el código SKU más un guion bajo (<code class="font-mono font-semibold">SKU_1.jpg</code>, <code class="font-mono font-semibold">SKU_2.jpg</code>, hasta máximo <code class="font-mono font-semibold">SKU_8.jpg</code>). Con apoyo de IA busqué las fotos de cada artículo y descargué <strong>mínimo 2 fotos por producto (más de 1.600 imágenes en total)</strong>.
-            </p>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2 font-mono text-xs">
-              <div class="p-2.5 rounded-lg bg-slate-900 text-slate-200 border border-slate-700">
-                <div class="text-emerald-400 font-bold">🖼️ 071641300019_1.jpg</div>
-                <div class="text-slate-400 mt-0.5">Sharpie (Foto 1)</div>
-              </div>
-              <div class="p-2.5 rounded-lg bg-slate-900 text-slate-200 border border-slate-700">
-                <div class="text-emerald-400 font-bold">🖼️ 071641300019_2.jpg</div>
-                <div class="text-slate-400 mt-0.5">Sharpie (Foto 2)</div>
-              </div>
-              <div class="p-2.5 rounded-lg bg-slate-900 text-slate-200 border border-slate-700">
-                <div class="text-emerald-400 font-bold">🖼️ 4006381492447_1.jpg</div>
-                <div class="text-slate-400 mt-0.5">Stabilo (Foto 1)</div>
-              </div>
-              <div class="p-2.5 rounded-lg bg-slate-900 text-slate-200 border border-slate-700">
-                <div class="text-emerald-400 font-bold">🖼️ 4006381492447_2.jpg</div>
-                <div class="text-slate-400 mt-0.5">Stabilo (Foto 2)</div>
-              </div>
-            </div>
-          </div>
+        <div>
+          <div class="text-2xl sm:text-3xl font-extrabold font-mono tabular-nums text-emerald-700 dark:text-emerald-400">98,5%</div>
+          <div class="text-xs font-medium text-stone-500 dark:text-zinc-400 mt-1">Exactitud bodega (ERI)</div>
         </div>
-
-        <!-- PASO 4: DASHBOARD POWER BI DEL PROYECTO 1 -->
-        <div class="relative space-y-2">
-          <div class="absolute -left-9 top-0.5 w-7 h-7 rounded-full bg-amber-500 text-slate-950 text-xs font-extrabold flex items-center justify-center shadow-md">4</div>
-          <div class="rounded-xl bg-slate-900 border border-slate-700 p-5 text-slate-100 space-y-5 shadow-lg">
-            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
-              <div class="flex items-center gap-2">
-                <span class="px-2 py-0.5 rounded bg-amber-400 text-slate-950 font-extrabold text-xs">POWER BI</span>
-                <span class="font-bold text-base">Dashboard Analítico • Rentabilidad de Catálogo, Stock y Calidad de Datos</span>
-              </div>
-              <span class="text-xs text-slate-400 font-mono">Modelo conectado a Matriz_Importacion_Bsale_POS.xlsx</span>
-            </div>
-
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-              <div class="bg-slate-950/90 border border-slate-800 p-3.5 rounded-lg">
-                <div class="text-slate-400">Tasa de Depuración (Ruido)</div>
-                <div class="text-2xl font-extrabold text-amber-400 mt-1">33,3%</div>
-                <div class="text-slate-400 mt-1">405 filas basura/duplicadas eliminadas de 1.215</div>
-              </div>
-              <div class="bg-slate-950/90 border border-slate-800 p-3.5 rounded-lg">
-                <div class="text-slate-400">Margen Bruto Promedio</div>
-                <div class="text-2xl font-extrabold text-emerald-400 mt-1">44,8%</div>
-                <div class="text-slate-400 mt-1">Ponderado Costo Neto vs. Precio Bsale</div>
-              </div>
-              <div class="bg-slate-950/90 border border-slate-800 p-3.5 rounded-lg">
-                <div class="text-slate-400">Valorización de Inventario</div>
-                <div class="text-2xl font-extrabold text-white mt-1">$14,85 M</div>
-                <div class="text-emerald-400 mt-1">✔ Stock cuadrado en 810 SKU activos</div>
-              </div>
-              <div class="bg-slate-950/90 border border-slate-800 p-3.5 rounded-lg">
-                <div class="text-slate-400">Alerta Punto de Reorden</div>
-                <div class="text-2xl font-extrabold text-rose-400 mt-1">6,2% (50 SKU)</div>
-                <div class="text-slate-400 mt-1">Artículos bajo stock crítico detectados</div>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1 text-xs">
-              <div class="bg-slate-950/75 border border-slate-800 rounded-lg p-4 space-y-3">
-                <div class="flex items-center justify-between">
-                  <span class="font-bold text-slate-200 text-sm">📊 Margen Bruto y Peso de Stock por Categoría</span>
-                  <span class="text-slate-400 font-mono">810 SKU</span>
-                </div>
-                <div class="space-y-2.5">
-                  <div>
-                    <div class="flex justify-between mb-1">
-                      <span class="text-slate-300">Escritura y Lápices Técnicos (308 SKU)</span>
-                      <span class="font-mono text-emerald-400 font-bold">Margen 48,2% • 38% stock</span>
-                    </div>
-                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                      <div class="bg-blue-500 h-full rounded-full" style="width: 38%"></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="flex justify-between mb-1">
-                      <span class="text-slate-300">Cuadernos y Papelería Escolar (235 SKU)</span>
-                      <span class="font-mono text-emerald-400 font-bold">Margen 39,5% • 29% stock</span>
-                    </div>
-                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                      <div class="bg-emerald-500 h-full rounded-full" style="width: 29%"></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="flex justify-between mb-1">
-                      <span class="text-slate-300">Marcadores, Destacadores y Arte (170 SKU)</span>
-                      <span class="font-mono text-emerald-400 font-bold">Margen 46,0% • 21% stock</span>
-                    </div>
-                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                      <div class="bg-amber-400 h-full rounded-full" style="width: 21%"></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="flex justify-between mb-1">
-                      <span class="text-slate-300">Insumos de Oficina y Adhesivos (97 SKU)</span>
-                      <span class="font-mono text-emerald-400 font-bold">Margen 44,1% • 12% stock</span>
-                    </div>
-                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                      <div class="bg-indigo-400 h-full rounded-full" style="width: 12%"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="bg-slate-950/75 border border-slate-800 rounded-lg p-4 space-y-3">
-                <div class="flex items-center justify-between">
-                  <span class="font-bold text-slate-200 text-sm">🔍 Auditoría de Calidad sobre las 1.215 Filas Iniciales</span>
-                  <span class="text-slate-400 font-mono">Power Query ETL</span>
-                </div>
-                <div class="space-y-2.5">
-                  <div>
-                    <div class="flex justify-between mb-1">
-                      <span class="text-slate-300">✅ SKUs Únicos Validados y Migrados a Bsale</span>
-                      <span class="font-mono text-emerald-400 font-bold">810 filas (66,7%)</span>
-                    </div>
-                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                      <div class="bg-emerald-500 h-full rounded-full" style="width: 66.7%"></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="flex justify-between mb-1">
-                      <span class="text-slate-300">🗑️ Registros Duplicados en Planillas WhatsApp</span>
-                      <span class="font-mono text-amber-400 font-bold">298 filas (24,5%)</span>
-                    </div>
-                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                      <div class="bg-amber-400 h-full rounded-full" style="width: 24.5%"></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="flex justify-between mb-1">
-                      <span class="text-slate-300">⚪ Filas en Blanco / Sin Stock Histórico</span>
-                      <span class="font-mono text-slate-400 font-bold">102 filas (8,4%)</span>
-                    </div>
-                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                      <div class="bg-slate-500 h-full rounded-full" style="width: 8.4%"></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="flex justify-between mb-1">
-                      <span class="text-slate-300">⚠️ SKUs Cruzados Corregidos con el Cliente</span>
-                      <span class="font-mono text-rose-400 font-bold">5 casos críticos (0,4%)</span>
-                    </div>
-                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                      <div class="bg-rose-500 h-full rounded-full" style="width: 6%"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div>
+          <div class="text-2xl sm:text-3xl font-extrabold font-mono tabular-nums text-stone-950 dark:text-white">$2,25M</div>
+          <div class="text-xs font-medium text-stone-500 dark:text-zinc-400 mt-1">Fletes auditados / mes</div>
         </div>
-
       </div>
+
+      <!-- PLANILLAS Y ARCHIVOS DESCARGABLES (DISTRIBUCIÓN LIMPIA EN BOTONES) -->
+      <div class="pt-2 space-y-2.5">
+        <span class="text-xs font-mono text-stone-500 dark:text-zinc-400 block font-medium">
+          Archivos y planillas de respaldo descargables:
+        </span>
+        <div class="flex flex-wrap items-center gap-2.5">
+          
+          <a href="./01_bigpen_etl_bsale_pos/Caso01_BigPEN_Pipeline_ETL_Bsale_POS.xlsx" download class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-stone-300 dark:border-zinc-700 bg-white dark:bg-zinc-800/80 text-stone-800 dark:text-zinc-200 text-xs font-mono font-semibold hover:border-emerald-600 dark:hover:border-emerald-500 hover:text-emerald-700 dark:hover:text-emerald-400 transition shadow-sm">
+            <svg class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            <span>Caso01_BigPEN.xlsx</span>
+          </a>
+
+          <a href="./02_ambientes_limpios_procesos_erp/Caso02_AmbientesLimpios_Procesos_y_ERP.xlsx" download class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-stone-300 dark:border-zinc-700 bg-white dark:bg-zinc-800/80 text-stone-800 dark:text-zinc-200 text-xs font-mono font-semibold hover:border-emerald-600 dark:hover:border-emerald-500 hover:text-emerald-700 dark:hover:text-emerald-400 transition shadow-sm">
+            <svg class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            <span>Caso02_AmbientesLimpios.xlsx</span>
+          </a>
+
+          <a href="./01_bigpen_etl_bsale_pos/validacion_y_kpis_bigpen.sql" target="_blank" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-stone-300 dark:border-zinc-700 bg-white dark:bg-zinc-800/80 text-stone-800 dark:text-zinc-200 text-xs font-mono font-semibold hover:border-blue-600 dark:hover:border-blue-500 hover:text-blue-700 dark:hover:text-blue-400 transition shadow-sm">
+            <svg class="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+            <span>Scripts_Validacion.sql</span>
+          </a>
+
+        </div>
+      </div>
+
     </section>
 
 
-    <!-- =================================================================== -->
-    <!-- PROYECTO 2: AMBIENTES LIMPIOS S.A.                                  -->
-    <!-- =================================================================== -->
-    <section id="caso-ambientes" class="scroll-mt-20 surface-card rounded-2xl p-6 md:p-8 space-y-8">
-      
-      <!-- Encabezado del Caso 2: Pill arriba, herramientas debajo, botón Descargar Excel a la derecha -->
-      <div class="border-b pb-5 header-stack" style="border-color: var(--border-main);">
-        <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-          <div class="header-stack">
-            <span class="px-3 py-1 rounded-md text-xs font-bold pill-emerald">
-              PROYECTO 2 • AMBIENTES LIMPIOS S.A. (Oct. 2024 – Ene. 2025)
-            </span>
-            <span class="text-sm font-mono text-mut font-medium">
-              Excel Condicional • Control Horario • Cuadratura Impresa • ERP &amp; BPM
-            </span>
-          </div>
-          <a href="./02_ambientes_limpios_procesos_erp/Caso02_AmbientesLimpios_Procesos_y_ERP.xlsx" download class="btn-excel shadow-sm">
-            📥 Descargar Excel
-          </a>
-        </div>
 
-        <h2 class="text-xl md:text-2xl font-extrabold pt-1">Control Horario de Camiones (1 o 2 Vueltas), Cuadratura para Firma de Pagos y Auditoría ERP</h2>
-        <p class="text-sec">
-          <strong>Con qué me encontré:</strong> Los pagos por vuelta de camión se anotaban en papeles sueltos sin consolidar la hora real de salida y regreso (los camiones hacían <strong>máximo 1 o 2 vueltas al día</strong>). Para que el jefe pudiera firmar y liberar los pagos, había que cuadrar la planilla Excel con los registros impresos. Además, existían diferencias entre el stock físico de bodega y el ERP corporativo.
+
+    <!-- =================================================================== -->
+    <!-- CASO 1: LIBRERÍAS BIGPEN                                            -->
+    <!-- =================================================================== -->
+    <article id="caso-bigpen" class="pt-8 border-t border-stone-200 dark:border-zinc-800 space-y-8">
+      
+      <!-- Encabezado del Caso -->
+      <div class="space-y-2">
+        <div class="flex items-center gap-2 text-xs font-mono text-stone-500 dark:text-zinc-400">
+          <span class="font-bold text-stone-800 dark:text-zinc-200">01 / CASO PRÁCTICO</span>
+          <span>•</span>
+          <span>NOVIEMBRE 2025 – MARZO 2026</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-950 dark:text-white">
+          Limpieza de Catálogo, Descripciones Técnicas y Migración al Sistema POS Bsale
+        </h2>
+        <p class="text-xs font-mono text-stone-600 dark:text-zinc-400">
+          Librerías BigPEN • Excel Avanzado (BUSCARX, Power Query), Sistema POS Bsale, Claude y Gemini
         </p>
       </div>
 
-      <!-- LÍNEA DE TIEMPO PASO A PASO -->
-      <div class="space-y-8 relative before:absolute before:left-3.5 before:top-4 before:bottom-4 before:w-0.5 before:bg-emerald-500/40 pl-9">
-
-        <!-- PASO 1: TABLA DE HORAS DE SALIDA/VUELTA Y PAGOS -->
-        <div class="relative space-y-2">
-          <div class="absolute -left-9 top-0.5 w-7 h-7 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center shadow-md">1</div>
-          <div class="step-text-group" style="display:flex; flex-direction:column; gap:0.6rem;">
-            <h3 class="text-lg font-bold">Paso 1: Registro de hora exacta de salida/regreso y cálculo automático ($25.000 o $55.000)</h3>
-            <p class="text-sec">
-              Si el camión hacía <strong>1 vuelta</strong> (regreso entre <strong>12:00 y 14:00 hrs</strong>), el pago era <strong>$25.000</strong>. Si hacía <strong>2 vueltas</strong> (regreso final entre <strong>16:00 y 17:00 hrs</strong>), el pago subía a <strong>$55.000</strong>. Todo debía cuadrar con la hoja impresa para la firma del jefe.
-            </p>
-          </div>
-
-          <div class="excel-wrap">
-            <div class="bg-slate-900 text-slate-200 px-3.5 py-2 flex flex-wrap items-center gap-2 text-xs font-mono">
-              <span class="px-2 py-0.5 rounded bg-emerald-500/30 text-emerald-300 font-bold">fx</span>
-              <span class="text-slate-400">Fórmula en Columna H:</span>
-              <code class="text-amber-300">=SI(G2=1; 25000; SI(G2=2; 55000; 0))</code>
-            </div>
-            <div class="overflow-x-auto">
-              <table class="excel-grid">
-                <thead>
-                  <tr class="bg-slate-800 text-slate-200 font-mono text-xs text-left">
-                    <th class="w-8 text-center">#</th>
-                    <th>A · Fecha</th>
-                    <th>B · Camión / Chofer</th>
-                    <th>C · Salida 1</th>
-                    <th>D · Vuelta 1 (12:00–14:00)</th>
-                    <th>E · Salida 2</th>
-                    <th>F · Vuelta 2 (16:00–17:00)</th>
-                    <th class="text-center">G · Vueltas</th>
-                    <th class="text-right">H · Pago Día</th>
-                    <th>I · Cuadratura Impresa y Firma Jefe</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="excel-row-warn">
-                    <td class="text-center font-mono text-mut">2</td>
-                    <td class="font-mono">04-11-2024</td>
-                    <td class="font-bold">Camión 01 (CJ-RW-42) • J. Morales</td>
-                    <td class="font-mono">08:15</td>
-                    <td class="font-mono excel-text-ok">12:40</td>
-                    <td class="font-mono">13:30</td>
-                    <td class="font-mono excel-text-warn">16:25</td>
-                    <td class="text-center font-mono font-extrabold">2</td>
-                    <td class="text-right font-mono excel-text-warn">$55.000</td>
-                    <td class="excel-text-ok">✅ Cuadrado con impreso • Firmado Jefe</td>
-                  </tr>
-                  <tr class="excel-row-even">
-                    <td class="text-center font-mono text-mut">3</td>
-                    <td class="font-mono">04-11-2024</td>
-                    <td class="font-bold">Camión 02 (LP-KT-19) • M. Soto</td>
-                    <td class="font-mono">08:30</td>
-                    <td class="font-mono excel-text-ok">13:15</td>
-                    <td class="font-mono text-center text-mut">—</td>
-                    <td class="font-mono text-center text-mut">—</td>
-                    <td class="text-center font-mono font-bold">1</td>
-                    <td class="text-right font-mono font-bold">$25.000</td>
-                    <td class="excel-text-ok">✅ Cuadrado con impreso • Firmado Jefe</td>
-                  </tr>
-                  <tr class="excel-row-warn">
-                    <td class="text-center font-mono text-mut">4</td>
-                    <td class="font-mono">04-11-2024</td>
-                    <td class="font-bold">Camión 03 (PF-BG-88) • R. Díaz</td>
-                    <td class="font-mono">08:05</td>
-                    <td class="font-mono excel-text-ok">12:20</td>
-                    <td class="font-mono">13:15</td>
-                    <td class="font-mono excel-text-warn">16:50</td>
-                    <td class="text-center font-mono font-extrabold">2</td>
-                    <td class="text-right font-mono excel-text-warn">$55.000</td>
-                    <td class="excel-text-ok">✅ Cuadrado con impreso • Firmado Jefe</td>
-                  </tr>
-                  <tr class="excel-row-odd">
-                    <td class="text-center font-mono text-mut">5</td>
-                    <td class="font-mono">05-11-2024</td>
-                    <td class="font-bold">Camión 01 (CJ-RW-42) • J. Morales</td>
-                    <td class="font-mono">08:20</td>
-                    <td class="font-mono excel-text-ok">13:45</td>
-                    <td class="font-mono text-center text-mut">—</td>
-                    <td class="font-mono text-center text-mut">—</td>
-                    <td class="text-center font-mono font-bold">1</td>
-                    <td class="text-right font-mono font-bold">$25.000</td>
-                    <td class="excel-text-ok">✅ Cuadrado con impreso • Firmado Jefe</td>
-                  </tr>
-                  <tr class="excel-row-warn">
-                    <td class="text-center font-mono text-mut">6</td>
-                    <td class="font-mono">05-11-2024</td>
-                    <td class="font-bold">Camión 02 (LP-KT-19) • M. Soto</td>
-                    <td class="font-mono">08:10</td>
-                    <td class="font-mono excel-text-ok">12:35</td>
-                    <td class="font-mono">13:25</td>
-                    <td class="font-mono excel-text-warn">16:40</td>
-                    <td class="text-center font-mono font-extrabold">2</td>
-                    <td class="text-right font-mono excel-text-warn">$55.000</td>
-                    <td class="excel-text-ok">✅ Cuadrado con impreso • Firmado Jefe</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- PASO 2: AUDITORÍA DE INVENTARIO ERP -->
-        <div class="relative space-y-2">
-          <div class="absolute -left-9 top-0.5 w-7 h-7 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center shadow-md">2</div>
-          <div class="step-text-group" style="display:flex; flex-direction:column; gap:0.6rem;">
-            <h3 class="text-lg font-bold">Paso 2: Conteos cíclicos en bodega y conciliación contra el ERP corporativo</h3>
-            <p class="text-sec">Crucé el stock del ERP con el conteo físico en terreno para detectar mermas o guías de recepción pendientes de digitar.</p>
-          </div>
-
-          <div class="excel-wrap">
-            <div class="overflow-x-auto">
-              <table class="excel-grid">
-                <thead>
-                  <tr class="bg-emerald-950 text-emerald-100 font-mono text-xs text-left">
-                    <th>A · Código ERP</th>
-                    <th>B · Insumo Operacional</th>
-                    <th class="text-right">C · Stock ERP</th>
-                    <th class="text-right">D · Conteo Físico</th>
-                    <th class="text-right">E · Diferencia (=D-C)</th>
-                    <th>F · Diagnóstico y Corrección</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="excel-row-even">
-                    <td class="font-mono font-bold">INS-AL-0104</td>
-                    <td>Detergente Industrial Alcalino Bidón 20L</td>
-                    <td class="text-right font-mono">145</td>
-                    <td class="text-right font-mono font-bold">145</td>
-                    <td class="text-right font-mono excel-text-ok">0</td>
-                    <td class="excel-text-ok">✅ Stock Cuadrado</td>
-                  </tr>
-                  <tr class="excel-row-alert">
-                    <td class="font-mono font-bold">INS-AL-0219</td>
-                    <td>Desinfectante Amonio Cuaternario 5L</td>
-                    <td class="text-right font-mono">210</td>
-                    <td class="text-right font-mono font-bold excel-text-alert">198</td>
-                    <td class="text-right font-mono excel-text-alert">-12</td>
-                    <td class="excel-text-alert">⚠️ Vale de salida sin digitar en ERP → Regularizado</td>
-                  </tr>
-                  <tr class="excel-row-odd">
-                    <td class="font-mono font-bold">INS-AL-0388</td>
-                    <td>Bolsas Basura Industrial 110x130cm</td>
-                    <td class="text-right font-mono">480</td>
-                    <td class="text-right font-mono font-bold">480</td>
-                    <td class="text-right font-mono excel-text-ok">0</td>
-                    <td class="excel-text-ok">✅ Stock Cuadrado</td>
-                  </tr>
-                  <tr class="excel-row-warn">
-                    <td class="font-mono font-bold">INS-AL-0412</td>
-                    <td>Guantes Nitrilo Alta Resistencia (Caja 100u)</td>
-                    <td class="text-right font-mono">85</td>
-                    <td class="text-right font-mono font-bold excel-text-warn">95</td>
-                    <td class="text-right font-mono excel-text-warn">+10</td>
-                    <td class="excel-text-warn">📌 Guía de recepción pendiente de ingreso → Ingresada</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- PASO 3: FLUJOGRAMA OPERATIVO DE BODEGA -->
-        <div class="relative space-y-2">
-          <div class="absolute -left-9 top-0.5 w-7 h-7 rounded-full bg-indigo-600 text-white text-xs font-bold flex items-center justify-center shadow-md">3</div>
-          <div class="surface-subcard rounded-xl p-5 step-text-group" style="display:flex; flex-direction:column; gap:0.6rem;">
-            <div class="flex flex-wrap items-center justify-between gap-2">
-              <h3 class="text-lg font-bold">Paso 3: Flujograma Operativo de Bodega (BPM) validado para auditorías internas</h3>
-              <span class="px-2.5 py-0.5 rounded text-xs font-bold pill-emerald">Felicitado por la Gerencia de Procesos</span>
-            </div>
-            <p class="text-sec">
-              A solicitud del Gerente del Área de Procesos, levanté en terreno y diseñé el flujograma completo de bodega para estandarizar las entradas, salidas y el control de camiones:
-            </p>
-            <div class="grid grid-cols-1 sm:grid-cols-5 gap-2.5 text-xs pt-2">
-              <div class="p-3 rounded-lg bg-slate-900 text-slate-100 border border-slate-700">
-                <div class="font-mono text-blue-400 font-bold">ETAPA 1</div>
-                <div class="font-bold text-sm mt-0.5">Recepción Física</div>
-                <div class="text-slate-400 mt-1">Revisión de guía de proveedor versus carga física.</div>
-              </div>
-              <div class="p-3 rounded-lg bg-slate-900 text-slate-100 border border-slate-700">
-                <div class="font-mono text-blue-400 font-bold">ETAPA 2</div>
-                <div class="font-bold text-sm mt-0.5">Ingreso a ERP</div>
-                <div class="text-slate-400 mt-1">Digitación inmediata de lotes y conteo cíclico.</div>
-              </div>
-              <div class="p-3 rounded-lg bg-slate-900 text-slate-100 border border-slate-700">
-                <div class="font-mono text-emerald-400 font-bold">ETAPA 3</div>
-                <div class="font-bold text-sm mt-0.5">Carga y Salida</div>
-                <div class="text-slate-400 mt-1">Registro de Hora Salida 1 (08:00 aprox.) y guía impresa.</div>
-              </div>
-              <div class="p-3 rounded-lg bg-slate-900 text-slate-100 border border-slate-700">
-                <div class="font-mono text-amber-400 font-bold">ETAPA 4</div>
-                <div class="font-bold text-sm mt-0.5">Control 1 o 2 Vueltas</div>
-                <div class="text-slate-400 mt-1">1ra vuelta (12:00–14:00) o 2da vuelta (16:00–17:00).</div>
-              </div>
-              <div class="p-3 rounded-lg bg-slate-900 text-slate-100 border border-slate-700">
-                <div class="font-mono text-emerald-400 font-bold">ETAPA 5</div>
-                <div class="font-bold text-sm mt-0.5">Cuadratura y Firma</div>
-                <div class="text-slate-400 mt-1">Cruce Excel vs hoja impresa para firma del jefe y pago.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- PASO 4: DASHBOARD POWER BI DEL PROYECTO 2 -->
-        <div class="relative space-y-2">
-          <div class="absolute -left-9 top-0.5 w-7 h-7 rounded-full bg-amber-500 text-slate-950 text-xs font-extrabold flex items-center justify-center shadow-md">4</div>
-          <div class="rounded-xl bg-slate-900 border border-slate-700 p-5 text-slate-100 space-y-5 shadow-lg">
-            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
-              <div class="flex items-center gap-2">
-                <span class="px-2 py-0.5 rounded bg-amber-400 text-slate-950 font-extrabold text-xs">POWER BI</span>
-                <span class="font-bold text-base">Dashboard Analítico • Costo Logístico por Viaje, Utilización de Flota y Exactitud ERP</span>
-              </div>
-              <span class="text-xs text-slate-400 font-mono">Modelo conectado a Control_Flota_y_Auditoria_ERP.xlsx</span>
-            </div>
-
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-              <div class="bg-slate-950/90 border border-slate-800 p-3.5 rounded-lg">
-                <div class="text-slate-400">Costo Promedio por Vuelta</div>
-                <div class="text-2xl font-extrabold text-amber-400 mt-1">$26.950</div>
-                <div class="text-slate-400 mt-1">Ponderado mensual (1v=$25k | 2v=$27,5k/u)</div>
-              </div>
-              <div class="bg-slate-950/90 border border-slate-800 p-3.5 rounded-lg">
-                <div class="text-slate-400">Mix Operativo (1v vs 2v)</div>
-                <div class="text-2xl font-extrabold text-blue-400 mt-1">58% / 42%</div>
-                <div class="text-slate-400 mt-1">58% jornadas de 1 vuelta • 42% de 2 vueltas</div>
-              </div>
-              <div class="bg-slate-950/90 border border-slate-800 p-3.5 rounded-lg">
-                <div class="text-slate-400">Cumplimiento Ventana Horaria</div>
-                <div class="text-2xl font-extrabold text-emerald-400 mt-1">94,2%</div>
-                <div class="text-slate-400 mt-1">Retornos dentro de 12–14h (1v) y 16–17h (2v)</div>
-              </div>
-              <div class="bg-slate-950/90 border border-slate-800 p-3.5 rounded-lg">
-                <div class="text-slate-400">Exactitud Inventario (ERI)</div>
-                <div class="text-2xl font-extrabold text-white mt-1">98,5%</div>
-                <div class="text-emerald-400 mt-1">✔ Subió desde 89,0% (+9,5 pts en ERP)</div>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1 text-xs">
-              <div class="bg-slate-950/75 border border-slate-800 rounded-lg p-4 space-y-3">
-                <div class="flex items-center justify-between">
-                  <span class="font-bold text-slate-200 text-sm">🚚 Productividad y Liquidación Mensual por Camión (20 días)</span>
-                  <span class="text-slate-400 font-mono">Total: $2.250.000</span>
-                </div>
-                <div class="space-y-2.5">
-                  <div>
-                    <div class="flex justify-between mb-1">
-                      <span class="text-slate-300">Camión 01 (CJ-RW-42) • 11 días (2v) + 9 días (1v)</span>
-                      <span class="font-mono text-amber-400 font-bold">31 vueltas • $830.000</span>
-                    </div>
-                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                      <div class="bg-amber-400 h-full rounded-full" style="width: 88%"></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="flex justify-between mb-1">
-                      <span class="text-slate-300">Camión 03 (PF-BG-88) • 8 días (2v) + 12 días (1v)</span>
-                      <span class="font-mono text-blue-400 font-bold">28 vueltas • $740.000</span>
-                    </div>
-                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                      <div class="bg-blue-500 h-full rounded-full" style="width: 78%"></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="flex justify-between mb-1">
-                      <span class="text-slate-300">Camión 02 (LP-KT-19) • 6 días (2v) + 14 días (1v)</span>
-                      <span class="font-mono text-emerald-400 font-bold">26 vueltas • $680.000</span>
-                    </div>
-                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                      <div class="bg-emerald-500 h-full rounded-full" style="width: 72%"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="bg-slate-950/75 border border-slate-800 rounded-lg p-4 space-y-3">
-                <div class="flex items-center justify-between">
-                  <span class="font-bold text-slate-200 text-sm">📦 Causas Raíz de Diferencias Físico vs. ERP (Antes de BPM)</span>
-                  <span class="text-slate-400 font-mono">Pareto Bodega</span>
-                </div>
-                <div class="space-y-2.5">
-                  <div>
-                    <div class="flex justify-between mb-1">
-                      <span class="text-slate-300">⚠️ Vales de salida a camiones sin digitar en el día</span>
-                      <span class="font-mono text-rose-400 font-bold">64% de los casos</span>
-                    </div>
-                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                      <div class="bg-rose-500 h-full rounded-full" style="width: 64%"></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="flex justify-between mb-1">
-                      <span class="text-slate-300">📌 Guías de recepción física pendientes de ingreso</span>
-                      <span class="font-mono text-amber-400 font-bold">26% de los casos</span>
-                    </div>
-                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                      <div class="bg-amber-400 h-full rounded-full" style="width: 26%"></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="flex justify-between mb-1">
-                      <span class="text-slate-300">🧪 Merma operativa real (rotura de bidones / trasvasije)</span>
-                      <span class="font-mono text-slate-400 font-bold">10% de los casos</span>
-                    </div>
-                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                      <div class="bg-slate-500 h-full rounded-full" style="width: 10%"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
+      <!-- El Problema -->
+      <div class="prose-custom text-sm sm:text-base text-stone-700 dark:text-zinc-200">
+        <h3 class="text-base font-bold text-stone-950 dark:text-white mb-2">1. Con qué me encontré al llegar</h3>
+        <p>
+          El negocio tenía más de 1.200 productos de librería repartidos en planillas informales enviadas por WhatsApp. Había filas duplicadas, productos sin descripción, títulos cortados y códigos SKU cruzados que no correspondían al producto real, lo que impedía cargarlos en el sistema de caja Bsale.
+        </p>
       </div>
-    </section>
+
+      <!-- Paso 1: Validación y Discrepancias -->
+      <div class="space-y-4">
+        <div class="prose-custom text-sm sm:text-base text-stone-700 dark:text-zinc-200">
+          <h3 class="text-base font-bold text-stone-950 dark:text-white mb-2">2. Revisión de SKUs y corrección directa con el cliente</h3>
+          <p>
+            Verifiqué los códigos apoyándome en Gemini Pro y Claude, y los crucé en Excel con <code class="text-xs font-mono px-1.5 py-0.5 bg-stone-200 dark:bg-zinc-800 rounded font-bold text-stone-900 dark:text-zinc-100">BUSCARX</code>. En los 5 casos donde el SKU original estaba equivocado, le pregunté directamente al cliente por WhatsApp para corregir el código antes de la importación.
+          </p>
+        </div>
+
+        <!-- Fórmula en formato bloque de código técnico de alto contraste -->
+        <div class="bg-stone-100 dark:bg-zinc-900 rounded-lg p-3.5 font-mono text-xs sm:text-sm flex flex-wrap items-center justify-between gap-2 border border-stone-200 dark:border-zinc-700/80 shadow-sm">
+          <div class="flex items-center gap-2">
+            <span class="text-stone-500 dark:text-zinc-400 font-bold">Fórmula en Columna D:</span>
+            <span class="text-stone-900 dark:text-emerald-400 font-semibold">=SI(B2=C2; "SKU Correcto"; "Consultar por WSP al cliente")</span>
+          </div>
+          <button onclick="copyToClipboard('=SI(B2=C2; &quot;SKU Correcto&quot;; &quot;Consultar por WSP al cliente&quot;)', this)" class="text-xs text-stone-600 dark:text-zinc-300 hover:text-stone-900 dark:hover:text-white underline font-semibold">
+            Copiar
+          </button>
+        </div>
+
+        <!-- Tabla Editorial Nítida: Casos Reales Corregidos -->
+        <div class="border border-stone-200 dark:border-zinc-700 rounded-xl overflow-hidden shadow-sm bg-white dark:bg-zinc-900/40">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs sm:text-[13px] border-collapse">
+              <thead>
+                <tr class="bg-stone-100/80 dark:bg-zinc-800/90 border-b border-stone-300 dark:border-zinc-700 font-mono text-stone-700 dark:text-zinc-200 uppercase tracking-wider text-[11px]">
+                  <th class="py-3 px-3.5 font-bold">Producto en Planilla Original</th>
+                  <th class="py-3 px-3.5 font-bold">SKU Original</th>
+                  <th class="py-3 px-3.5 font-bold">SKU Verificado</th>
+                  <th class="py-3 px-3.5 font-bold">Resultado Fórmula (Columna D)</th>
+                  <th class="py-3 px-3.5 font-bold">Resolución con Cliente</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-stone-200 dark:divide-zinc-700/70 text-stone-800 dark:text-zinc-200 font-medium">
+                <tr class="hover:bg-stone-50 dark:hover:bg-zinc-800/40 transition-colors">
+                  <td class="py-3 px-3.5 font-semibold text-stone-950 dark:text-white">lapiz grafito hb n2 faber</td>
+                  <td class="py-3 px-3.5 font-mono text-stone-600 dark:text-zinc-400">7806500112014</td>
+                  <td class="py-3 px-3.5 font-mono font-bold text-emerald-700 dark:text-emerald-400">7806500112014</td>
+                  <td class="py-3 px-3.5">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 dark:border dark:border-emerald-800/60 font-mono">
+                      SKU Correcto
+                    </span>
+                  </td>
+                  <td class="py-3 px-3.5 text-stone-600 dark:text-zinc-300">Pasa directo a importación</td>
+                </tr>
+                <tr class="bg-amber-50/20 dark:bg-amber-950/10 hover:bg-amber-50/50 dark:hover:bg-amber-950/25 transition-colors">
+                  <td class="py-3 px-3.5 font-semibold text-stone-950 dark:text-white">marcador sharpie negro p. fina</td>
+                  <td class="py-3 px-3.5 font-mono line-through text-stone-400 dark:text-zinc-500">4005401125006</td>
+                  <td class="py-3 px-3.5 font-mono font-bold text-emerald-700 dark:text-emerald-400">071641300019</td>
+                  <td class="py-3 px-3.5">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-amber-100 text-amber-900 dark:bg-amber-950/80 dark:text-amber-300 dark:border dark:border-amber-800/60 font-mono">
+                      Consultar por WSP al cliente
+                    </span>
+                  </td>
+                  <td class="py-3 px-3.5 text-stone-800 dark:text-zinc-200">Error #1 (SKU de otro artículo) → Cliente autoriza cambio</td>
+                </tr>
+                <tr class="bg-amber-50/20 dark:bg-amber-950/10 hover:bg-amber-50/50 dark:hover:bg-amber-950/25 transition-colors">
+                  <td class="py-3 px-3.5 font-semibold text-stone-950 dark:text-white">destacador stabilo pastel amarillo</td>
+                  <td class="py-3 px-3.5 font-mono line-through text-stone-400 dark:text-zinc-500">8901180512099</td>
+                  <td class="py-3 px-3.5 font-mono font-bold text-emerald-700 dark:text-emerald-400">4006381492447</td>
+                  <td class="py-3 px-3.5">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-amber-100 text-amber-900 dark:bg-amber-950/80 dark:text-amber-300 dark:border dark:border-amber-800/60 font-mono">
+                      Consultar por WSP al cliente
+                    </span>
+                  </td>
+                  <td class="py-3 px-3.5 text-stone-800 dark:text-zinc-200">Error #2 (SKU mal asignado) → Cliente autoriza cambio</td>
+                </tr>
+                <tr class="bg-amber-50/20 dark:bg-amber-950/10 hover:bg-amber-50/50 dark:hover:bg-amber-950/25 transition-colors">
+                  <td class="py-3 px-3.5 font-semibold text-stone-950 dark:text-white">corrector bic shake squeeze 8ml</td>
+                  <td class="py-3 px-3.5 font-mono line-through text-stone-400 dark:text-zinc-500">3086123499110</td>
+                  <td class="py-3 px-3.5 font-mono font-bold text-emerald-700 dark:text-emerald-400">070330505926</td>
+                  <td class="py-3 px-3.5">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-amber-100 text-amber-900 dark:bg-amber-950/80 dark:text-amber-300 dark:border dark:border-amber-800/60 font-mono">
+                      Consultar por WSP al cliente
+                    </span>
+                  </td>
+                  <td class="py-3 px-3.5 text-stone-800 dark:text-zinc-200">Error #3 (SKU era de bolígrafo) → Cliente autoriza cambio</td>
+                </tr>
+                <tr class="bg-amber-50/20 dark:bg-amber-950/10 hover:bg-amber-50/50 dark:hover:bg-amber-950/25 transition-colors">
+                  <td class="py-3 px-3.5 font-semibold text-stone-950 dark:text-white">boligrafo pilot g2 gel 0.7 azul</td>
+                  <td class="py-3 px-3.5 font-mono line-through text-stone-400 dark:text-zinc-500">4902505110044</td>
+                  <td class="py-3 px-3.5 font-mono font-bold text-emerald-700 dark:text-emerald-400">4902505163118</td>
+                  <td class="py-3 px-3.5">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-amber-100 text-amber-900 dark:bg-amber-950/80 dark:text-amber-300 dark:border dark:border-amber-800/60 font-mono">
+                      Consultar por WSP al cliente
+                    </span>
+                  </td>
+                  <td class="py-3 px-3.5 text-stone-800 dark:text-zinc-200">Error #4 (Dígito mal escrito) → Cliente autoriza cambio</td>
+                </tr>
+                <tr class="bg-amber-50/20 dark:bg-amber-950/10 hover:bg-amber-50/50 dark:hover:bg-amber-950/25 transition-colors">
+                  <td class="py-3 px-3.5 font-semibold text-stone-950 dark:text-white">notas post-it 3m 76x76 amarillo</td>
+                  <td class="py-3 px-3.5 font-mono line-through text-stone-400 dark:text-zinc-500">6921734900118</td>
+                  <td class="py-3 px-3.5 font-mono font-bold text-emerald-700 dark:text-emerald-400">021200503351</td>
+                  <td class="py-3 px-3.5">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-amber-100 text-amber-900 dark:bg-amber-950/80 dark:text-amber-300 dark:border dark:border-amber-800/60 font-mono">
+                      Consultar por WSP al cliente
+                    </span>
+                  </td>
+                  <td class="py-3 px-3.5 text-stone-800 dark:text-zinc-200">Error #5 (Código genérico equivocado) → Cliente autoriza cambio</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paso 2: Matriz Bsale e Imágenes -->
+      <div class="space-y-4">
+        <div class="prose-custom text-sm sm:text-base text-stone-700 dark:text-zinc-200">
+          <h3 class="text-base font-bold text-stone-950 dark:text-white mb-2">3. Títulos, descripciones y carpeta de imágenes</h3>
+          <p>
+            Con cada código ya validado, redacté descripciones web completas y títulos claros en la planilla que pide Bsale, manteniendo un ritmo de <strong>100 productos por hora</strong>.
+          </p>
+          <p>
+            En Bsale las fotos no van dentro del archivo Excel. Se suben en una carpeta aparte con el nombre del código más un guion bajo (<code class="text-xs font-mono px-1.5 py-0.5 bg-stone-200 dark:bg-zinc-800 rounded font-bold text-stone-900 dark:text-zinc-100">SKU_1.jpg</code> a <code class="text-xs font-mono px-1.5 py-0.5 bg-stone-200 dark:bg-zinc-800 rounded font-bold text-stone-900 dark:text-zinc-100">SKU_8.jpg</code>). De esta manera se vincularon automáticamente más de <strong>1.600 fotos (mínimo 2 por artículo)</strong>.
+          </p>
+        </div>
+
+        <!-- Muestra de matriz oficial con bordes nítidos -->
+        <div class="border border-stone-200 dark:border-zinc-700 rounded-xl overflow-hidden text-xs sm:text-[13px] bg-white dark:bg-zinc-900/40 shadow-sm">
+          <div class="bg-stone-100/80 dark:bg-zinc-800/90 px-3.5 py-2.5 font-mono text-xs font-bold text-stone-700 dark:text-zinc-200 border-b border-stone-200 dark:border-zinc-700">
+            Muestra de Matriz_Importacion_Bsale_POS.xlsx (800+ artículos cargados)
+          </div>
+          <div class="divide-y divide-stone-200 dark:divide-zinc-700/70 p-4 space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 pt-1">
+              <div>
+                <span class="font-mono font-bold text-emerald-700 dark:text-emerald-400 mr-2">7806500112014</span>
+                <span class="font-bold text-stone-950 dark:text-white">Lápiz Grafito HB N°2 Faber-Castell Hexagonal</span>
+              </div>
+              <span class="font-mono font-bold text-stone-700 dark:text-zinc-300 tabular-nums">$450</span>
+            </div>
+            <p class="text-stone-600 dark:text-zinc-300 text-xs sm:text-[13px] pt-1">
+              Lápiz grafito graduación HB N°2 ideal para escritura escolar y técnica. Mina resistente al quiebre y cuerpo ergonómico.
+            </p>
+
+            <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 pt-3">
+              <div>
+                <span class="font-mono font-bold text-emerald-700 dark:text-emerald-400 mr-2">071641300019</span>
+                <span class="font-bold text-stone-950 dark:text-white">Marcador Permanente Sharpie Punta Fina Negro</span>
+              </div>
+              <span class="font-mono font-bold text-stone-700 dark:text-zinc-300 tabular-nums">$1.290</span>
+            </div>
+            <p class="text-stone-600 dark:text-zinc-300 text-xs sm:text-[13px] pt-1">
+              Marcador permanente secado rápido resistente al agua. Punta fina de alta precisión apta para múltiples superficies.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resultados / Métricas del Caso 1 -->
+      <div class="bg-stone-100/90 dark:bg-zinc-900/80 rounded-xl p-5 border border-stone-300/80 dark:border-zinc-700 shadow-sm space-y-3">
+        <h4 class="text-xs font-mono uppercase tracking-wider font-bold text-stone-900 dark:text-white">
+          Impacto Operacional &amp; Resultados del Proyecto
+        </h4>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs sm:text-[13px]">
+          <div>
+            <span class="text-stone-600 dark:text-zinc-400 block font-medium">Depuración de Datos:</span>
+            <strong class="text-sm sm:text-base font-bold text-stone-950 dark:text-white block mt-0.5">33,3% de ruido eliminado</strong>
+            <span class="text-stone-600 dark:text-zinc-300 text-xs">405 filas duplicadas o vacías depuradas de 1.215.</span>
+          </div>
+          <div>
+            <span class="text-stone-600 dark:text-zinc-400 block font-medium">Rentabilidad de Catálogo:</span>
+            <strong class="text-sm sm:text-base font-bold text-emerald-700 dark:text-emerald-400 block mt-0.5">44,8% margen promedio</strong>
+            <span class="text-stone-600 dark:text-zinc-300 text-xs">Ponderado costo neto vs precio de venta final.</span>
+          </div>
+          <div>
+            <span class="text-stone-600 dark:text-zinc-400 block font-medium">Valorización de Stock:</span>
+            <strong class="text-sm sm:text-base font-bold text-stone-950 dark:text-white block mt-0.5">$14,85 Millones</strong>
+            <span class="text-stone-600 dark:text-zinc-300 text-xs">Inventario cuadrado en 810 SKUs activos.</span>
+          </div>
+        </div>
+      </div>
+
+    </article>
+
+
+
+
+    <!-- =================================================================== -->
+    <!-- CASO 2: AMBIENTES LIMPIOS S.A.                                      -->
+    <!-- =================================================================== -->
+    <article id="caso-ambientes" class="pt-8 border-t border-stone-200 dark:border-zinc-800 space-y-8">
+      
+      <!-- Encabezado del Caso -->
+      <div class="space-y-2">
+        <div class="flex items-center gap-2 text-xs font-mono text-stone-500 dark:text-zinc-400">
+          <span class="font-bold text-stone-800 dark:text-zinc-200">02 / CASO PRÁCTICO</span>
+          <span>•</span>
+          <span>OCTUBRE 2024 – ENERO 2025</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-950 dark:text-white">
+          Control Horario de Camiones, Cuadratura para Firma de Pagos y Auditoría ERP
+        </h2>
+        <p class="text-xs font-mono text-stone-600 dark:text-zinc-400">
+          Ambientes Limpios S.A. • Excel Condicional, Control Horario, ERP Corporativo y BPM
+        </p>
+      </div>
+
+      <!-- El Problema -->
+      <div class="prose-custom text-sm sm:text-base text-stone-700 dark:text-zinc-200">
+        <h3 class="text-base font-bold text-stone-950 dark:text-white mb-2">1. Con qué me encontré al llegar</h3>
+        <p>
+          Los pagos por vuelta de camión se anotaban en papeles sueltos sin consolidar las horas reales de salida y regreso. Para que el jefe pudiera firmar y liberar los pagos, había que cuadrar la planilla de Excel con los registros impresos de cada chofer. Además, existían diferencias entre el stock físico de bodega y el sistema ERP.
+        </p>
+      </div>
+
+      <!-- Paso 1: Regla de Negocio y Cuadratura -->
+      <div class="space-y-4">
+        <div class="prose-custom text-sm sm:text-base text-stone-700 dark:text-zinc-200">
+          <h3 class="text-base font-bold text-stone-950 dark:text-white mb-2">2. Control horario y cálculo de vueltas ($25.000 y $55.000)</h3>
+          <p>
+            Los camiones hacían como máximo 1 o 2 vueltas al día. Si hacían <strong>1 vuelta</strong> (regreso entre 12:00 y 14:00 hrs), el pago era de <strong>$25.000</strong>. Si hacían <strong>2 vueltas</strong> (regreso final entre 16:00 y 17:00 hrs), el pago subía a <strong>$55.000</strong>. Todo se cuadraba con la hoja impresa para la firma del jefe.
+          </p>
+        </div>
+
+        <div class="bg-stone-100 dark:bg-zinc-900 rounded-lg p-3.5 font-mono text-xs sm:text-sm flex flex-wrap items-center justify-between gap-2 border border-stone-200 dark:border-zinc-700/80 shadow-sm">
+          <div class="flex items-center gap-2">
+            <span class="text-stone-500 dark:text-zinc-400 font-bold">Fórmula en Columna H:</span>
+            <span class="text-stone-900 dark:text-emerald-400 font-semibold">=SI(G2=1; 25000; SI(G2=2; 55000; 0))</span>
+          </div>
+          <button onclick="copyToClipboard('=SI(G2=1; 25000; SI(G2=2; 55000; 0))', this)" class="text-xs text-stone-600 dark:text-zinc-300 hover:text-stone-900 dark:hover:text-white underline font-semibold">
+            Copiar
+          </button>
+        </div>
+
+        <!-- Tabla Nítida de Control de Flota -->
+        <div class="border border-stone-200 dark:border-zinc-700 rounded-xl overflow-hidden shadow-sm bg-white dark:bg-zinc-900/40">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs sm:text-[13px] border-collapse">
+              <thead>
+                <tr class="bg-stone-100/80 dark:bg-zinc-800/90 border-b border-stone-300 dark:border-zinc-700 font-mono text-stone-700 dark:text-zinc-200 uppercase tracking-wider text-[11px]">
+                  <th class="py-3 px-3.5 font-bold">Fecha</th>
+                  <th class="py-3 px-3.5 font-bold">Camión / Chofer</th>
+                  <th class="py-3 px-3.5 font-bold">Salida 1</th>
+                  <th class="py-3 px-3.5 font-bold">Vuelta 1 (12–14h)</th>
+                  <th class="py-3 px-3.5 font-bold">Salida 2</th>
+                  <th class="py-3 px-3.5 font-bold">Vuelta 2 (16–17h)</th>
+                  <th class="py-3 px-3.5 font-bold text-center">Vueltas</th>
+                  <th class="py-3 px-3.5 font-bold text-right">Pago</th>
+                  <th class="py-3 px-3.5 font-bold">Cuadratura Impresa</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-stone-200 dark:divide-zinc-700/70 text-stone-800 dark:text-zinc-200 font-mono">
+                <tr class="hover:bg-stone-50 dark:hover:bg-zinc-800/40 transition-colors">
+                  <td class="py-3 px-3.5 text-stone-500 dark:text-zinc-400">04-11-2024</td>
+                  <td class="py-3 px-3.5 font-sans font-bold text-stone-950 dark:text-white">Camión 01 • J. Morales</td>
+                  <td class="py-3 px-3.5">08:15</td>
+                  <td class="py-3 px-3.5 font-semibold text-emerald-700 dark:text-emerald-400">12:40</td>
+                  <td class="py-3 px-3.5">13:30</td>
+                  <td class="py-3 px-3.5 font-semibold text-amber-700 dark:text-amber-400">16:25</td>
+                  <td class="py-3 px-3.5 text-center font-bold text-stone-950 dark:text-white">2</td>
+                  <td class="py-3 px-3.5 text-right font-bold text-amber-700 dark:text-amber-400 tabular-nums">$55.000</td>
+                  <td class="py-3 px-3.5 font-sans">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 dark:border dark:border-emerald-800/60">
+                      Cuadrado y firmado
+                    </span>
+                  </td>
+                </tr>
+                <tr class="hover:bg-stone-50 dark:hover:bg-zinc-800/40 transition-colors">
+                  <td class="py-3 px-3.5 text-stone-500 dark:text-zinc-400">04-11-2024</td>
+                  <td class="py-3 px-3.5 font-sans font-bold text-stone-950 dark:text-white">Camión 02 • M. Soto</td>
+                  <td class="py-3 px-3.5">08:30</td>
+                  <td class="py-3 px-3.5 font-semibold text-emerald-700 dark:text-emerald-400">13:15</td>
+                  <td class="py-3 px-3.5 text-stone-400 dark:text-zinc-500">—</td>
+                  <td class="py-3 px-3.5 text-stone-400 dark:text-zinc-500">—</td>
+                  <td class="py-3 px-3.5 text-center font-bold text-stone-950 dark:text-white">1</td>
+                  <td class="py-3 px-3.5 text-right font-bold text-stone-950 dark:text-white tabular-nums">$25.000</td>
+                  <td class="py-3 px-3.5 font-sans">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 dark:border dark:border-emerald-800/60">
+                      Cuadrado y firmado
+                    </span>
+                  </td>
+                </tr>
+                <tr class="hover:bg-stone-50 dark:hover:bg-zinc-800/40 transition-colors">
+                  <td class="py-3 px-3.5 text-stone-500 dark:text-zinc-400">04-11-2024</td>
+                  <td class="py-3 px-3.5 font-sans font-bold text-stone-950 dark:text-white">Camión 03 • R. Díaz</td>
+                  <td class="py-3 px-3.5">08:05</td>
+                  <td class="py-3 px-3.5 font-semibold text-emerald-700 dark:text-emerald-400">12:20</td>
+                  <td class="py-3 px-3.5">13:15</td>
+                  <td class="py-3 px-3.5 font-semibold text-amber-700 dark:text-amber-400">16:50</td>
+                  <td class="py-3 px-3.5 text-center font-bold text-stone-950 dark:text-white">2</td>
+                  <td class="py-3 px-3.5 text-right font-bold text-amber-700 dark:text-amber-400 tabular-nums">$55.000</td>
+                  <td class="py-3 px-3.5 font-sans">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 dark:border dark:border-emerald-800/60">
+                      Cuadrado y firmado
+                    </span>
+                  </td>
+                </tr>
+                <tr class="hover:bg-stone-50 dark:hover:bg-zinc-800/40 transition-colors">
+                  <td class="py-3 px-3.5 text-stone-500 dark:text-zinc-400">05-11-2024</td>
+                  <td class="py-3 px-3.5 font-sans font-bold text-stone-950 dark:text-white">Camión 01 • J. Morales</td>
+                  <td class="py-3 px-3.5">08:20</td>
+                  <td class="py-3 px-3.5 font-semibold text-emerald-700 dark:text-emerald-400">13:45</td>
+                  <td class="py-3 px-3.5 text-stone-400 dark:text-zinc-500">—</td>
+                  <td class="py-3 px-3.5 text-stone-400 dark:text-zinc-500">—</td>
+                  <td class="py-3 px-3.5 text-center font-bold text-stone-950 dark:text-white">1</td>
+                  <td class="py-3 px-3.5 text-right font-bold text-stone-950 dark:text-white tabular-nums">$25.000</td>
+                  <td class="py-3 px-3.5 font-sans">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 dark:border dark:border-emerald-800/60">
+                      Cuadrado y firmado
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paso 2: Conciliación de Bodega y Flujograma BPM -->
+      <div class="space-y-4">
+        <div class="prose-custom text-sm sm:text-base text-stone-700 dark:text-zinc-200">
+          <h3 class="text-base font-bold text-stone-950 dark:text-white mb-2">3. Flujograma de bodega y cuadratura contra el ERP</h3>
+          <p>
+            A solicitud del Gerente del Área de Procesos, levanté en terreno y diseñé el <strong>flujograma operativo de bodega (BPM)</strong> para ordenar las entradas, salidas y el control de camiones:
+          </p>
+        </div>
+
+        <!-- Lista numerada editorial con buen contraste -->
+        <ol class="divide-y divide-stone-200 dark:divide-zinc-700/80 text-xs sm:text-[13px] border border-stone-200 dark:border-zinc-700 rounded-xl p-4 sm:p-5 space-y-3 bg-white dark:bg-zinc-900/40 shadow-sm">
+          <li class="flex items-start gap-3.5 pt-1">
+            <span class="w-6 h-6 rounded-md bg-stone-200 dark:bg-zinc-800 text-stone-800 dark:text-emerald-400 font-mono font-bold text-xs flex items-center justify-center shrink-0">1</span>
+            <div>
+              <strong class="text-stone-950 dark:text-white">Recepción Física:</strong> Revisión de la guía de proveedor contra la carga que llega a bodega.
+            </div>
+          </li>
+          <li class="flex items-start gap-3.5 pt-3">
+            <span class="w-6 h-6 rounded-md bg-stone-200 dark:bg-zinc-800 text-stone-800 dark:text-emerald-400 font-mono font-bold text-xs flex items-center justify-center shrink-0">2</span>
+            <div>
+              <strong class="text-stone-950 dark:text-white">Ingreso a ERP:</strong> Digitación inmediata de lotes y conteo cíclico para evitar desfases.
+            </div>
+          </li>
+          <li class="flex items-start gap-3.5 pt-3">
+            <span class="w-6 h-6 rounded-md bg-stone-200 dark:bg-zinc-800 text-stone-800 dark:text-emerald-400 font-mono font-bold text-xs flex items-center justify-center shrink-0">3</span>
+            <div>
+              <strong class="text-stone-950 dark:text-white">Carga y Despacho:</strong> Registro de hora de salida 1 (cerca de las 08:00 hrs) y entrega de guía impresa.
+            </div>
+          </li>
+          <li class="flex items-start gap-3.5 pt-3">
+            <span class="w-6 h-6 rounded-md bg-stone-200 dark:bg-zinc-800 text-stone-800 dark:text-emerald-400 font-mono font-bold text-xs flex items-center justify-center shrink-0">4</span>
+            <div>
+              <strong class="text-stone-950 dark:text-white">Control 1 o 2 Vueltas:</strong> Registro de llegada de la 1ra vuelta (12:00–14:00) o 2da vuelta (16:00–17:00).
+            </div>
+          </li>
+          <li class="flex items-start gap-3.5 pt-3">
+            <span class="w-6 h-6 rounded-md bg-stone-200 dark:bg-zinc-800 text-stone-800 dark:text-emerald-400 font-mono font-bold text-xs flex items-center justify-center shrink-0">5</span>
+            <div>
+              <strong class="text-stone-950 dark:text-white">Cuadratura y Pago:</strong> Cruce de la planilla Excel contra la hoja impresa para que el jefe firme y se pague al chofer.
+            </div>
+          </li>
+        </ol>
+
+        <p class="text-xs text-stone-500 dark:text-zinc-400 italic">
+          * Este levantamiento de procesos fue felicitado por la gerencia y adoptado para las auditorías internas de la empresa.
+        </p>
+
+        <!-- Tabla Muestra Conciliación ERP -->
+        <div class="border border-stone-200 dark:border-zinc-700 rounded-xl overflow-hidden shadow-sm bg-white dark:bg-zinc-900/40">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs sm:text-[13px] border-collapse">
+              <thead>
+                <tr class="bg-stone-100/80 dark:bg-zinc-800/90 border-b border-stone-300 dark:border-zinc-700 font-mono text-stone-700 dark:text-zinc-200 uppercase tracking-wider text-[11px]">
+                  <th class="py-3 px-3.5 font-bold">Código ERP</th>
+                  <th class="py-3 px-3.5 font-bold">Insumo Operacional</th>
+                  <th class="py-3 px-3.5 font-bold text-right">Stock ERP</th>
+                  <th class="py-3 px-3.5 font-bold text-right">Físico</th>
+                  <th class="py-3 px-3.5 font-bold text-right">Diferencia</th>
+                  <th class="py-3 px-3.5 font-bold">Diagnóstico y Acción Correctiva</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-stone-200 dark:divide-zinc-700/70 text-stone-800 dark:text-zinc-200 font-mono">
+                <tr class="hover:bg-stone-50 dark:hover:bg-zinc-800/40 transition-colors">
+                  <td class="py-3 px-3.5 font-bold text-stone-950 dark:text-white">INS-AL-0104</td>
+                  <td class="py-3 px-3.5 font-sans font-medium">Detergente Industrial Alcalino 20L</td>
+                  <td class="py-3 px-3.5 text-right tabular-nums">145</td>
+                  <td class="py-3 px-3.5 text-right tabular-nums">145</td>
+                  <td class="py-3 px-3.5 text-right text-emerald-700 dark:text-emerald-400 font-bold">0</td>
+                  <td class="py-3 px-3.5 font-sans">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 dark:border dark:border-emerald-800/60">
+                      Stock cuadrado
+                    </span>
+                  </td>
+                </tr>
+                <tr class="bg-rose-50/30 dark:bg-rose-950/20 hover:bg-rose-50/60 dark:hover:bg-rose-950/30 transition-colors">
+                  <td class="py-3 px-3.5 font-bold text-stone-950 dark:text-white">INS-AL-0219</td>
+                  <td class="py-3 px-3.5 font-sans font-medium">Desinfectante Amonio Cuaternario 5L</td>
+                  <td class="py-3 px-3.5 text-right tabular-nums">210</td>
+                  <td class="py-3 px-3.5 text-right tabular-nums text-rose-700 dark:text-rose-400 font-bold">198</td>
+                  <td class="py-3 px-3.5 text-right text-rose-700 dark:text-rose-400 font-bold">-12</td>
+                  <td class="py-3 px-3.5 font-sans text-rose-700 dark:text-rose-300 font-medium">
+                    Vale de salida sin digitar en ERP → Regularizado en el día
+                  </td>
+                </tr>
+                <tr class="bg-amber-50/30 dark:bg-amber-950/20 hover:bg-amber-50/60 dark:hover:bg-amber-950/30 transition-colors">
+                  <td class="py-3 px-3.5 font-bold text-stone-950 dark:text-white">INS-AL-0412</td>
+                  <td class="py-3 px-3.5 font-sans font-medium">Guantes Nitrilo Alta Resistencia (100u)</td>
+                  <td class="py-3 px-3.5 text-right tabular-nums">85</td>
+                  <td class="py-3 px-3.5 text-right tabular-nums text-amber-700 dark:text-amber-400 font-bold">95</td>
+                  <td class="py-3 px-3.5 text-right text-amber-700 dark:text-amber-400 font-bold">+10</td>
+                  <td class="py-3 px-3.5 font-sans text-amber-800 dark:text-amber-300 font-medium">
+                    Guía de recepción física pendiente → Ingresada en ERP
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resultados / Métricas del Caso 2 -->
+      <div class="bg-stone-100/90 dark:bg-zinc-900/80 rounded-xl p-5 border border-stone-300/80 dark:border-zinc-700 shadow-sm space-y-3">
+        <h4 class="text-xs font-mono uppercase tracking-wider font-bold text-stone-900 dark:text-white">
+          Impacto Operacional &amp; Resultados del Proyecto
+        </h4>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs sm:text-[13px]">
+          <div>
+            <span class="text-stone-600 dark:text-zinc-400 block font-medium">Exactitud de Bodega (ERI):</span>
+            <strong class="text-sm sm:text-base font-bold text-emerald-700 dark:text-emerald-400 block mt-0.5">98,5% alcanzado (+9,5 pts)</strong>
+            <span class="text-stone-600 dark:text-zinc-300 text-xs">Subió desde un 89,0% gracias a la estandarización BPM.</span>
+          </div>
+          <div>
+            <span class="text-stone-600 dark:text-zinc-400 block font-medium">Cumplimiento Horario:</span>
+            <strong class="text-sm sm:text-base font-bold text-stone-950 dark:text-white block mt-0.5">94,2% dentro de ventana</strong>
+            <span class="text-stone-600 dark:text-zinc-300 text-xs">Retornos a tiempo para carga y descarga en andenes.</span>
+          </div>
+          <div>
+            <span class="text-stone-600 dark:text-zinc-400 block font-medium">Fletes Auditados:</span>
+            <strong class="text-sm sm:text-base font-bold text-stone-950 dark:text-white block mt-0.5">$2.250.000 mensual</strong>
+            <span class="text-stone-600 dark:text-zinc-300 text-xs">100% cuadratura entre Excel e impreso firmado por jefe.</span>
+          </div>
+        </div>
+      </div>
+
+    </article>
 
   </main>
+
+  <!-- =================================================================== -->
+  <!-- PIE DE PÁGINA SIMPLE                                               -->
+  <!-- =================================================================== -->
+  <footer class="border-t border-stone-200 dark:border-zinc-800 py-12 text-xs text-stone-600 dark:text-zinc-400">
+    <div class="max-w-4xl mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <span class="font-bold text-stone-900 dark:text-white">Allan Andre Ruiz Arenas</span> • Ingeniero Industrial (INACAP)
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="mailto:allanaruiz32@gmail.com" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline font-medium">allanaruiz32@gmail.com</a>
+        <a href="https://github.com/Allan-Ruiz/portafolio-allan-ruiz" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline font-medium">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast sutil de copiado -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-12 opacity-0 pointer-events-none transition-all duration-200 px-3 py-1.5 rounded-lg bg-stone-900 text-white dark:bg-white dark:text-stone-900 text-xs font-mono shadow-lg border border-stone-700 dark:border-zinc-200">
+    Copiado al portapapeles
+  </div>
+
+  <script>
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        if (document.documentElement.classList.contains('dark')) {
+          document.documentElement.classList.remove('dark');
+          localStorage.theme = 'light';
+        } else {
+          document.documentElement.classList.add('dark');
+          localStorage.theme = 'dark';
+        }
+      });
+    }
+
+    function copyToClipboard(text, el) {
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById('toast');
+        if (toast) {
+          toast.classList.remove('translate-y-12', 'opacity-0', 'pointer-events-none');
+          setTimeout(() => {
+            toast.classList.add('translate-y-12', 'opacity-0', 'pointer-events-none');
+          }, 1500);
+        }
+        if (el) {
+          const original = el.textContent;
+          el.textContent = '¡Copiado!';
+          setTimeout(() => { el.textContent = original; }, 1200);
+        }
+      });
+    }
+  </script>
 
 </body>
 </html>
