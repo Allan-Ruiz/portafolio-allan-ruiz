@@ -108,30 +108,49 @@
 
       <div class="prose-custom text-base sm:text-lg text-stone-700 dark:text-zinc-200 leading-relaxed max-w-3xl">
         <p>
-          Hola, soy <strong>Allan Ruiz</strong>, Ingeniero Industrial de INACAP. Me enfoco en análisis de datos, administración cloud (AWS) y control logístico. Armé este espacio para mostrar de forma práctica cómo ordeno bases de datos, cuadro operaciones de transporte y automatizo procesos con Excel, ERP y la nube.
+          Hola, soy <strong>Allan Ruiz</strong>, Ingeniero Industrial de INACAP. Trabajo donde se cruzan las operaciones y los datos: catálogos que hay que migrar, inventarios que no cuadran, pagos que se calculan a mano y procesos que nadie ha documentado.
         </p>
         <p class="text-sm sm:text-base text-stone-600 dark:text-zinc-300">
-          Abajo puedes revisar el paso a paso de cada caso, las fórmulas aplicadas y descargar las planillas originales.
+          Abajo puedes revisar los dos casos reales, las fórmulas aplicadas y los laboratorios interactivos de arquitectura cloud.
         </p>
+      </div>
+
+      <!-- Acciones principales -->
+      <div class="flex flex-wrap items-center gap-2.5 pt-1">
+        <a href="./assets/CV_Allan_Ruiz.pdf" download class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-stone-900 text-white dark:bg-white dark:text-stone-900 text-xs sm:text-sm font-bold hover:bg-emerald-700 dark:hover:bg-emerald-400 transition shadow-sm">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+          Descargar CV (PDF)
+        </a>
+        <a href="https://www.linkedin.com/in/allan-ruiz-ing/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-stone-300 dark:border-zinc-700 bg-white dark:bg-zinc-800/80 text-stone-800 dark:text-zinc-200 text-xs sm:text-sm font-bold hover:border-emerald-600 dark:hover:border-emerald-500 hover:text-emerald-700 dark:hover:text-emerald-400 transition shadow-sm">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
+          </svg>
+          LinkedIn
+        </a>
+        <a href="#caso-bigpen" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-stone-300 dark:border-zinc-700 bg-white dark:bg-zinc-800/80 text-stone-800 dark:text-zinc-200 text-xs sm:text-sm font-bold hover:border-emerald-600 dark:hover:border-emerald-500 hover:text-emerald-700 dark:hover:text-emerald-400 transition shadow-sm">
+          Ver casos
+        </a>
       </div>
 
       <!-- Resumen sobrio de métricas con excelente contraste -->
       <div class="pt-4 border-y border-stone-200 dark:border-zinc-800 py-6 grid grid-cols-2 sm:grid-cols-4 gap-6 text-stone-900 dark:text-white">
         <div>
           <div class="text-2xl sm:text-3xl font-extrabold font-mono tabular-nums text-stone-950 dark:text-white">800+</div>
-          <div class="text-xs font-medium text-stone-500 dark:text-zinc-400 mt-1">SKUs cargados a POS</div>
+          <div class="text-xs font-medium text-stone-500 dark:text-zinc-400 mt-1">SKU cargados a POS</div>
         </div>
         <div>
           <div class="text-2xl sm:text-3xl font-extrabold font-mono tabular-nums text-stone-950 dark:text-white">1.600+</div>
           <div class="text-xs font-medium text-stone-500 dark:text-zinc-400 mt-1">Fotos vinculadas</div>
         </div>
         <div>
-          <div class="text-2xl sm:text-3xl font-extrabold font-mono tabular-nums text-emerald-700 dark:text-emerald-400">98,5%</div>
-          <div class="text-xs font-medium text-stone-500 dark:text-zinc-400 mt-1">Exactitud bodega (ERI)</div>
+          <div class="text-2xl sm:text-3xl font-extrabold font-mono tabular-nums text-emerald-700 dark:text-emerald-400">5</div>
+          <div class="text-xs font-medium text-stone-500 dark:text-zinc-400 mt-1">SKU críticos corregidos</div>
         </div>
         <div>
-          <div class="text-2xl sm:text-3xl font-extrabold font-mono tabular-nums text-stone-950 dark:text-white">$2,25M</div>
-          <div class="text-xs font-medium text-stone-500 dark:text-zinc-400 mt-1">Fletes auditados / mes</div>
+          <div class="text-2xl sm:text-3xl font-extrabold font-mono tabular-nums text-stone-950 dark:text-white">100/h</div>
+          <div class="text-xs font-medium text-stone-500 dark:text-zinc-400 mt-1">Productos procesados</div>
         </div>
       </div>
 
@@ -355,19 +374,19 @@
         </h4>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs sm:text-[13px]">
           <div>
-            <span class="text-stone-600 dark:text-zinc-400 block font-medium">Depuración de Datos:</span>
-            <strong class="text-sm sm:text-base font-bold text-stone-950 dark:text-white block mt-0.5">33,3% de ruido eliminado</strong>
-            <span class="text-stone-600 dark:text-zinc-300 text-xs">405 filas duplicadas o vacías depuradas de 1.215.</span>
+            <span class="text-stone-600 dark:text-zinc-400 block font-medium">Volumen procesado:</span>
+            <strong class="text-sm sm:text-base font-bold text-stone-950 dark:text-white block mt-0.5">1.200+ registros brutos</strong>
+            <span class="text-stone-600 dark:text-zinc-300 text-xs">Planillas dispersas de WhatsApp consolidadas en una sola base.</span>
           </div>
           <div>
-            <span class="text-stone-600 dark:text-zinc-400 block font-medium">Rentabilidad de Catálogo:</span>
-            <strong class="text-sm sm:text-base font-bold text-emerald-700 dark:text-emerald-400 block mt-0.5">44,8% margen promedio</strong>
-            <span class="text-stone-600 dark:text-zinc-300 text-xs">Ponderado costo neto vs precio de venta final.</span>
+            <span class="text-stone-600 dark:text-zinc-400 block font-medium">Control de calidad:</span>
+            <strong class="text-sm sm:text-base font-bold text-emerald-700 dark:text-emerald-400 block mt-0.5">5 SKU críticos corregidos</strong>
+            <span class="text-stone-600 dark:text-zinc-300 text-xs">Códigos equivocados detectados y validados con el cliente antes de la carga.</span>
           </div>
           <div>
-            <span class="text-stone-600 dark:text-zinc-400 block font-medium">Valorización de Stock:</span>
-            <strong class="text-sm sm:text-base font-bold text-stone-950 dark:text-white block mt-0.5">$14,85 Millones</strong>
-            <span class="text-stone-600 dark:text-zinc-300 text-xs">Inventario cuadrado en 810 SKUs activos.</span>
+            <span class="text-stone-600 dark:text-zinc-400 block font-medium">Velocidad y continuidad:</span>
+            <strong class="text-sm sm:text-base font-bold text-stone-950 dark:text-white block mt-0.5">100 productos/hora</strong>
+            <span class="text-stone-600 dark:text-zinc-300 text-xs">800+ SKU y 1.600+ imágenes vinculadas, sin pérdida de información en producción.</span>
           </div>
         </div>
       </div>
@@ -387,7 +406,7 @@
         <div class="flex items-center gap-2 text-xs font-mono text-stone-500 dark:text-zinc-400">
           <span class="font-bold text-stone-800 dark:text-zinc-200">02 / CASO PRÁCTICO</span>
           <span>•</span>
-          <span>OCTUBRE 2024 – ENERO 2025</span>
+          <span>ENERO – JUNIO 2023</span>
         </div>
         <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-950 dark:text-white">
           Control Horario de Camiones, Cuadratura para Firma de Pagos y Auditoría ERP
@@ -443,25 +462,10 @@
               </thead>
               <tbody class="divide-y divide-stone-200 dark:divide-zinc-700/70 text-stone-800 dark:text-zinc-200 font-mono">
                 <tr class="hover:bg-stone-50 dark:hover:bg-zinc-800/40 transition-colors">
-                  <td class="py-3 px-3.5 text-stone-500 dark:text-zinc-400">04-11-2024</td>
-                  <td class="py-3 px-3.5 font-sans font-bold text-stone-950 dark:text-white">Camión 01 • J. Morales</td>
-                  <td class="py-3 px-3.5">08:15</td>
-                  <td class="py-3 px-3.5 font-semibold text-emerald-700 dark:text-emerald-400">12:40</td>
-                  <td class="py-3 px-3.5">13:30</td>
-                  <td class="py-3 px-3.5 font-semibold text-amber-700 dark:text-amber-400">16:25</td>
-                  <td class="py-3 px-3.5 text-center font-bold text-stone-950 dark:text-white">2</td>
-                  <td class="py-3 px-3.5 text-right font-bold text-amber-700 dark:text-amber-400 tabular-nums">$55.000</td>
-                  <td class="py-3 px-3.5 font-sans">
-                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 dark:border dark:border-emerald-800/60">
-                      Cuadrado y firmado
-                    </span>
-                  </td>
-                </tr>
-                <tr class="hover:bg-stone-50 dark:hover:bg-zinc-800/40 transition-colors">
-                  <td class="py-3 px-3.5 text-stone-500 dark:text-zinc-400">04-11-2024</td>
-                  <td class="py-3 px-3.5 font-sans font-bold text-stone-950 dark:text-white">Camión 02 • M. Soto</td>
+                  <td class="py-3 px-3.5 text-stone-500 dark:text-zinc-400">02-05-2023</td>
+                  <td class="py-3 px-3.5 font-sans font-bold text-stone-950 dark:text-white">Camión 01 • C. Muñoz</td>
                   <td class="py-3 px-3.5">08:30</td>
-                  <td class="py-3 px-3.5 font-semibold text-emerald-700 dark:text-emerald-400">13:15</td>
+                  <td class="py-3 px-3.5 font-semibold text-emerald-700 dark:text-emerald-400">12:45</td>
                   <td class="py-3 px-3.5 text-stone-400 dark:text-zinc-500">—</td>
                   <td class="py-3 px-3.5 text-stone-400 dark:text-zinc-500">—</td>
                   <td class="py-3 px-3.5 text-center font-bold text-stone-950 dark:text-white">1</td>
@@ -473,12 +477,12 @@
                   </td>
                 </tr>
                 <tr class="hover:bg-stone-50 dark:hover:bg-zinc-800/40 transition-colors">
-                  <td class="py-3 px-3.5 text-stone-500 dark:text-zinc-400">04-11-2024</td>
-                  <td class="py-3 px-3.5 font-sans font-bold text-stone-950 dark:text-white">Camión 03 • R. Díaz</td>
-                  <td class="py-3 px-3.5">08:05</td>
-                  <td class="py-3 px-3.5 font-semibold text-emerald-700 dark:text-emerald-400">12:20</td>
-                  <td class="py-3 px-3.5">13:15</td>
-                  <td class="py-3 px-3.5 font-semibold text-amber-700 dark:text-amber-400">16:50</td>
+                  <td class="py-3 px-3.5 text-stone-500 dark:text-zinc-400">02-05-2023</td>
+                  <td class="py-3 px-3.5 font-sans font-bold text-stone-950 dark:text-white">Camión 02 • R. Soto</td>
+                  <td class="py-3 px-3.5">08:15</td>
+                  <td class="py-3 px-3.5 font-semibold text-emerald-700 dark:text-emerald-400">12:30</td>
+                  <td class="py-3 px-3.5">13:30</td>
+                  <td class="py-3 px-3.5 font-semibold text-amber-700 dark:text-amber-400">16:40</td>
                   <td class="py-3 px-3.5 text-center font-bold text-stone-950 dark:text-white">2</td>
                   <td class="py-3 px-3.5 text-right font-bold text-amber-700 dark:text-amber-400 tabular-nums">$55.000</td>
                   <td class="py-3 px-3.5 font-sans">
@@ -488,9 +492,24 @@
                   </td>
                 </tr>
                 <tr class="hover:bg-stone-50 dark:hover:bg-zinc-800/40 transition-colors">
-                  <td class="py-3 px-3.5 text-stone-500 dark:text-zinc-400">05-11-2024</td>
-                  <td class="py-3 px-3.5 font-sans font-bold text-stone-950 dark:text-white">Camión 01 • J. Morales</td>
-                  <td class="py-3 px-3.5">08:20</td>
+                  <td class="py-3 px-3.5 text-stone-500 dark:text-zinc-400">03-05-2023</td>
+                  <td class="py-3 px-3.5 font-sans font-bold text-stone-950 dark:text-white">Camión 01 • C. Muñoz</td>
+                  <td class="py-3 px-3.5">08:40</td>
+                  <td class="py-3 px-3.5 font-semibold text-emerald-700 dark:text-emerald-400">13:10</td>
+                  <td class="py-3 px-3.5">14:00</td>
+                  <td class="py-3 px-3.5 font-semibold text-amber-700 dark:text-amber-400">16:55</td>
+                  <td class="py-3 px-3.5 text-center font-bold text-stone-950 dark:text-white">2</td>
+                  <td class="py-3 px-3.5 text-right font-bold text-amber-700 dark:text-amber-400 tabular-nums">$55.000</td>
+                  <td class="py-3 px-3.5 font-sans">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 dark:border dark:border-emerald-800/60">
+                      Cuadrado y firmado
+                    </span>
+                  </td>
+                </tr>
+                <tr class="hover:bg-stone-50 dark:hover:bg-zinc-800/40 transition-colors">
+                  <td class="py-3 px-3.5 text-stone-500 dark:text-zinc-400">03-05-2023</td>
+                  <td class="py-3 px-3.5 font-sans font-bold text-stone-950 dark:text-white">Camión 03 • P. Díaz</td>
+                  <td class="py-3 px-3.5">09:00</td>
                   <td class="py-3 px-3.5 font-semibold text-emerald-700 dark:text-emerald-400">13:45</td>
                   <td class="py-3 px-3.5 text-stone-400 dark:text-zinc-500">—</td>
                   <td class="py-3 px-3.5 text-stone-400 dark:text-zinc-500">—</td>
@@ -615,19 +634,19 @@
         </h4>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs sm:text-[13px]">
           <div>
-            <span class="text-stone-600 dark:text-zinc-400 block font-medium">Exactitud de Bodega (ERI):</span>
-            <strong class="text-sm sm:text-base font-bold text-emerald-700 dark:text-emerald-400 block mt-0.5">98,5% alcanzado (+9,5 pts)</strong>
-            <span class="text-stone-600 dark:text-zinc-300 text-xs">Subió desde un 89,0% gracias a la estandarización BPM.</span>
+            <span class="text-stone-600 dark:text-zinc-400 block font-medium">Regla de pago:</span>
+            <strong class="text-sm sm:text-base font-bold text-emerald-700 dark:text-emerald-400 block mt-0.5">$25.000 / $55.000</strong>
+            <span class="text-stone-600 dark:text-zinc-300 text-xs">Una o dos vueltas diarias, calculadas con fórmula condicional.</span>
           </div>
           <div>
-            <span class="text-stone-600 dark:text-zinc-400 block font-medium">Cumplimiento Horario:</span>
-            <strong class="text-sm sm:text-base font-bold text-stone-950 dark:text-white block mt-0.5">94,2% dentro de ventana</strong>
-            <span class="text-stone-600 dark:text-zinc-300 text-xs">Retornos a tiempo para carga y descarga en andenes.</span>
+            <span class="text-stone-600 dark:text-zinc-400 block font-medium">Cuadratura para pago:</span>
+            <strong class="text-sm sm:text-base font-bold text-stone-950 dark:text-white block mt-0.5">Planilla vs. respaldo impreso</strong>
+            <span class="text-stone-600 dark:text-zinc-300 text-xs">Cada registro se cruzó con la hoja firmada por jefatura.</span>
           </div>
           <div>
-            <span class="text-stone-600 dark:text-zinc-400 block font-medium">Fletes Auditados:</span>
-            <strong class="text-sm sm:text-base font-bold text-stone-950 dark:text-white block mt-0.5">$2.250.000 mensual</strong>
-            <span class="text-stone-600 dark:text-zinc-300 text-xs">100% cuadratura entre Excel e impreso firmado por jefe.</span>
+            <span class="text-stone-600 dark:text-zinc-400 block font-medium">Control de bodega:</span>
+            <strong class="text-sm sm:text-base font-bold text-stone-950 dark:text-white block mt-0.5">BPM + conciliación ERP</strong>
+            <span class="text-stone-600 dark:text-zinc-300 text-xs">Flujo validado para auditorías internas y conteos cíclicos documentados.</span>
           </div>
         </div>
       </div>
@@ -644,7 +663,9 @@
       <div>
         <span class="font-bold text-stone-900 dark:text-white">Allan Andre Ruiz Arenas</span> • Ingeniero Industrial (INACAP)
       </div>
-      <div class="flex items-center gap-4">
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="./assets/CV_Allan_Ruiz.pdf" download class="hover:text-emerald-600 dark:hover:text-emerald-400 underline font-medium">CV PDF</a>
+        <a href="https://www.linkedin.com/in/allan-ruiz-ing/" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline font-medium">LinkedIn</a>
         <a href="mailto:allanaruiz32@gmail.com" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline font-medium">allanaruiz32@gmail.com</a>
         <a href="https://github.com/Allan-Ruiz/portafolio-allan-ruiz" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline font-medium">GitHub</a>
       </div>
