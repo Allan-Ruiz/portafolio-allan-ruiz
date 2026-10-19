@@ -1,19 +1,29 @@
-# 📊 Portafolio Práctico | Allan Andre Ruiz Arenas
+# Portafolio Práctico | Allan Andre Ruiz Arenas
 **Ingeniero Industrial (INACAP) | Datos • Cloud • Logística**  
-📍 Santiago (Peñalolén), Chile • 📧 [allanaruiz32@gmail.com](mailto:allanaruiz32@gmail.com)
+Santiago (Peñalolén), Chile • [allanaruiz32@gmail.com](mailto:allanaruiz32@gmail.com)
 
-> ### 🌐 **[👉 Ver Portafolio Web Interactivo](https://allan-ruiz.github.io/portafolio-allan-ruiz/)**
+> ### [Ver Portafolio Web Interactivo](https://allan-ruiz.github.io/portafolio-allan-ruiz/)
 > *(Haz clic en el enlace de arriba para ver el visor web interactivo con modo claro y oscuro sin necesidad de descargar archivos).*
 
----
-
-## 📥 Descarga Directa de Archivos Excel (`.xlsx`)
-* 📄 **[Descargar Excel Caso 1 — Librerías BigPEN (`Caso01_BigPEN_Pipeline_ETL_Bsale_POS.xlsx`)](./01_bigpen_etl_bsale_pos/Caso01_BigPEN_Pipeline_ETL_Bsale_POS.xlsx)**
-* 📄 **[Descargar Excel Caso 2 — Ambientes Limpios S.A. (`Caso02_AmbientesLimpios_Procesos_y_ERP.xlsx`)](./02_ambientes_limpios_procesos_erp/Caso02_AmbientesLimpios_Procesos_y_ERP.xlsx)**
+**Enlaces:** [CV PDF](./assets/CV_Allan_Ruiz.pdf) · [LinkedIn](https://www.linkedin.com/in/allan-ruiz-ing/)
 
 ---
 
-## 🏆 Resumen de Proyectos Reales
+## Descarga Directa de Archivos Excel (`.xlsx`)
+* **[Descargar Excel Caso 1 — Librerías BigPEN (`Caso01_BigPEN_Pipeline_ETL_Bsale_POS.xlsx`)](./01_bigpen_etl_bsale_pos/Caso01_BigPEN_Pipeline_ETL_Bsale_POS.xlsx)**
+* **[Descargar Excel Caso 2 — Ambientes Limpios S.A. (`Caso02_AmbientesLimpios_Procesos_y_ERP.xlsx`)](./02_ambientes_limpios_procesos_erp/Caso02_AmbientesLimpios_Procesos_y_ERP.xlsx)**
+
+---
+
+## Laboratorios Interactivos de Arquitectura AWS
+* **[Alta disponibilidad de una tienda online](./laboratorio/aws-tienda.html)**: ALB, Auto Scaling, RDS Multi-AZ y S3. Simula caída de servidor, pico de usuarios y caída de una zona.
+* **[Telemetría IoT industrial](./laboratorio/iot-telemetria.html)**: IoT Core, Kinesis, Lambda, Timestream y S3. Simula datos corruptos, caída de conexión y pico masivo.
+
+> Estos laboratorios son ejercicios de diseño y simulación; no son implementaciones en producción.
+
+---
+
+## Resumen de Proyectos Reales
 
 ### 1. Limpieza de Catálogo, Descripciones Web y Migración al Sistema POS Bsale — *Librerías BigPEN*
 * **Periodo:** Noviembre 2025 – Marzo 2026
@@ -26,7 +36,7 @@
 ---
 
 ### 2. Control Horario de Camiones (1 o 2 Vueltas), Cuadratura para Firma de Pagos y Auditoría ERP — *Ambientes Limpios S.A.*
-* **Periodo:** Octubre 2024 – Enero 2025
+* **Periodo:** Enero - Junio 2023
 * **Herramientas:** `Excel Condicional` · `Control Horario` · `Cuadratura Impresa` · `ERP Corporativo` · `BPM`
 * **Qué hice paso a paso:**
   1. **Control de horas de salida/regreso y cálculo de pagos (`$25.000` / `$55.000`):** Los camiones realizaban **máximo 1 o 2 vueltas al día**. Registré la hora exacta de salida y regreso en Excel: **1 vuelta** (regreso entre **12:00 y 14:00 hrs**) pagaba **`$25.000`**, y **2 vueltas** (regreso entre **16:00 y 17:00 hrs**) pagaba **`$55.000`**. Cuadré cada registro con las hojas impresas para que el jefe pudiera firmarlas y autorizar los pagos.
