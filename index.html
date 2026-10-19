@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Allan Ruiz Arenas | Ingeniero Industrial • Operaciones &amp; Datos</title>
-  <meta name="description" content="Casos prácticos de control de operaciones, limpieza de datos, control de flota y auditoría ERP por Allan Ruiz Arenas." />
+  <title>Allan Ruiz Arenas | Ingeniero Industrial • Datos, Operaciones y Cloud</title>
+  <meta name="description" content="Casos reales de migración de datos, control de inventario y procesos, más laboratorios interactivos de arquitectura AWS por Allan Ruiz Arenas." />
 
   <!-- Tipografía Editorial y Técnica: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -71,6 +71,9 @@
         </a>
         <a href="#caso-ambientes" class="text-stone-600 dark:text-zinc-300 hover:text-stone-900 dark:hover:text-white transition font-medium hidden md:inline text-xs">
           2. Ambientes Limpios
+        </a>
+        <a href="#laboratorio" class="text-stone-600 dark:text-zinc-300 hover:text-stone-900 dark:hover:text-white transition font-medium hidden md:inline text-xs">
+          3. Laboratorio
         </a>
 
         <div class="h-3 w-px bg-stone-300 dark:bg-zinc-700 hidden md:block"></div>
@@ -652,6 +655,55 @@
       </div>
 
     </article>
+
+    <!-- =================================================================== -->
+    <!-- LABORATORIO CLOUD                                                   -->
+    <!-- =================================================================== -->
+    <section id="laboratorio" class="pt-8 border-t border-stone-200 dark:border-zinc-800 space-y-6">
+      <div class="space-y-2">
+        <div class="flex items-center gap-2 text-xs font-mono text-stone-500 dark:text-zinc-400">
+          <span class="font-bold text-stone-800 dark:text-zinc-200">03 / LABORATORIO CLOUD</span>
+          <span>•</span>
+          <span>DISEÑO Y SIMULACIÓN</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-950 dark:text-white">
+          Arquitectura AWS: decisiones, no solo diagramas
+        </h2>
+        <p class="text-sm sm:text-base text-stone-700 dark:text-zinc-200 max-w-3xl leading-relaxed">
+          Dos laboratorios interactivos para explicar cómo diseñaría una tienda de alta disponibilidad y un pipeline de telemetría industrial. Puedes provocar fallas, picos de demanda y datos corruptos para ver qué componente responde.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <article class="border border-stone-200 dark:border-zinc-700 rounded-xl overflow-hidden bg-white dark:bg-zinc-900/40 shadow-sm flex flex-col">
+          <img src="./assets/lab-aws.png" alt="Vista previa del diagrama de alta disponibilidad en AWS" class="w-full h-48 object-cover object-top border-b border-stone-200 dark:border-zinc-700">
+          <div class="p-4 sm:p-5 space-y-2 flex-1 flex flex-col">
+            <span class="text-[11px] font-mono font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">Alta disponibilidad</span>
+            <h3 class="text-lg font-extrabold text-stone-950 dark:text-white">Tienda online en AWS</h3>
+            <p class="text-sm text-stone-600 dark:text-zinc-300 leading-relaxed flex-1">
+              ALB, Auto Scaling, RDS Multi-AZ y S3. Simula la caída de un servidor, un pico de usuarios y la pérdida de una zona.
+            </p>
+            <a href="./laboratorio/aws-tienda.html" class="inline-flex items-center gap-1.5 text-sm font-bold text-emerald-700 dark:text-emerald-400 hover:underline">Abrir simulador <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </article>
+
+        <article class="border border-stone-200 dark:border-zinc-700 rounded-xl overflow-hidden bg-white dark:bg-zinc-900/40 shadow-sm flex flex-col">
+          <img src="./assets/lab-iot.png" alt="Vista previa del diagrama de telemetría IoT en AWS" class="w-full h-48 object-cover object-center border-b border-stone-200 dark:border-zinc-700">
+          <div class="p-4 sm:p-5 space-y-2 flex-1 flex flex-col">
+            <span class="text-[11px] font-mono font-bold uppercase tracking-wider text-sky-700 dark:text-sky-400">Telemetría IoT</span>
+            <h3 class="text-lg font-extrabold text-stone-950 dark:text-white">Procesamiento de eventos industriales</h3>
+            <p class="text-sm text-stone-600 dark:text-zinc-300 leading-relaxed flex-1">
+              IoT Core, Kinesis, Lambda, Timestream y S3. Simula datos corruptos, caída de conexión y un pico masivo.
+            </p>
+            <a href="./laboratorio/iot-telemetria.html" class="inline-flex items-center gap-1.5 text-sm font-bold text-sky-700 dark:text-sky-400 hover:underline">Abrir simulador <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </article>
+      </div>
+
+      <p class="text-xs text-stone-500 dark:text-zinc-400 italic">
+        Estos laboratorios son ejercicios de diseño y simulación. No son implementaciones en producción.
+      </p>
+    </section>
 
   </main>
 

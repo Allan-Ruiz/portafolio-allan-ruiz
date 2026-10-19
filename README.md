@@ -15,6 +15,14 @@ Santiago (Peñalolén), Chile • [allanaruiz32@gmail.com](mailto:allanaruiz32@g
 
 ---
 
+## Laboratorios Interactivos de Arquitectura AWS
+* **[Alta disponibilidad de una tienda online](./laboratorio/aws-tienda.html)**: ALB, Auto Scaling, RDS Multi-AZ y S3. Simula caída de servidor, pico de usuarios y caída de una zona.
+* **[Telemetría IoT industrial](./laboratorio/iot-telemetria.html)**: IoT Core, Kinesis, Lambda, Timestream y S3. Simula datos corruptos, caída de conexión y pico masivo.
+
+> Estos laboratorios son ejercicios de diseño y simulación; no son implementaciones en producción.
+
+---
+
 ## Resumen de Proyectos Reales
 
 ### 1. Limpieza de Catálogo, Descripciones Web y Migración al Sistema POS Bsale — *Librerías BigPEN*
