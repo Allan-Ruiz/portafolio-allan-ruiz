@@ -1,0 +1,444 @@
+/* ===================================================================
+   Laboratorio de telemetría IoT — estilos específicos del simulador
+   La base visual (tipografía, cabecera, tarjetas y pie) vive en
+   lab-shell.css.
+   =================================================================== */
+
+:root {
+  --aws-orange: #ff9900;
+  --tone-normal: #10b981;
+  --tone-error: #dc2626;
+  --tone-warning: #f59e0b;
+  --tone-peak: #14b8a6;
+  --tone-info: #0ea5e9;
+}
+
+/* Panel de escenarios ------------------------------------------- */
+
+.scenario-panel {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  padding: 14px 16px;
+  background: var(--lab-surface);
+  border: 1px solid var(--lab-border);
+  border-radius: 12px;
+  box-shadow: var(--lab-shadow);
+}
+
+.scenario-header {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding-right: 1rem;
+  border-right: 1px solid var(--lab-border);
+  color: var(--lab-heading);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.scenario-header svg {
+  width: 18px;
+  height: 18px;
+}
+
+.scenario-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+.scenario-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 8px 12px;
+  background: var(--lab-bg);
+  border: 1px solid var(--lab-border-strong);
+  border-radius: 8px;
+  color: var(--lab-text);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+.scenario-btn:hover {
+  background: var(--lab-surface-muted);
+  border-color: var(--lab-accent);
+  transform: translateY(-1px);
+}
+
+.scenario-btn .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #94a3b8;
+}
+
+.scenario-btn[data-scenario="normal"] .dot {
+  background: var(--tone-normal);
+}
+
+.scenario-btn[data-scenario="data-error"] .dot {
+  background: var(--tone-error);
+}
+
+.scenario-btn[data-scenario="conn-error"] .dot {
+  background: var(--tone-warning);
+}
+
+.scenario-btn[data-scenario="peak"] .dot {
+  background: var(--tone-peak);
+}
+
+.scenario-btn.active {
+  border-color: var(--lab-accent);
+  background: var(--lab-accent-soft);
+  color: var(--lab-accent-strong);
+  box-shadow: 0 0 0 2px rgba(4, 120, 87, 0.1);
+}
+
+.scenario-btn.active[data-scenario="data-error"] {
+  border-color: var(--tone-error);
+  background: #fef2f2;
+  color: #991b1b;
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.1);
+}
+
+.scenario-btn.active[data-scenario="conn-error"] {
+  border-color: var(--tone-warning);
+  background: #fffbeb;
+  color: #92400e;
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.1);
+}
+
+.scenario-btn.active[data-scenario="peak"] {
+  border-color: var(--tone-peak);
+  background: #f0fdfa;
+  color: #115e59;
+  box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.1);
+}
+
+.btn-autoplay {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 8px 13px;
+  background: var(--lab-heading);
+  border: 1px solid var(--lab-heading);
+  border-radius: 8px;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-autoplay:hover {
+  background: var(--lab-accent);
+  border-color: var(--lab-accent);
+}
+
+.btn-autoplay.playing {
+  background: var(--lab-accent);
+  border-color: var(--lab-accent);
+  color: #ffffff;
+}
+
+.scenario-btn:focus-visible,
+.btn-autoplay:focus-visible,
+.btn-tool:focus-visible {
+  outline: 2px solid var(--lab-accent);
+  outline-offset: 2px;
+}
+
+/* Barra de herramientas del diagrama --------------------------- */
+
+.toolbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 10px 16px;
+  background: var(--lab-surface);
+  border: 1px solid var(--lab-border);
+  border-bottom: 0;
+  border-radius: 12px 12px 0 0;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  color: var(--lab-heading);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.zoom-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.btn-tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 6px 10px;
+  background: var(--lab-bg);
+  border: 1px solid var(--lab-border-strong);
+  border-radius: 6px;
+  color: var(--lab-text);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-tool:hover {
+  background: var(--lab-surface-muted);
+  border-color: var(--lab-accent);
+  color: var(--lab-accent);
+}
+
+.btn-tool:active {
+  transform: scale(0.97);
+}
+
+.zoom-indicator {
+  min-width: 54px;
+  padding: 5px 8px;
+  background: var(--lab-accent-soft);
+  border: 1px solid var(--lab-accent-border);
+  border-radius: 6px;
+  color: var(--lab-accent-strong);
+  font-family: var(--lab-font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.toolbar-hint {
+  font-size: 11px;
+  color: var(--lab-subtle);
+}
+
+/* Lienzo del diagrama ------------------------------------------ */
+
+.diagram-container {
+  position: relative;
+  height: clamp(340px, 42vw, 620px);
+  min-height: 340px;
+  max-height: 620px;
+  margin-bottom: 0;
+  background: var(--lab-surface);
+  border: 1px solid var(--lab-border);
+  border-radius: 0 0 12px 12px;
+  box-shadow: var(--lab-shadow);
+  cursor: grab;
+  overflow: hidden;
+  user-select: none;
+  touch-action: none;
+}
+
+.diagram-container.grabbing {
+  cursor: grabbing;
+}
+
+.diagram-container svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Animación de flujo ------------------------------------------- */
+
+.flow-seg {
+  fill: none;
+  stroke: #cbd5e1;
+  stroke-width: 2.2;
+  opacity: 0.55;
+  transition: stroke 0.35s ease, opacity 0.35s ease, stroke-width 0.35s ease;
+}
+
+.flow-seg.active {
+  stroke-width: 3;
+  stroke-dasharray: 14 10;
+  opacity: 1;
+  animation: flowDash 1s linear infinite;
+  filter: drop-shadow(0 0 3px currentColor);
+}
+
+@keyframes flowDash {
+  to {
+    stroke-dashoffset: -48;
+  }
+}
+
+.flow-seg.active.tone-normal {
+  stroke: var(--tone-normal);
+  color: var(--tone-normal);
+}
+
+.flow-seg.active.tone-error {
+  stroke: var(--tone-error);
+  color: var(--tone-error);
+}
+
+.flow-seg.active.tone-warning {
+  stroke: var(--tone-warning);
+  color: var(--tone-warning);
+}
+
+.flow-seg.active.tone-peak {
+  stroke: var(--tone-peak);
+  color: var(--tone-peak);
+}
+
+.flow-seg.active.tone-info {
+  stroke: var(--tone-info);
+  color: var(--tone-info);
+}
+
+.notify-seg.active {
+  stroke: var(--tone-error);
+  color: var(--tone-error);
+  stroke-dasharray: 6 6;
+}
+
+.comp-box {
+  transition: all 0.35s ease;
+}
+
+.comp-box.pulse {
+  filter: drop-shadow(0 0 6px rgba(255, 153, 0, 0.55));
+}
+
+.comp-box.pulse.tone-normal {
+  filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.65));
+}
+
+.comp-box.pulse.tone-error {
+  filter: drop-shadow(0 0 6px rgba(220, 38, 38, 0.65));
+}
+
+.comp-box.pulse.tone-warning {
+  filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.7));
+}
+
+.comp-box.pulse.tone-peak {
+  filter: drop-shadow(0 0 6px rgba(20, 184, 166, 0.65));
+}
+
+/* Tarjetas de documentación ------------------------------------ */
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.card {
+  padding: 22px;
+  background: var(--lab-surface);
+  border: 1px solid var(--lab-border);
+  border-radius: 12px;
+  box-shadow: var(--lab-shadow);
+}
+
+.card h2 {
+  margin: 0 0 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--lab-border);
+  color: var(--lab-heading);
+  font-size: 18px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  font-weight: 800;
+}
+
+.card p {
+  margin: 0;
+  color: var(--lab-muted);
+  font-size: 14px;
+  line-height: 1.7;
+  text-align: left;
+}
+
+.services-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.services-list li {
+  margin-bottom: 10px;
+  color: var(--lab-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.services-list li:last-child {
+  margin-bottom: 0;
+}
+
+.services-list li strong {
+  display: block;
+  margin-bottom: 1px;
+  color: var(--lab-heading);
+  font-weight: 700;
+}
+
+/* Responsive --------------------------------------------------- */
+
+@media (max-width: 1100px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 800px) {
+  .scenario-panel {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .scenario-header {
+    padding-right: 0;
+    border-right: 0;
+  }
+
+  .scenario-buttons {
+    width: 100%;
+  }
+
+  .toolbar-container {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .toolbar-hint {
+    line-height: 1.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-seg.active {
+    animation: none;
+  }
+}

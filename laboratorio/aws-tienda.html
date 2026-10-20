@@ -4,173 +4,334 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Laboratorio — Alta disponibilidad en AWS | Allan Ruiz</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="description" content="Laboratorio interactivo de alta disponibilidad en AWS: ALB, Auto Scaling, RDS Multi-AZ y S3. Ejercicio de diseño y simulación." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./lab-shell.css" />
   <style>
-    :root {
-      color-scheme: dark light;
-    }
-    body {
-      background-color: var(--background, #0b0f19);
-      color: var(--foreground, #f8fafc);
-      font-size: 15px;
-    }
-    .card-surface {
-      background-color: var(--card, #111827);
-      border-color: var(--border, #1e293b);
-    }
-    .muted-text {
-      color: var(--muted-foreground, #94a3b8);
-    }
-    .drawio-grid {
+    .aws-canvas {
       background-color: #0d1321;
       background-image:
         linear-gradient(to right, rgba(148, 163, 184, 0.06) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
       background-size: 24px 24px;
+      border: 1px solid #263244;
+      border-radius: 12px;
+      padding: 16px;
+      overflow-x: auto;
     }
+
+    .aws-svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      min-width: 880px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 1000px) {
+      .aws-svg {
+        min-width: 760px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .aws-canvas {
+        padding: 10px;
+      }
+
+      .aws-svg {
+        min-width: 720px;
+      }
+    }
+
     @keyframes dashFlow {
       to {
         stroke-dashoffset: -28;
       }
     }
+
     .flow-anim {
       stroke-dasharray: 9, 5;
       animation: dashFlow 0.85s linear infinite;
     }
+
     @keyframes glowPulse {
       0%, 100% { filter: drop-shadow(0 0 5px rgba(16, 185, 129, 0.4)); }
       50% { filter: drop-shadow(0 0 12px rgba(16, 185, 129, 0.8)); }
     }
+
     .node-highlight {
       animation: glowPulse 2s infinite ease-in-out;
     }
+
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .scenario-card {
+      --tone: #047857;
+      --tone-soft: #ecfdf5;
+      --tone-border: #a7f3d0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 18px;
+      border: 1px solid var(--lab-border);
+      border-top: 3px solid var(--tone);
+      border-radius: 12px;
+      background: var(--lab-surface);
+      box-shadow: var(--lab-shadow);
+      cursor: pointer;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+    }
+
+    .scenario-card:hover {
+      border-color: var(--tone-border);
+      box-shadow: 0 8px 24px rgba(12, 10, 9, 0.06);
+      transform: translateY(-1px);
+    }
+
+    .scenario-card.is-active {
+      border-color: var(--tone);
+      box-shadow: 0 0 0 2px var(--tone-soft), 0 8px 24px rgba(12, 10, 9, 0.06);
+    }
+
+    .scenario-card.tone-emerald {
+      --tone: #047857;
+      --tone-soft: #ecfdf5;
+      --tone-border: #a7f3d0;
+    }
+
+    .scenario-card.tone-sky {
+      --tone: #0369a1;
+      --tone-soft: #f0f9ff;
+      --tone-border: #bae6fd;
+    }
+
+    .scenario-card.tone-violet {
+      --tone: #6d28d9;
+      --tone-soft: #f5f3ff;
+      --tone-border: #ddd6fe;
+    }
+
+    .scenario-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .scenario-kicker {
+      display: inline-flex;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--tone-soft);
+      color: var(--tone);
+      font-family: var(--lab-font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .scenario-action {
+      padding: 0;
+      border: 0;
+      background: none;
+      color: var(--lab-accent);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .scenario-action:hover {
+      text-decoration: underline;
+    }
+
+    .scenario-card h3 {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+      color: var(--lab-heading);
+      font-weight: 800;
+    }
+
+    .scenario-card ul {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .scenario-card li {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--lab-muted);
+    }
+
+    .scenario-card li::before {
+      content: "";
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      margin: 0 8px 2px 0;
+      border-radius: 999px;
+      background: var(--tone);
+    }
+
+    @media (max-width: 900px) {
+      .scenario-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
-<body class="bg-[var(--background)] text-[var(--foreground)] antialiased p-3 md:p-5 select-none max-w-7xl mx-auto space-y-4">
+<body>
 
-  <nav class="flex items-center justify-between gap-3 text-xs md:text-sm">
-    <a href="../index.html" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[var(--border)] card-surface hover:border-[#FF9900] text-slate-200 transition font-semibold">
-      &larr; Volver al portafolio
-    </a>
-    <div class="flex items-center gap-4">
-      <a href="../assets/CV_Allan_Ruiz.pdf" download class="text-slate-300 hover:text-[#FF9900] font-semibold">CV PDF</a>
-      <a href="https://www.linkedin.com/in/allan-ruiz-ing/" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-[#FF9900] font-semibold">LinkedIn</a>
-    </div>
-  </nav>
-
-  <!-- 1. CABECERA COMPACTA: SOLO LOGO AWS + TÍTULO + BOTÓN FLUJO NORMAL -->
-  <header class="card-surface border rounded-2xl px-4 py-3 shadow-sm flex items-center justify-between gap-3">
-    <div class="flex items-center gap-3">
-      <div class="w-11 h-11 rounded-xl bg-[#FF9900]/15 border-2 border-[#FF9900] flex flex-col items-center justify-center text-[#FF9900] font-black leading-none shrink-0">
-        <span class="text-sm">AWS</span>
-        <span class="text-[9px] text-amber-200 mt-0.5">LAB</span>
-      </div>
-      <div>
-        <h1 class="text-lg md:text-2xl font-black leading-tight"> Laboratorio: alta disponibilidad en una tienda online
-        </h1>
-        <p id="status-subtitle" class="text-xs md:text-sm font-semibold text-emerald-400"> Selecciona un escenario para ver cómo responde la arquitectura.
-        </p>
-      </div>
-    </div>
-
-    <div class="flex items-center gap-2 shrink-0">
-      <button onclick="setScenario('normal')" id="btn-normal" class="px-4 py-2 rounded-xl text-xs md:text-sm font-extrabold border-2 border-[#FF9900] bg-[#FF9900] text-slate-950 hover:bg-amber-400 transition cursor-pointer"> Volver al flujo normal
-      </button>
+  <header class="lab-topbar">
+    <div class="lab-wrap lab-topbar-inner">
+      <a class="lab-brand" href="../index.html">
+        <span class="lab-brand-dot"></span>
+        <span>Allan Ruiz Arenas</span>
+        <span class="lab-brand-role">Ingeniero Industrial</span>
+      </a>
+      <nav class="lab-topnav" aria-label="Navegación del laboratorio">
+        <a href="../index.html">&larr; Volver al portafolio</a>
+        <a href="../assets/CV_Allan_Ruiz.pdf" download>CV PDF</a>
+        <a href="https://www.linkedin.com/in/allan-ruiz-ing/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </nav>
     </div>
   </header>
 
+  <main class="lab-wrap">
 
-  <!-- CONTEXTO DEL LABORATORIO -->
-  <section class="card-surface border rounded-2xl p-4 md:p-5 space-y-3">
-    <p class="text-[11px] font-mono uppercase tracking-wider text-[#FF9900] font-bold">Laboratorio de arquitectura · AWS</p>
-    <h2 class="text-lg md:text-xl font-black">Qué problema resuelve</h2>
-    <p class="text-sm md:text-base muted-text leading-relaxed"> Una tienda online no puede depender de un solo servidor ni de una sola zona. Este laboratorio muestra cómo distribuir el tráfico, escalar cuando sube la demanda y sobrevivir a la caída de un servidor o de una Availability Zone sin perder pedidos.
-    </p>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs md:text-sm">
-      <div class="rounded-xl border border-[var(--border)] p-3 bg-[var(--background)]">
-        <div class="font-bold text-emerald-300 mb-1">1. Balanceo y health checks</div>
-        <p class="muted-text leading-relaxed">El Application Load Balancer reparte el tráfico entre dos zonas y saca de rotación al servidor que falla.</p>
+    <section class="lab-hero">
+      <div class="lab-hero-copy">
+        <p class="lab-eyebrow">Laboratorio de arquitectura · AWS</p>
+        <h1>Alta disponibilidad en una tienda online</h1>
+        <p class="lab-subtitle">
+          Cómo distribuir el tráfico, escalar cuando sube la demanda y sobrevivir a la caída de un servidor o de una zona sin perder pedidos. Selecciona un escenario para ver cómo responde la arquitectura.
+        </p>
       </div>
-      <div class="rounded-xl border border-[var(--border)] p-3 bg-[var(--background)]">
-        <div class="font-bold text-sky-300 mb-1">2. Escalado horizontal</div>
-        <p class="muted-text leading-relaxed">CloudWatch detecta el aumento de carga y el Auto Scaling Group lanza servidores nuevos en ambas zonas.</p>
+      <div class="lab-hero-meta">
+        <span class="lab-badge"><span class="lab-badge-dot"></span> Simulación interactiva</span>
+        <span class="lab-badge lab-badge-neutral">Diseño, no producción</span>
       </div>
-      <div class="rounded-xl border border-[var(--border)] p-3 bg-[var(--background)]">
-        <div class="font-bold text-purple-300 mb-1">3. Multi-AZ y almacenamiento</div>
-        <p class="muted-text leading-relaxed">RDS replica de forma síncrona en otra zona y S3 mantiene las imágenes y backups disponibles.</p>
-      </div>
-    </div>
-    <p class="text-[11px] muted-text italic">Laboratorio de diseño y simulación. No es una implementación en producción.</p>
-  </section>
+    </section>
 
-  <!-- 2. DIAGRAMA DE FLUJO INTERACTIVO -->
-  <main class="card-surface border rounded-2xl p-3 md:p-5 shadow-md">
-    <div id="drawio-vertical-canvas" class="drawio-grid rounded-xl border border-slate-700/80 p-3 md:p-5 overflow-x-auto">
-      <!-- Renderizado dinámico SVG -->
-    </div>
+    <section class="lab-intro">
+      <p class="lab-eyebrow">Qué problema resuelve</p>
+      <h2>Una tienda que no puede depender de un solo servidor</h2>
+      <p>
+        Una tienda online no puede depender de un solo servidor ni de una sola zona. Este laboratorio muestra cómo distribuir el tráfico, escalar cuando sube la demanda y sobrevivir a la caída de un servidor o de una Availability Zone sin perder pedidos.
+      </p>
+      <div class="lab-decisions">
+        <div class="lab-decision">
+          <strong>1. Balanceo y health checks</strong>
+          <span>El Application Load Balancer reparte el tráfico entre dos zonas y saca de rotación al servidor que falla.</span>
+        </div>
+        <div class="lab-decision">
+          <strong>2. Escalado horizontal</strong>
+          <span>CloudWatch detecta el aumento de carga y el Auto Scaling Group lanza servidores nuevos en ambas zonas.</span>
+        </div>
+        <div class="lab-decision">
+          <strong>3. Multi-AZ y almacenamiento</strong>
+          <span>RDS replica de forma síncrona en otra zona y S3 mantiene las imágenes y backups disponibles.</span>
+        </div>
+      </div>
+      <p class="lab-note">Laboratorio de diseño y simulación. No es una implementación en producción.</p>
+    </section>
+
+    <section class="lab-section" aria-labelledby="escenarios-titulo">
+      <div class="lab-section-head">
+        <div>
+          <p class="lab-eyebrow">Escenarios</p>
+          <h2 id="escenarios-titulo">Provoca una falla y observa la respuesta</h2>
+        </div>
+        <button onclick="setScenario('normal')" id="btn-normal" class="lab-btn lab-btn-primary is-active" type="button">Volver al flujo normal</button>
+      </div>
+
+      <p id="status-subtitle" class="lab-status" role="status" aria-live="polite">
+        Estado activo: flujo normal — balanceo 50% / 50% en 2 Availability Zones con RDS Multi-AZ y S3.
+      </p>
+
+      <div class="scenario-grid">
+        <article id="card-q1" class="scenario-card tone-emerald" onclick="setScenario('q1')">
+          <div class="scenario-card-top">
+            <span class="scenario-kicker">Pregunta 1</span>
+            <button type="button" class="scenario-action" onclick="event.stopPropagation(); setScenario('q1')">Simular escenario &rarr;</button>
+          </div>
+          <h3>¿Qué pasa si se cae un servidor?</h3>
+          <ul>
+            <li>El <strong class="hl-violet">Load Balancer (ALB)</strong> detecta el fallo por <em>Health Check</em> y corta el tráfico al Servidor 1.</li>
+            <li>Desvía el <strong class="hl-emerald">100% de los usuarios al Servidor EC2 #2</strong> (Zona B) sin caída.</li>
+            <li>El <strong class="hl-orange">Auto Scaling Group</strong> lanza un servidor nuevo de reemplazo.</li>
+          </ul>
+        </article>
+
+        <article id="card-q2" class="scenario-card tone-sky" onclick="setScenario('q2')">
+          <div class="scenario-card-top">
+            <span class="scenario-kicker">Pregunta 2</span>
+            <button type="button" class="scenario-action" onclick="event.stopPropagation(); setScenario('q2')">Simular escenario &rarr;</button>
+          </div>
+          <h3>¿Qué pasa si aumenta muchísimo la cantidad de usuarios?</h3>
+          <ul>
+            <li><strong class="hl-sky">CloudWatch</strong> detecta CPU alta y activa el <strong class="hl-orange">Auto Scaling (Scale-Out)</strong>.</li>
+            <li>Se crean los <strong class="hl-sky">Servidores EC2 #3 y #4</strong> en ambas zonas y el ALB reparte la carga.</li>
+            <li><strong class="hl-emerald">Amazon S3</strong> entrega las imágenes del catálogo sin saturar los servidores.</li>
+          </ul>
+        </article>
+
+        <article id="card-q3" class="scenario-card tone-violet" onclick="setScenario('q3')">
+          <div class="scenario-card-top">
+            <span class="scenario-kicker">Pregunta 3</span>
+            <button type="button" class="scenario-action" onclick="event.stopPropagation(); setScenario('q3')">Simular escenario &rarr;</button>
+          </div>
+          <h3>¿Qué pasa si una Availability Zone tiene problemas?</h3>
+          <ul>
+            <li>Si cae la <strong>Zona A</strong>, el <strong class="hl-violet">ALB</strong> envía todo el tráfico al Servidor #2 en la <strong class="hl-emerald">Zona B</strong>.</li>
+            <li><strong class="hl-blue">Amazon RDS Multi-AZ</strong> hace <strong>Failover automático</strong> promoviendo la BD <em>Standby</em> (Zona B) a <strong>Primaria</strong> sin perder datos.</li>
+            <li><strong class="hl-emerald">Amazon S3</strong> es regional y sigue 100% activo.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="lab-section" aria-labelledby="diagrama-titulo">
+      <div class="lab-panel">
+        <div class="lab-panel-head">
+          <div>
+            <p class="lab-eyebrow">Diagrama interactivo</p>
+            <h2 id="diagrama-titulo">Arquitectura de referencia</h2>
+          </div>
+          <span class="lab-canvas-note">Canvas del simulador</span>
+        </div>
+        <div class="lab-panel-pad">
+          <div id="drawio-vertical-canvas" class="aws-canvas">
+            <!-- Renderizado dinámico SVG -->
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <!-- 3. LAS 3 PREGUNTAS INTERACTIVAS (AL TOCARLAS SE ANIMA EL DIAGRAMA) -->
-  <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
-    <!-- Pregunta 1 -->
-    <div onclick="setScenario('q1')" id="card-q1" class="cursor-pointer card-surface border-2 rounded-2xl p-4 md:p-5 space-y-2 transition hover:border-[#FF9900]">
-      <div class="flex items-center justify-between">
-        <span class="px-3 py-0.5 rounded-lg bg-[#D05C17]/25 text-[#FF9900] font-black text-sm"> Pregunta 1
-        </span>
-        <span class="text-xs font-bold text-emerald-400">Simular escenario</span>
-      </div>
-      <h3 class="text-base md:text-lg font-black">
-        ¿Qué pasa si se cae un servidor?
-      </h3>
-      <ul class="space-y-1.5 text-sm md:text-base leading-snug muted-text">
-        <li>• El <strong class="text-purple-300">Load Balancer (ALB)</strong> detecta el fallo por <em>Health Check</em> y corta el tráfico al Servidor 1.</li>
-        <li>• Desvía el <strong class="text-emerald-400">100% de los usuarios al Servidor EC2 #2</strong> (Zona B) sin caída.</li>
-        <li>• El <strong class="text-[#FF9900]">Auto Scaling Group</strong> lanza un servidor nuevo de reemplazo.</li>
-      </ul>
-    </div>
-
-    <!-- Pregunta 2 -->
-    <div onclick="setScenario('q2')" id="card-q2" class="cursor-pointer card-surface border-2 rounded-2xl p-4 md:p-5 space-y-2 transition hover:border-sky-400">
-      <div class="flex items-center justify-between">
-        <span class="px-3 py-0.5 rounded-lg bg-sky-500/20 text-sky-300 font-black text-sm"> Pregunta 2
-        </span>
-        <span class="text-xs font-bold text-emerald-400">Simular escenario</span>
-      </div>
-      <h3 class="text-base md:text-lg font-black">
-        ¿Qué pasa si aumenta muchísimo la cantidad de usuarios?
-      </h3>
-      <ul class="space-y-1.5 text-sm md:text-base leading-snug muted-text">
-        <li>• <strong class="text-sky-300">CloudWatch</strong> detecta CPU alta y activa el <strong class="text-[#FF9900]">Auto Scaling (Scale-Out)</strong>.</li>
-        <li>• Se crean los <strong class="text-sky-300">Servidores EC2 #3 y #4</strong> en ambas zonas y el ALB reparte la carga.</li>
-        <li>• <strong class="text-emerald-400">Amazon S3</strong> entrega las imágenes del catálogo sin saturar los servidores.</li>
-      </ul>
-    </div>
-
-    <!-- Pregunta 3 -->
-    <div onclick="setScenario('q3')" id="card-q3" class="cursor-pointer card-surface border-2 rounded-2xl p-4 md:p-5 space-y-2 transition hover:border-purple-400">
-      <div class="flex items-center justify-between">
-        <span class="px-3 py-0.5 rounded-lg bg-purple-500/20 text-purple-300 font-black text-sm"> Pregunta 3
-        </span>
-        <span class="text-xs font-bold text-emerald-400">Simular escenario</span>
-      </div>
-      <h3 class="text-base md:text-lg font-black">
-        ¿Qué pasa si una Availability Zone tiene problemas?
-      </h3>
-      <ul class="space-y-1.5 text-sm md:text-base leading-snug muted-text">
-        <li>• Si cae la <strong>Zona A</strong>, el <strong class="text-purple-300">ALB</strong> envía todo el tráfico al Servidor #2 en la <strong class="text-emerald-400">Zona B</strong>.</li>
-        <li>• <strong class="text-blue-300">Amazon RDS Multi-AZ</strong> hace <strong>Failover automático</strong> promoviendo la BD <em>Standby</em> (Zona B) a <strong>Primaria</strong> sin perder datos.</li>
-        <li>• <strong class="text-emerald-400">Amazon S3</strong> es regional y sigue 100% activo.</li>
-      </ul>
-    </div>
-  </section>
-
-
-  <footer class="card-surface border rounded-2xl px-4 py-3 text-xs muted-text flex flex-col sm:flex-row items-center justify-between gap-2">
-    <span>Allan Ruiz Arenas · Ingeniero Industrial</span>
-    <div class="flex items-center gap-4">
-      <a href="../index.html" class="hover:text-[#FF9900] font-semibold">Portafolio</a>
-      <a href="../assets/CV_Allan_Ruiz.pdf" download class="hover:text-[#FF9900] font-semibold">CV PDF</a>
-      <a href="https://www.linkedin.com/in/allan-ruiz-ing/" target="_blank" rel="noopener noreferrer" class="hover:text-[#FF9900] font-semibold">LinkedIn</a>
+  <footer class="lab-footer">
+    <div class="lab-wrap lab-footer-inner">
+      <span><strong>Allan Ruiz Arenas</strong> · Ingeniero Industrial</span>
+      <nav class="lab-footer-links" aria-label="Enlaces de contacto">
+        <a href="../index.html">Portafolio</a>
+        <a href="../assets/CV_Allan_Ruiz.pdf" download>CV PDF</a>
+        <a href="https://www.linkedin.com/in/allan-ruiz-ing/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="mailto:allanaruiz32@gmail.com">Email</a>
+      </nav>
     </div>
   </footer>
 
@@ -178,28 +339,28 @@
 
     const scenarios = {
       normal: {
-        subtitle: "Estado activo: Flujo Normal — Balanceo 50% / 50% en 2 Availability Zones con RDS Multi-AZ y S3",
+        subtitle: "Estado activo: flujo normal. Balanceo 50% / 50% entre dos Availability Zones, con RDS Multi-AZ y S3.",
         srv1Alive: true,
         azAAlive: true,
         scaleOut: false,
         rdsFailover: false
       },
       q1: {
-        subtitle: "Simulando Pregunta 1: Se cae el Servidor EC2 #1: ALB redirige 100% al Servidor #2 y Auto Scaling lo reemplaza",
+        subtitle: "Simulando pregunta 1: se cae el Servidor EC2 #1. El ALB redirige el 100% del tráfico al Servidor #2 y Auto Scaling lo reemplaza.",
         srv1Alive: false,
         azAAlive: true,
         scaleOut: false,
         rdsFailover: false
       },
       q2: {
-        subtitle: "Simulando Pregunta 2: Aumento masivo de usuarios: Auto Scaling lanza Servidores EC2 #3 y #4 + S3 sirve fotos",
+        subtitle: "Simulando pregunta 2: aumento masivo de usuarios. Auto Scaling lanza los Servidores EC2 #3 y #4, y S3 sirve las imágenes del catálogo.",
         srv1Alive: true,
         azAAlive: true,
         scaleOut: true,
         rdsFailover: false
       },
       q3: {
-        subtitle: "Simulando Pregunta 3: Falla toda la Availability Zone A: ALB va a Zona B y RDS Standby pasa a ser Primaria",
+        subtitle: "Simulando pregunta 3: falla la Availability Zone A. El ALB envía el tráfico a la Zona B y RDS promueve la standby a primaria.",
         srv1Alive: false,
         azAAlive: false,
         scaleOut: false,
@@ -210,20 +371,12 @@
     function setScenario(sc) {
       currentScenario = sc;
       const btnNormal = document.getElementById('btn-normal');
-      if (sc === 'normal') {
-        btnNormal.className = "px-4 py-2 rounded-xl text-xs md:text-sm font-extrabold border-2 border-[#FF9900] bg-[#FF9900] text-slate-950 transition cursor-pointer shrink-0";
-      } else {
-        btnNormal.className = "px-4 py-2 rounded-xl text-xs md:text-sm font-extrabold border border-[var(--border)] card-surface hover:border-[#FF9900] text-amber-300 transition cursor-pointer shrink-0";
-      }
+      btnNormal.classList.toggle('is-active', sc === 'normal');
 
       ['q1', 'q2', 'q3'].forEach(id => {
         const card = document.getElementById(`card-${id}`);
         if (card) {
-          if (id === sc) {
-            card.classList.add('ring-2', 'ring-[#FF9900]', 'bg-[#FF9900]/10');
-          } else {
-            card.classList.remove('ring-2', 'ring-[#FF9900]', 'bg-[#FF9900]/10');
-          }
+          card.classList.toggle('is-active', id === sc);
         }
       });
 
@@ -245,7 +398,7 @@
         : (s.scaleOut ? "2b. 50% (EC2 #2 y #4)" : "2b. 50% (Health OK)");
 
       document.getElementById('drawio-vertical-canvas').innerHTML = `
-        <svg viewBox="0 0 1120 915" class="w-full h-auto min-w-[880px] mx-auto block">
+        <svg viewBox="0 0 1120 915" class="aws-svg">
           <defs>
             <marker id="arr-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
               <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981" />
