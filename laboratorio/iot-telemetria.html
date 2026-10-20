@@ -4,207 +4,48 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Laboratorio — Telemetría IoT industrial en AWS | Allan Ruiz</title>
-<style>
-  :root{
-    --aws-squid:#232F3E; --aws-navy:#131A22; --aws-orange:#FF9900;
-    --aws-blue:#0073BB; --gray-bg:#F4F6F8; --gray-border:#E2E8F0;
-    --text-main:#1A202C; --text-muted:#4A5568;
-    --tone-normal:#10B981; --tone-error:#DC2626;
-    --tone-warning:#F59E0B; --tone-peak:#14B8A6; --tone-info:#0EA5E9;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{
-    font-family:"Segoe UI",Roboto,-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;
-    background:var(--gray-bg); color:var(--text-main); line-height:1.5;
-  }
-  header{
-    background:var(--aws-squid); color:#fff; padding:1rem 2.5rem;
-    border-bottom:4px solid var(--aws-orange);
-    display:flex; justify-content:space-between; align-items:center;
-    flex-wrap:wrap; gap:1rem;
-  }
-  header h1{font-size:1.28rem; font-weight:700; letter-spacing:-.3px}
-  header p{font-size:.8rem; color:#CBD5E0; margin-top:2px}
-  .live-badge{
-    display:inline-flex; align-items:center; gap:.4rem;
-    background:rgba(255,153,0,.15); border:1px solid var(--aws-orange);
-    color:var(--aws-orange); padding:.3rem .75rem; border-radius:20px;
-    font-size:.72rem; font-weight:700; letter-spacing:.5px;
-  }
-  .live-dot{
-    width:8px; height:8px; border-radius:50%; background:var(--aws-orange);
-    animation:pulse 1.5s ease-in-out infinite;
-  }
-  @keyframes pulse{0%,100%{opacity:1; transform:scale(1)} 50%{opacity:.4; transform:scale(1.3)}}
-
-  main{max-width:1840px; margin:1.2rem auto; padding:0 1.5rem}
-
-  /* ── Panel de escenarios ── */
-  .scenario-panel{
-    background:#FFFFFF; border:1px solid var(--gray-border);
-    border-radius:8px; padding:1rem 1.4rem; margin-bottom:1rem;
-    box-shadow:0 2px 5px rgba(0,0,0,.04);
-    display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;
-  }
-  .scenario-header{
-    display:flex; align-items:center; gap:.6rem; font-weight:700;
-    color:var(--aws-squid); font-size:.92rem; padding-right:1rem;
-    border-right:2px solid var(--gray-bg);
-  }
-  .scenario-header svg{width:20px; height:20px}
-  .scenario-buttons{display:flex; gap:.6rem; flex-wrap:wrap; flex:1}
-  .scenario-btn{
-    background:#F8FAFC; border:1.5px solid var(--gray-border);
-    border-radius:6px; padding:.55rem 1rem; font-size:.85rem; font-weight:600;
-    color:var(--text-main); cursor:pointer; display:inline-flex;
-    align-items:center; gap:.45rem; transition:all .2s ease;
-    user-select:none; font-family:inherit;
-  }
-  .scenario-btn:hover{background:#F1F5F9; border-color:#CBD5E1; transform:translateY(-1px)}
-  .scenario-btn .dot{width:9px; height:9px; border-radius:50%; background:#94A3B8}
-  .scenario-btn[data-scenario="normal"] .dot{background:var(--tone-normal)}
-  .scenario-btn[data-scenario="data-error"] .dot{background:var(--tone-error)}
-  .scenario-btn[data-scenario="conn-error"] .dot{background:var(--tone-warning)}
-  .scenario-btn[data-scenario="peak"] .dot{background:var(--tone-peak)}
-  .scenario-btn.active[data-scenario="normal"]{background:#ECFDF5; border-color:var(--tone-normal); color:#065F46; box-shadow:0 0 0 3px rgba(16,185,129,.15)}
-  .scenario-btn.active[data-scenario="data-error"]{background:#FEF2F2; border-color:var(--tone-error); color:#991B1B; box-shadow:0 0 0 3px rgba(220,38,38,.15)}
-  .scenario-btn.active[data-scenario="conn-error"]{background:#FFFBEB; border-color:var(--tone-warning); color:#92400E; box-shadow:0 0 0 3px rgba(245,158,11,.15)}
-  .scenario-btn.active[data-scenario="peak"]{background:#F0FDFA; border-color:var(--tone-peak); color:#115E59; box-shadow:0 0 0 3px rgba(20,184,166,.15)}
-  .btn-autoplay{
-    background:var(--aws-squid); color:#fff; border:none;
-    padding:.6rem 1.1rem; border-radius:6px; font-weight:700;
-    font-size:.82rem; cursor:pointer; display:inline-flex;
-    align-items:center; gap:.4rem; font-family:inherit;
-    transition:all .2s ease;
-  }
-  .btn-autoplay:hover{background:#0F172A}
-  .btn-autoplay.playing{background:var(--aws-orange); color:var(--aws-navy)}
-
-  /* ── Toolbar zoom ── */
-  .toolbar-container{
-    display:flex; justify-content:space-between; align-items:center;
-    background:#FFFFFF; border:1px solid var(--gray-border);
-    border-radius:8px 8px 0 0; padding:.55rem 1.2rem; border-bottom:none;
-    gap:1rem; flex-wrap:wrap;
-  }
-  .toolbar-left{display:flex; align-items:center; gap:.6rem; font-size:.88rem; font-weight:600; color:var(--aws-squid)}
-  .zoom-btn-group{display:flex; align-items:center; gap:.4rem}
-  .btn-tool{
-    background:#F8FAFC; border:1px solid var(--gray-border); border-radius:5px;
-    padding:.4rem .8rem; font-size:.82rem; font-weight:600; color:var(--text-main);
-    cursor:pointer; display:inline-flex; align-items:center; gap:.3rem;
-    transition:all .15s ease; user-select:none; font-family:inherit;
-  }
-  .btn-tool:hover{background:#E2E8F0; border-color:#CBD5E1; color:var(--aws-blue)}
-  .btn-tool:active{transform:scale(.97)}
-  .zoom-indicator{
-    min-width:58px; text-align:center; font-size:.82rem; font-weight:700;
-    color:var(--aws-blue); background:#EBF8FF; padding:.35rem .6rem;
-    border-radius:4px; border:1px solid #BEE3F8;
-  }
-  .toolbar-hint{font-size:.76rem; color:var(--text-muted)}
-
-  /* ── Diagrama ── */
-  .diagram-container{
-    background:#FFFFFF; border:1px solid var(--gray-border);
-    border-radius:0 0 8px 8px; height:70vh; min-height:520px;
-    max-height:820px; overflow:hidden; position:relative;
-    cursor:grab; user-select:none; touch-action:none;
-    box-shadow:0 2px 6px rgba(0,0,0,.05); margin-bottom:1.5rem;
-  }
-  .diagram-container.grabbing{cursor:grabbing}
-  .diagram-container svg{width:100%; height:100%; display:block}
-
-  /* ── Animación de flujo ── */
-  .flow-seg{
-    stroke:#CBD5E1; stroke-width:2.2; fill:none;
-    transition:stroke .35s ease, opacity .35s ease, stroke-width .35s ease;
-    opacity:.55;
-  }
-  .flow-seg.active{
-    opacity:1;
-    stroke-width:3;
-    stroke-dasharray:14 10;
-    animation:flowDash 1s linear infinite;
-    filter:drop-shadow(0 0 3px currentColor);
-  }
-  @keyframes flowDash{to{stroke-dashoffset:-48}}
-
-  .flow-seg.active.tone-normal {stroke:var(--tone-normal); color:var(--tone-normal)}
-  .flow-seg.active.tone-error  {stroke:var(--tone-error);  color:var(--tone-error)}
-  .flow-seg.active.tone-warning{stroke:var(--tone-warning);color:var(--tone-warning)}
-  .flow-seg.active.tone-peak   {stroke:var(--tone-peak);   color:var(--tone-peak)}
-  .flow-seg.active.tone-info   {stroke:var(--tone-info);   color:var(--tone-info)}
-
-  .notify-seg.active{
-    stroke:var(--tone-error); color:var(--tone-error);
-    stroke-dasharray:6 6;
-  }
-
-  /* Componentes (cajas) — pulso al estar activos */
-  .comp-box{transition:all .35s ease}
-  .comp-box.pulse{
-    filter:drop-shadow(0 0 6px rgba(255,153,0,.55));
-  }
-  .comp-box.pulse.tone-normal{filter:drop-shadow(0 0 6px rgba(16,185,129,.65))}
-  .comp-box.pulse.tone-error{filter:drop-shadow(0 0 6px rgba(220,38,38,.65))}
-  .comp-box.pulse.tone-warning{filter:drop-shadow(0 0 6px rgba(245,158,11,.7))}
-  .comp-box.pulse.tone-peak{filter:drop-shadow(0 0 6px rgba(20,184,166,.65))}
-
-  /* ── Tarjetas de documentación ── */
-  .cards-grid{display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:1.5rem}
-  @media (max-width:1100px){.cards-grid{grid-template-columns:1fr}}
-  .card{
-    background:#FFFFFF; border:1px solid var(--gray-border);
-    border-radius:8px; padding:1.4rem 1.7rem;
-    box-shadow:0 2px 5px rgba(0,0,0,.04);
-  }
-  .card h2{
-    font-size:1.1rem; color:var(--aws-squid); margin-bottom:.75rem;
-    border-bottom:2px solid var(--gray-bg); padding-bottom:.5rem;
-  }
-  .card p{font-size:.85rem; color:var(--text-muted); line-height:1.65; text-align:justify}
-  .services-list{list-style:none}
-  .services-list li{margin-bottom:.6rem; font-size:.82rem; color:var(--text-muted); line-height:1.55}
-  .services-list li strong{color:var(--aws-squid); font-weight:700; display:block; margin-bottom:1px}
-
-    .portfolio-nav{max-width:1600px;margin:0 auto;padding:1rem 2.5rem 0;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
-    .portfolio-nav a{color:var(--aws-squid);font-size:.85rem;font-weight:600;text-decoration:none;border-bottom:1px solid transparent}
-    .portfolio-nav a:hover{color:var(--aws-blue);border-bottom-color:var(--aws-blue)}
-    .lab-intro{background:#fff;border:1px solid var(--gray-border);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;box-shadow:0 2px 5px rgba(0,0,0,.04)}
-    .lab-eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--aws-blue);margin-bottom:.35rem}
-    .lab-intro h2{font-size:1.15rem;color:var(--aws-squid);margin-bottom:.5rem}
-    .lab-intro p{font-size:.88rem;color:var(--text-muted);line-height:1.65}
-    .lab-decisions{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:1rem}
-    .lab-decision{background:var(--gray-bg);border:1px solid var(--gray-border);border-radius:8px;padding:.75rem}
-    .lab-decision strong{display:block;color:var(--aws-squid);font-size:.8rem;margin-bottom:.2rem}
-    .lab-decision span{font-size:.78rem;color:var(--text-muted);line-height:1.5}
-    .lab-note{font-size:.75rem;color:var(--text-muted);font-style:italic;margin-top:.9rem}
-    .lab-footer{max-width:1600px;margin:2rem auto 0;padding:1rem 2.5rem;border-top:1px solid var(--gray-border);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.78rem;color:var(--text-muted)}
-    .lab-footer a{color:var(--aws-blue);text-decoration:none;font-weight:600}
-    @media (max-width:800px){.lab-decisions{grid-template-columns:1fr}.portfolio-nav{padding:1rem 1.25rem 0}.lab-footer{padding:1rem 1.25rem}}
-</style>
+  <meta name="description" content="Laboratorio interactivo de telemetría IoT industrial en AWS: IoT Core, Kinesis, Lambda, Timestream y S3. Ejercicio de diseño y simulación." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./lab-shell.css" />
+  <link rel="stylesheet" href="./iot-telemetria.css" />
 </head>
 <body>
 
-<nav class="portfolio-nav">
-  <a href="../index.html">&larr; Volver al portafolio</a>
-  <div><a href="../assets/CV_Allan_Ruiz.pdf" download>CV PDF</a> · <a href="https://www.linkedin.com/in/allan-ruiz-ing/" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
-</nav>
-
-<header>
-  <div>
-    <h1>Laboratorio: telemetría IoT industrial en AWS</h1>
-    <p>Simulador Interactivo de Arquitectura Cloud — AWS IoT · Kinesis · Lambda · Timestream</p>
+<header class="lab-topbar">
+  <div class="lab-wrap lab-topbar-inner">
+    <a class="lab-brand" href="../index.html">
+      <span class="lab-brand-dot"></span>
+      <span>Allan Ruiz Arenas</span>
+      <span class="lab-brand-role">Ingeniero Industrial</span>
+    </a>
+    <nav class="lab-topnav" aria-label="Navegación del laboratorio">
+      <a href="../index.html">&larr; Volver al portafolio</a>
+      <a href="../assets/CV_Allan_Ruiz.pdf" download>CV PDF</a>
+      <a href="https://www.linkedin.com/in/allan-ruiz-ing/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </nav>
   </div>
-  <div class="live-badge"><span class="live-dot"></span> SIMULACIÓN EN VIVO</div>
 </header>
 
-<main>
+<main class="lab-wrap">
 
+  <section class="lab-hero">
+    <div class="lab-hero-copy">
+      <p class="lab-eyebrow">Laboratorio de arquitectura · AWS</p>
+      <h1>Telemetría IoT industrial en AWS</h1>
+      <p class="lab-subtitle">
+        Simulador interactivo de arquitectura cloud: AWS IoT, Kinesis, Lambda y Timestream. Provoca datos corruptos, caídas de conexión y picos de demanda para ver cómo responde el pipeline.
+      </p>
+    </div>
+    <div class="lab-hero-meta">
+      <span class="lab-badge"><span class="lab-badge-dot"></span> Simulación interactiva</span>
+      <span class="lab-badge lab-badge-neutral">Diseño, no producción</span>
+    </div>
+  </section>
 
-  <div class="lab-intro">
-    <div class="lab-eyebrow">Laboratorio de arquitectura · AWS</div>
+  <section class="lab-intro">
+    <p class="lab-eyebrow">Qué problema resuelve</p>
     <h2>Cómo procesar telemetría industrial sin perder datos</h2>
     <p>Los sensores publican lecturas por MQTT/TLS, pero la red falla, llegan registros corruptos y el volumen puede multiplicarse. Este simulador muestra cómo un pipeline desacoplado absorbe esos eventos, valida los datos, reprocesa los errores y mantiene la trazabilidad.</p>
     <div class="lab-decisions">
@@ -213,12 +54,21 @@
       <div class="lab-decision"><strong>3. Consulta y observabilidad</strong><span>Timestream y S3 guardan los datos; EventBridge, Step Functions y SNS orquestan alertas y mantenimiento.</span></div>
     </div>
     <p class="lab-note">Laboratorio de diseño y simulación. No es una implementación en producción.</p>
-  </div>
+  </section>
+
+  <section class="lab-section" aria-labelledby="simulador-titulo">
+    <div class="lab-section-head">
+      <div>
+        <p class="lab-eyebrow">Simulador de escenarios</p>
+        <h2 id="simulador-titulo">Provoca una falla y observa el flujo</h2>
+      </div>
+      <p>Usa los botones para cambiar el escenario o activa el recorrido automático.</p>
+    </div>
 
   <!-- ─── PANEL DE ESCENARIOS ─── -->
   <div class="scenario-panel">
     <div class="scenario-header">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Simulador de Escenarios
+      <svg viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Elige un escenario
     </div>
     <div class="scenario-buttons">
       <button class="scenario-btn" data-scenario="normal"><span class="dot"></span>Flujo normal</button>
@@ -232,7 +82,7 @@
   <!-- ─── TOOLBAR ZOOM ─── -->
   <div class="toolbar-container">
     <div class="toolbar-left">
-      <span>Vista Interactiva</span>
+      <span>Vista interactiva</span>
       <div class="zoom-btn-group">
         <button class="btn-tool" onclick="zoomIn()" title="Acercar">Acercar</button>
         <button class="btn-tool" onclick="zoomOut()" title="Alejar">Alejar</button>
@@ -524,15 +374,24 @@
       </g>
     </svg>
   </div>
+  </section>
+
+  <section class="lab-section" aria-labelledby="documentacion-titulo">
+    <div class="lab-section-head">
+      <div>
+        <p class="lab-eyebrow">Documentación</p>
+        <h2 id="documentacion-titulo">Qué hace cada componente</h2>
+      </div>
+    </div>
 
   <!-- ─── DOCUMENTACIÓN ─── -->
   <div class="cards-grid">
     <div class="card">
-      <h2>Resumen del Flujo</h2>
+      <h2>Resumen del flujo</h2>
       <p>Los sensores industriales publican lecturas vía <strong>MQTT/TLS</strong> hacia <strong>AWS IoT Core</strong>, que autentica cada dispositivo con certificados X.509 y mantiene un <strong>Device Shadow</strong> para tolerar desconexiones. <strong>Kinesis Data Streams (On-Demand)</strong> absorbe el flujo como buffer desacoplador y escala automáticamente ante picos masivos. <strong>AWS Lambda</strong> consume por lotes, valida el esquema, descarta outliers y enriquece los datos. Si son válidos, <strong>EventBridge</strong> los enruta hacia <strong>Timestream</strong> (consultas en vivo), <strong>S3</strong> (data lake histórico) y <strong>Step Functions</strong> (workflows de mantenimiento predictivo). Si son corruptos, van a una <strong>DLQ en SQS</strong> donde una Lambda de reparación los reprocesa. Las anomalías se notifican por <strong>SNS</strong>.</p>
     </div>
     <div class="card">
-      <h2>Justificación de Servicios</h2>
+      <h2>Justificación de servicios</h2>
       <ul class="services-list">
         <li><strong>AWS IoT Core</strong> Autenticación mutua X.509, soporte MQTT/HTTPS y reglas nativas. El Device Shadow garantiza tolerancia a desconexiones.</li>
         <li><strong>Kinesis On-Demand</strong> Buffer de ingesta con escalado automático. Absorbe picos sin aprovisionamiento manual y desacopla productores de consumidores.</li>
@@ -546,12 +405,20 @@
       </ul>
     </div>
   </div>
+  </section>
 
 </main>
 
 <footer class="lab-footer">
-  <span>Allan Ruiz Arenas · Ingeniero Industrial</span>
-  <div><a href="../index.html">Portafolio</a> · <a href="../assets/CV_Allan_Ruiz.pdf" download>CV PDF</a> · <a href="https://www.linkedin.com/in/allan-ruiz-ing/" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
+  <div class="lab-wrap lab-footer-inner">
+    <span><strong>Allan Ruiz Arenas</strong> · Ingeniero Industrial</span>
+    <nav class="lab-footer-links" aria-label="Enlaces de contacto">
+      <a href="../index.html">Portafolio</a>
+      <a href="../assets/CV_Allan_Ruiz.pdf" download>CV PDF</a>
+      <a href="https://www.linkedin.com/in/allan-ruiz-ing/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="mailto:allanaruiz32@gmail.com">Email</a>
+    </nav>
+  </div>
 </footer>
 
 <script>
