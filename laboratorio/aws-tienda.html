@@ -10,6 +10,17 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./lab-shell.css" />
   <style>
+    /* Aviso de scroll del diagrama: visible solo en móvil, incluso con CSS compartido cacheado */
+    .lab-canvas-hint {
+      display: none;
+    }
+
+    @media (max-width: 700px) {
+      .lab-canvas-hint {
+        display: block !important;
+      }
+    }
+
     .aws-canvas {
       background-color: #0d1321;
       background-image:
