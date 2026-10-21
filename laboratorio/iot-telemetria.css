@@ -427,6 +427,22 @@
     width: 100%;
   }
 
+  .scenario-btn,
+  .btn-autoplay {
+    min-height: 44px;
+  }
+
+  .btn-tool {
+    min-height: 40px;
+    padding: 8px 11px;
+    font-size: 12px;
+  }
+
+  .diagram-container {
+    height: 420px;
+    min-height: 420px;
+  }
+
   .toolbar-container {
     align-items: flex-start;
     flex-direction: column;

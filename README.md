@@ -42,3 +42,15 @@ Santiago (Peñalolén), Chile • [allanaruiz32@gmail.com](mailto:allanaruiz32@g
   1. **Control de horas de salida/regreso y cálculo de pagos (`$25.000` / `$55.000`):** Los camiones realizaban **máximo 1 o 2 vueltas al día**. Registré la hora exacta de salida y regreso en Excel: **1 vuelta** (regreso entre **12:00 y 14:00 hrs**) pagaba **`$25.000`**, y **2 vueltas** (regreso entre **16:00 y 17:00 hrs**) pagaba **`$55.000`**. Cuadré cada registro con las hojas impresas para que el jefe pudiera firmarlas y autorizar los pagos.
   2. **Conciliación de inventario contra ERP:** Realicé conteos cíclicos en bodega y crucé las existencias físicas con el **ERP corporativo**, detectando vales pendientes de digitación y mejorando la exactitud de inventario.
   3. **Flujograma Operativo de Bodega (BPM):** A solicitud del Gerente del Área de Procesos, levanté y diseñé el diagrama de flujo completo de la bodega, trabajo que fue felicitado por jefatura y **validado para auditorías internas de control**.
+
+---
+
+## Notas de desarrollo
+
+- El CSS de `index.html` se compila con Tailwind 3.4.17 en `assets/tailwind.css` para evitar el CDN de producción y su advertencia.
+- Si agregas o cambias clases en `index.html`, reconstruye el CSS:
+
+```bash
+npx tailwindcss@3.4.17 -c tailwind.config.js -i assets/tailwind.input.css -o assets/tailwind.css --minify
+```
+

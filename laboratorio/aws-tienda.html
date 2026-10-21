@@ -20,6 +20,8 @@
       border-radius: 12px;
       padding: 16px;
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
     }
 
     .aws-svg {
@@ -43,6 +45,14 @@
 
       .aws-svg {
         min-width: 720px;
+      }
+
+      .scenario-kicker {
+        font-size: 11px;
+      }
+
+      .scenario-card h3 {
+        font-size: 18px;
       }
     }
 
@@ -140,6 +150,9 @@
     }
 
     .scenario-action {
+      display: inline-flex;
+      align-items: center;
+      min-height: 40px;
       padding: 0;
       border: 0;
       background: none;
@@ -314,6 +327,7 @@
           <span class="lab-canvas-note">Canvas del simulador</span>
         </div>
         <div class="lab-panel-pad">
+          <p class="lab-canvas-hint">Desliza horizontalmente para recorrer el diagrama &rarr;</p>
           <div id="drawio-vertical-canvas" class="aws-canvas">
             <!-- Renderizado dinámico SVG -->
           </div>

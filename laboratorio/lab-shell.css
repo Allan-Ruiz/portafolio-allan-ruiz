@@ -92,6 +92,7 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  min-height: 40px;
   font-size: 14px;
   font-weight: 700;
   color: var(--lab-heading);
@@ -124,6 +125,9 @@ button {
 }
 
 .lab-topnav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
   transition: color 0.15s ease;
 }
 
@@ -350,6 +354,21 @@ button {
   color: var(--lab-subtle);
 }
 
+.lab-canvas-hint {
+  display: none;
+  margin: 0 0 10px;
+  font-family: var(--lab-font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--lab-subtle);
+}
+
+@media (max-width: 700px) {
+  .lab-canvas-hint {
+    display: block;
+  }
+}
+
 .lab-status {
   margin: 0 0 14px;
   padding: 10px 14px;
@@ -367,7 +386,7 @@ button {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-height: 38px;
+  min-height: 40px;
   padding: 9px 14px;
   border: 1px solid var(--lab-border-strong);
   border-radius: 8px;
@@ -473,6 +492,9 @@ button {
 }
 
 .lab-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
   font-weight: 600;
   color: var(--lab-accent);
 }
@@ -548,7 +570,11 @@ button {
   }
 
   .lab-badge {
-    font-size: 9px;
+    font-size: 10px;
+  }
+
+  .lab-btn {
+    min-height: 44px;
   }
 }
 
