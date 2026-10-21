@@ -2,6 +2,8 @@
 -- PROYECTO 1: PIPELINE DE VALIDACIÓN, AUDITORÍA DE SKUs Y KPIs DE INVENTARIO
 -- Caso de Estudio: Migración Catálogo Maestro Librerías BigPEN -> Sistema POS Bsale
 -- Autor: Allan Andre Ruiz Arenas | Ingeniero Industrial (INACAP)
+-- Nota: los registros, stock, costos y precios son datos de ejemplo.
+--       Los SKU pueden coincidir con códigos públicos, pero no son datos comerciales reales.
 -- ============================================================================
 
 -- 1. CREACIÓN DE TABLAS DE STAGING (Simulación del flujo Excel / Power Query en SQL)

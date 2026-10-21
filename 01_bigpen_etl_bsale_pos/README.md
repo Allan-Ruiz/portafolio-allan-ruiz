@@ -4,6 +4,8 @@
 **Periodo:** Noviembre 2025 – Marzo 2026  
 **Stack Técnico:** `Excel Avanzado` · `Power Query (ETL)` · `BUSCARX` · `SQL` · `Sistema POS Bsale (Formato .xls)` · `QA asistido por IA`
 
+> **Datos de ejemplo:** los registros, descripciones, stock, costos y precios usados en este caso son ficticios y sirven para mostrar el pipeline y las fórmulas. Los SKU pueden coincidir con códigos públicos de productos, pero no representan datos comerciales reales de la empresa.
+
 ---
 
 ## 1. Resumen Ejecutivo del Problema

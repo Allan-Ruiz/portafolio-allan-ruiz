@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; worker-src 'none'" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>Allan Ruiz Arenas | Ingeniero Industrial • Datos, Operaciones y Cloud</title>
   <meta name="description" content="Casos reales de migración de datos, control de inventario y procesos, más laboratorios interactivos de arquitectura AWS por Allan Ruiz Arenas." />
 
@@ -166,7 +168,7 @@
             <span>Caso02_AmbientesLimpios.xlsx</span>
           </a>
 
-          <a href="./01_bigpen_etl_bsale_pos/validacion_y_kpis_bigpen.sql" target="_blank" class="inline-flex items-center gap-2 min-h-10 px-3 py-2 rounded-lg border border-stone-300 dark:border-zinc-700 bg-white dark:bg-zinc-800/80 text-stone-800 dark:text-zinc-200 text-xs font-mono font-semibold hover:border-blue-600 dark:hover:border-blue-500 hover:text-blue-700 dark:hover:text-blue-400 transition shadow-sm">
+          <a href="./01_bigpen_etl_bsale_pos/validacion_y_kpis_bigpen.sql" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 min-h-10 px-3 py-2 rounded-lg border border-stone-300 dark:border-zinc-700 bg-white dark:bg-zinc-800/80 text-stone-800 dark:text-zinc-200 text-xs font-mono font-semibold hover:border-blue-600 dark:hover:border-blue-500 hover:text-blue-700 dark:hover:text-blue-400 transition shadow-sm">
             <svg class="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
@@ -174,6 +176,9 @@
           </a>
 
         </div>
+        <p class="text-xs text-stone-500 dark:text-zinc-400">
+          Los archivos Excel son muestras con datos ficticios; no contienen datos personales ni comerciales reales.
+        </p>
       </div>
 
     </section>
@@ -198,6 +203,9 @@
         </h2>
         <p class="text-xs font-mono text-stone-600 dark:text-zinc-400">
           Librerías BigPEN • Excel Avanzado (BUSCARX, Power Query), Sistema POS Bsale, Claude y Gemini
+        </p>
+        <p class="text-xs leading-relaxed text-stone-700 dark:text-zinc-300 bg-stone-100 dark:bg-zinc-900 border border-stone-200 dark:border-zinc-700 rounded-lg p-3">
+          <strong class="font-bold text-stone-900 dark:text-white">Datos de ejemplo:</strong> los registros, descripciones, stock, costos y precios de las planillas son ficticios. Los SKU pueden coincidir con códigos públicos de productos, pero no representan datos comerciales reales de la empresa.
         </p>
       </div>
 
@@ -405,6 +413,9 @@
         </h2>
         <p class="text-xs font-mono text-stone-600 dark:text-zinc-400">
           Ambientes Limpios S.A. • Excel Condicional, Control Horario, ERP Corporativo y BPM
+        </p>
+        <p class="text-xs leading-relaxed text-stone-700 dark:text-zinc-300 bg-stone-100 dark:bg-zinc-900 border border-stone-200 dark:border-zinc-700 rounded-lg p-3">
+          <strong class="font-bold text-stone-900 dark:text-white">Datos de ejemplo:</strong> los nombres de transportistas, patentes, fechas, montos y registros son ficticios. Se usan solo para mostrar la lógica de control horario y cuadratura; no corresponden a personas, vehículos ni pagos reales.
         </p>
       </div>
 

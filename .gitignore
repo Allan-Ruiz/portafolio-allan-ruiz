@@ -7,3 +7,15 @@ __pycache__/
 requirements.txt
 
 elevator_pitch_allan_ruiz.md
+
+# Archivos locales con credenciales o secretos
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets.*
+credentials.*
+*.token

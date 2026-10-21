@@ -4,6 +4,8 @@
 **Periodo:** Enero 2023 – Junio 2023  
 **Stack Técnico:** `Excel Avanzado (Modelado Condicional)` · `BPM / Diagramación de Procesos` · `Conciliación Físico-Contable ERP` · `Auditoría de Mermas`
 
+> **Datos de ejemplo:** los nombres de transportistas, patentes, fechas, montos y registros usados en este caso son ficticios y sirven para mostrar la lógica de control horario y cuadratura. No corresponden a personas, vehículos ni pagos reales.
+
 ---
 
 ## 1. Contexto y Desafíos Operacionales
