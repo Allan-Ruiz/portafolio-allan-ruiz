@@ -91,7 +91,7 @@
         <button class="btn-tool" onclick="fitView()" title="Ajustar">Ajustar</button>
       </div>
     </div>
-    <div class="toolbar-hint">Rueda del ratón para zoom · Arrastra para mover · Teclas <strong>+</strong> <strong>−</strong> <strong>0</strong></div>
+    <div class="toolbar-hint">Rueda o botones para zoom · Arrastra para mover · Teclas <strong>+</strong> <strong>−</strong> <strong>0</strong></div>
   </div>
 
   <!-- ─── DIAGRAMA SVG ─── -->
@@ -611,6 +611,18 @@ window.addEventListener('keydown', e => {
 // ══════════════════════════════════════════════════════════════
 //  6. ARRANQUE
 // ══════════════════════════════════════════════════════════════
+function setInitialView() {
+  if (!window.matchMedia('(max-width: 800px)').matches) return;
+  const rect = container.getBoundingClientRect();
+  if (!rect.width || !rect.height) return;
+  const baseScale = Math.min(rect.width / 1760, rect.height / 660);
+  // En móvil, partir con el diagrama legible en vez de encogerlo a ~20%.
+  scale = Math.min(3.2, Math.max(1.6, 0.56 / baseScale));
+  tx = 0;
+  ty = 0;
+}
+
+setInitialView();
 applyTransform();
 applyScenario('normal');
 </script>

@@ -11,20 +11,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace'],
-          }
-        }
-      }
-    }
-  </script>
+  <!-- CSS de Tailwind compilado localmente: sin CDN ni warning de producción -->
+  <link rel="stylesheet" href="./assets/tailwind.css" />
 
   <style>
     .tabular-nums {
@@ -79,7 +67,7 @@
         <div class="h-3 w-px bg-stone-300 dark:bg-zinc-700 hidden md:block"></div>
 
         <!-- Botón de cambio de tema -->
-        <button id="theme-toggle" type="button" aria-label="Cambiar tema" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-stone-300 dark:border-zinc-700 hover:bg-stone-200/60 dark:hover:bg-zinc-800 text-stone-700 dark:text-zinc-200 transition text-xs font-mono">
+        <button id="theme-toggle" type="button" aria-label="Cambiar tema" class="inline-flex items-center justify-center gap-1.5 min-h-11 min-w-11 px-2 py-2 sm:min-h-0 sm:min-w-0 sm:px-2.5 sm:py-1 rounded-md border border-stone-300 dark:border-zinc-700 hover:bg-stone-200/60 dark:hover:bg-zinc-800 text-stone-700 dark:text-zinc-200 transition text-xs font-mono shrink-0">
           <svg id="theme-icon-sun" class="w-3.5 h-3.5 hidden dark:inline text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
           </svg>
@@ -120,19 +108,19 @@
 
       <!-- Acciones principales -->
       <div class="flex flex-wrap items-center gap-2.5 pt-1">
-        <a href="./assets/CV_Allan_Ruiz.pdf" download class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-stone-900 text-white dark:bg-white dark:text-stone-900 text-xs sm:text-sm font-bold hover:bg-emerald-700 dark:hover:bg-emerald-400 transition shadow-sm">
+        <a href="./assets/CV_Allan_Ruiz.pdf" download class="inline-flex items-center justify-center gap-2 min-h-11 px-4 py-2.5 rounded-lg bg-stone-900 text-white dark:bg-white dark:text-stone-900 text-xs sm:text-sm font-bold hover:bg-emerald-700 dark:hover:bg-emerald-400 transition shadow-sm">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
           </svg>
           Descargar CV (PDF)
         </a>
-        <a href="https://www.linkedin.com/in/allan-ruiz-ing/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-stone-300 dark:border-zinc-700 bg-white dark:bg-zinc-800/80 text-stone-800 dark:text-zinc-200 text-xs sm:text-sm font-bold hover:border-emerald-600 dark:hover:border-emerald-500 hover:text-emerald-700 dark:hover:text-emerald-400 transition shadow-sm">
+        <a href="https://www.linkedin.com/in/allan-ruiz-ing/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 min-h-11 px-4 py-2.5 rounded-lg border border-stone-300 dark:border-zinc-700 bg-white dark:bg-zinc-800/80 text-stone-800 dark:text-zinc-200 text-xs sm:text-sm font-bold hover:border-emerald-600 dark:hover:border-emerald-500 hover:text-emerald-700 dark:hover:text-emerald-400 transition shadow-sm">
           <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
           </svg>
           LinkedIn
         </a>
-        <a href="#caso-bigpen" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-stone-300 dark:border-zinc-700 bg-white dark:bg-zinc-800/80 text-stone-800 dark:text-zinc-200 text-xs sm:text-sm font-bold hover:border-emerald-600 dark:hover:border-emerald-500 hover:text-emerald-700 dark:hover:text-emerald-400 transition shadow-sm">
+        <a href="#caso-bigpen" class="inline-flex items-center justify-center gap-2 min-h-11 px-4 py-2.5 rounded-lg border border-stone-300 dark:border-zinc-700 bg-white dark:bg-zinc-800/80 text-stone-800 dark:text-zinc-200 text-xs sm:text-sm font-bold hover:border-emerald-600 dark:hover:border-emerald-500 hover:text-emerald-700 dark:hover:text-emerald-400 transition shadow-sm">
           Ver casos
         </a>
       </div>
@@ -164,21 +152,21 @@
         </span>
         <div class="flex flex-wrap items-center gap-2.5">
           
-          <a href="./01_bigpen_etl_bsale_pos/Caso01_BigPEN_Pipeline_ETL_Bsale_POS.xlsx" download class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-stone-300 dark:border-zinc-700 bg-white dark:bg-zinc-800/80 text-stone-800 dark:text-zinc-200 text-xs font-mono font-semibold hover:border-emerald-600 dark:hover:border-emerald-500 hover:text-emerald-700 dark:hover:text-emerald-400 transition shadow-sm">
+          <a href="./01_bigpen_etl_bsale_pos/Caso01_BigPEN_Pipeline_ETL_Bsale_POS.xlsx" download class="inline-flex items-center gap-2 min-h-10 px-3 py-2 rounded-lg border border-stone-300 dark:border-zinc-700 bg-white dark:bg-zinc-800/80 text-stone-800 dark:text-zinc-200 text-xs font-mono font-semibold hover:border-emerald-600 dark:hover:border-emerald-500 hover:text-emerald-700 dark:hover:text-emerald-400 transition shadow-sm">
             <svg class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
             <span>Caso01_BigPEN.xlsx</span>
           </a>
 
-          <a href="./02_ambientes_limpios_procesos_erp/Caso02_AmbientesLimpios_Procesos_y_ERP.xlsx" download class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-stone-300 dark:border-zinc-700 bg-white dark:bg-zinc-800/80 text-stone-800 dark:text-zinc-200 text-xs font-mono font-semibold hover:border-emerald-600 dark:hover:border-emerald-500 hover:text-emerald-700 dark:hover:text-emerald-400 transition shadow-sm">
+          <a href="./02_ambientes_limpios_procesos_erp/Caso02_AmbientesLimpios_Procesos_y_ERP.xlsx" download class="inline-flex items-center gap-2 min-h-10 px-3 py-2 rounded-lg border border-stone-300 dark:border-zinc-700 bg-white dark:bg-zinc-800/80 text-stone-800 dark:text-zinc-200 text-xs font-mono font-semibold hover:border-emerald-600 dark:hover:border-emerald-500 hover:text-emerald-700 dark:hover:text-emerald-400 transition shadow-sm">
             <svg class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
             <span>Caso02_AmbientesLimpios.xlsx</span>
           </a>
 
-          <a href="./01_bigpen_etl_bsale_pos/validacion_y_kpis_bigpen.sql" target="_blank" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-stone-300 dark:border-zinc-700 bg-white dark:bg-zinc-800/80 text-stone-800 dark:text-zinc-200 text-xs font-mono font-semibold hover:border-blue-600 dark:hover:border-blue-500 hover:text-blue-700 dark:hover:text-blue-400 transition shadow-sm">
+          <a href="./01_bigpen_etl_bsale_pos/validacion_y_kpis_bigpen.sql" target="_blank" class="inline-flex items-center gap-2 min-h-10 px-3 py-2 rounded-lg border border-stone-300 dark:border-zinc-700 bg-white dark:bg-zinc-800/80 text-stone-800 dark:text-zinc-200 text-xs font-mono font-semibold hover:border-blue-600 dark:hover:border-blue-500 hover:text-blue-700 dark:hover:text-blue-400 transition shadow-sm">
             <svg class="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
@@ -196,7 +184,7 @@
     <!-- =================================================================== -->
     <!-- CASO 1: LIBRERÍAS BIGPEN                                            -->
     <!-- =================================================================== -->
-    <article id="caso-bigpen" class="pt-8 border-t border-stone-200 dark:border-zinc-800 space-y-8">
+    <article id="caso-bigpen" class="scroll-mt-16 pt-8 border-t border-stone-200 dark:border-zinc-800 space-y-8">
       
       <!-- Encabezado del Caso -->
       <div class="space-y-2">
@@ -236,17 +224,18 @@
             <span class="text-stone-500 dark:text-zinc-400 font-bold">Fórmula en Columna D:</span>
             <span class="text-stone-900 dark:text-emerald-400 font-semibold">=SI(B2=C2; "SKU Correcto"; "Consultar por WSP al cliente")</span>
           </div>
-          <button onclick="copyToClipboard('=SI(B2=C2; &quot;SKU Correcto&quot;; &quot;Consultar por WSP al cliente&quot;)', this)" class="text-xs text-stone-600 dark:text-zinc-300 hover:text-stone-900 dark:hover:text-white underline font-semibold">
+          <button onclick="copyToClipboard('=SI(B2=C2; &quot;SKU Correcto&quot;; &quot;Consultar por WSP al cliente&quot;)', this)" class="inline-flex items-center justify-center min-h-10 px-2 py-1.5 rounded-md text-xs text-stone-600 dark:text-zinc-300 hover:text-stone-900 dark:hover:text-white underline font-semibold">
             Copiar
           </button>
         </div>
 
         <!-- Tabla Editorial Nítida: Casos Reales Corregidos -->
         <div class="border border-stone-200 dark:border-zinc-700 rounded-xl overflow-hidden shadow-sm bg-white dark:bg-zinc-900/40">
+          <p class="sm:hidden px-3.5 pt-2.5 text-[11px] text-stone-500 dark:text-zinc-400">Desliza para ver toda la tabla &rarr;</p>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs sm:text-[13px] border-collapse">
               <thead>
-                <tr class="bg-stone-100/80 dark:bg-zinc-800/90 border-b border-stone-300 dark:border-zinc-700 font-mono text-stone-700 dark:text-zinc-200 uppercase tracking-wider text-[11px]">
+                <tr class="bg-stone-100/80 dark:bg-zinc-800/90 border-b border-stone-300 dark:border-zinc-700 font-mono text-stone-700 dark:text-zinc-200 uppercase tracking-wider text-[12px] sm:text-[11px]">
                   <th class="py-3 px-3.5 font-bold">Producto en Planilla Original</th>
                   <th class="py-3 px-3.5 font-bold">SKU Original</th>
                   <th class="py-3 px-3.5 font-bold">SKU Verificado</th>
@@ -402,7 +391,7 @@
     <!-- =================================================================== -->
     <!-- CASO 2: AMBIENTES LIMPIOS S.A.                                      -->
     <!-- =================================================================== -->
-    <article id="caso-ambientes" class="pt-8 border-t border-stone-200 dark:border-zinc-800 space-y-8">
+    <article id="caso-ambientes" class="scroll-mt-16 pt-8 border-t border-stone-200 dark:border-zinc-800 space-y-8">
       
       <!-- Encabezado del Caso -->
       <div class="space-y-2">
@@ -441,17 +430,18 @@
             <span class="text-stone-500 dark:text-zinc-400 font-bold">Fórmula en Columna H:</span>
             <span class="text-stone-900 dark:text-emerald-400 font-semibold">=SI(G2=1; 25000; SI(G2=2; 55000; 0))</span>
           </div>
-          <button onclick="copyToClipboard('=SI(G2=1; 25000; SI(G2=2; 55000; 0))', this)" class="text-xs text-stone-600 dark:text-zinc-300 hover:text-stone-900 dark:hover:text-white underline font-semibold">
+          <button onclick="copyToClipboard('=SI(G2=1; 25000; SI(G2=2; 55000; 0))', this)" class="inline-flex items-center justify-center min-h-10 px-2 py-1.5 rounded-md text-xs text-stone-600 dark:text-zinc-300 hover:text-stone-900 dark:hover:text-white underline font-semibold">
             Copiar
           </button>
         </div>
 
         <!-- Tabla Nítida de Control de Flota -->
         <div class="border border-stone-200 dark:border-zinc-700 rounded-xl overflow-hidden shadow-sm bg-white dark:bg-zinc-900/40">
+          <p class="sm:hidden px-3.5 pt-2.5 text-[11px] text-stone-500 dark:text-zinc-400">Desliza para ver toda la tabla &rarr;</p>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs sm:text-[13px] border-collapse">
               <thead>
-                <tr class="bg-stone-100/80 dark:bg-zinc-800/90 border-b border-stone-300 dark:border-zinc-700 font-mono text-stone-700 dark:text-zinc-200 uppercase tracking-wider text-[11px]">
+                <tr class="bg-stone-100/80 dark:bg-zinc-800/90 border-b border-stone-300 dark:border-zinc-700 font-mono text-stone-700 dark:text-zinc-200 uppercase tracking-wider text-[12px] sm:text-[11px]">
                   <th class="py-3 px-3.5 font-bold">Fecha</th>
                   <th class="py-3 px-3.5 font-bold">Camión / Chofer</th>
                   <th class="py-3 px-3.5 font-bold">Salida 1</th>
@@ -579,10 +569,11 @@
 
         <!-- Tabla Muestra Conciliación ERP -->
         <div class="border border-stone-200 dark:border-zinc-700 rounded-xl overflow-hidden shadow-sm bg-white dark:bg-zinc-900/40">
+          <p class="sm:hidden px-3.5 pt-2.5 text-[11px] text-stone-500 dark:text-zinc-400">Desliza para ver toda la tabla &rarr;</p>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs sm:text-[13px] border-collapse">
               <thead>
-                <tr class="bg-stone-100/80 dark:bg-zinc-800/90 border-b border-stone-300 dark:border-zinc-700 font-mono text-stone-700 dark:text-zinc-200 uppercase tracking-wider text-[11px]">
+                <tr class="bg-stone-100/80 dark:bg-zinc-800/90 border-b border-stone-300 dark:border-zinc-700 font-mono text-stone-700 dark:text-zinc-200 uppercase tracking-wider text-[12px] sm:text-[11px]">
                   <th class="py-3 px-3.5 font-bold">Código ERP</th>
                   <th class="py-3 px-3.5 font-bold">Insumo Operacional</th>
                   <th class="py-3 px-3.5 font-bold text-right">Stock ERP</th>
@@ -659,7 +650,7 @@
     <!-- =================================================================== -->
     <!-- LABORATORIO CLOUD                                                   -->
     <!-- =================================================================== -->
-    <section id="laboratorio" class="pt-8 border-t border-stone-200 dark:border-zinc-800 space-y-6">
+    <section id="laboratorio" class="scroll-mt-16 pt-8 border-t border-stone-200 dark:border-zinc-800 space-y-6">
       <div class="space-y-2">
         <div class="flex items-center gap-2 text-xs font-mono text-stone-500 dark:text-zinc-400">
           <span class="font-bold text-stone-800 dark:text-zinc-200">03 / LABORATORIO CLOUD</span>
@@ -683,7 +674,7 @@
             <p class="text-sm text-stone-600 dark:text-zinc-300 leading-relaxed flex-1">
               ALB, Auto Scaling, RDS Multi-AZ y S3. Simula la caída de un servidor, un pico de usuarios y la pérdida de una zona.
             </p>
-            <a href="./laboratorio/aws-tienda.html" class="inline-flex items-center gap-1.5 text-sm font-bold text-emerald-700 dark:text-emerald-400 hover:underline">Abrir simulador <span aria-hidden="true">&rarr;</span></a>
+            <a href="./laboratorio/aws-tienda.html" class="inline-flex items-center gap-1.5 min-h-11 py-2 text-sm font-bold text-emerald-700 dark:text-emerald-400 hover:underline">Abrir simulador <span aria-hidden="true">&rarr;</span></a>
           </div>
         </article>
 
@@ -695,7 +686,7 @@
             <p class="text-sm text-stone-600 dark:text-zinc-300 leading-relaxed flex-1">
               IoT Core, Kinesis, Lambda, Timestream y S3. Simula datos corruptos, caída de conexión y un pico masivo.
             </p>
-            <a href="./laboratorio/iot-telemetria.html" class="inline-flex items-center gap-1.5 text-sm font-bold text-sky-700 dark:text-sky-400 hover:underline">Abrir simulador <span aria-hidden="true">&rarr;</span></a>
+            <a href="./laboratorio/iot-telemetria.html" class="inline-flex items-center gap-1.5 min-h-11 py-2 text-sm font-bold text-sky-700 dark:text-sky-400 hover:underline">Abrir simulador <span aria-hidden="true">&rarr;</span></a>
           </div>
         </article>
       </div>
@@ -716,10 +707,10 @@
         <span class="font-bold text-stone-900 dark:text-white">Allan Andre Ruiz Arenas</span> • Ingeniero Industrial (INACAP)
       </div>
       <div class="flex flex-wrap items-center justify-center gap-4">
-        <a href="./assets/CV_Allan_Ruiz.pdf" download class="hover:text-emerald-600 dark:hover:text-emerald-400 underline font-medium">CV PDF</a>
-        <a href="https://www.linkedin.com/in/allan-ruiz-ing/" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline font-medium">LinkedIn</a>
-        <a href="mailto:allanaruiz32@gmail.com" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline font-medium">allanaruiz32@gmail.com</a>
-        <a href="https://github.com/Allan-Ruiz/portafolio-allan-ruiz" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline font-medium">GitHub</a>
+        <a href="./assets/CV_Allan_Ruiz.pdf" download class="inline-flex items-center min-h-10 hover:text-emerald-600 dark:hover:text-emerald-400 underline font-medium">CV PDF</a>
+        <a href="https://www.linkedin.com/in/allan-ruiz-ing/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center min-h-10 hover:text-emerald-600 dark:hover:text-emerald-400 underline font-medium">LinkedIn</a>
+        <a href="mailto:allanaruiz32@gmail.com" class="inline-flex items-center min-h-10 hover:text-emerald-600 dark:hover:text-emerald-400 underline font-medium">allanaruiz32@gmail.com</a>
+        <a href="https://github.com/Allan-Ruiz/portafolio-allan-ruiz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center min-h-10 hover:text-emerald-600 dark:hover:text-emerald-400 underline font-medium">GitHub</a>
       </div>
     </div>
   </footer>
