@@ -5,7 +5,7 @@ Santiago (Peñalolén), Chile • [allanaruiz32@gmail.com](mailto:allanaruiz32@g
 > ### [Ver Portafolio Web Interactivo](https://allan-ruiz.github.io/portafolio-allan-ruiz/)
 > *(Haz clic en el enlace de arriba para ver el visor web interactivo con modo claro y oscuro sin necesidad de descargar archivos).*
 
-**Enlaces:** [CV PDF](./assets/CV_Allan_Ruiz.pdf) · [LinkedIn](https://www.linkedin.com/in/allan-ruiz-ing/)
+**Enlaces:** [CV PDF](./assets/CV_Allan_Ruiz.pdf?v=2026-10-22) · [LinkedIn](https://www.linkedin.com/in/allan-ruiz-ing/)
 
 > **Datos de ejemplo:** los nombres, patentes, fechas, montos, stock, costos y precios de los archivos Excel son ficticios y se usan solo para mostrar la lógica de los procesos. Los SKU pueden coincidir con códigos públicos de productos, pero no representan datos comerciales reales de las empresas.
 
